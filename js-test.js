@@ -38,6 +38,23 @@ function initMap() {
     // Browser doesn't support Geolocation
     handleLocationError(false, infoWindow, map.getCenter());
   }
+  function addAllMarkers() {
+    console.log('running addAllMarkers function');
+    snapData.forEach(function(snapLocation) {
+      // var marker = new google.maps.Marker({
+      //   position: {
+      //     lat: snapLocation.Latitude,
+      //     lng: snapLocation.Longitude
+      //   },
+      //   clickable: true,
+      //   map: map,
+      //   animation: google.maps.Animation.DROP
+      // });
+      // marker.setMap(map);
+      console.log('Oh SNAP Latitude: ' + snapLocation.Latitude);
+      console.log('Oh SNAP Longitude: ' + snapLocation.Longitude);
+    });
+  }
 }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -47,12 +64,21 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     'Error: Your browser doesn\'t support geolocation.');
 }
 
+
+
 $(document).ready(function() {
   initMap();
   localData();
+  console.log('SnapData exists? ' + snapData);
+  // addAllMarkers();
 });
 
+
+
+
+////Looking at options below...TEST/Garbage Code below...
 function addAllMarkers() {
+  console.log('running addAllMarkers function');
   snapData.forEach(function(snapLocation) {
     var marker = new google.maps.Marker({
       position: {
@@ -65,16 +91,16 @@ function addAllMarkers() {
     });
 
 
-    google.maps.event.addListener(marker, 'click', function() {
-      var infowindow = new google.maps.InfoWindow();
-      var infolist = jQuery('<ul></ul>');
-      for (attribute in snapLocation) {
-        infolist.append('<li><b>' + attribute + '</b>: ' + snapLocation[attribute] + '</li>');
-      }
-      infowindow.setContent('<div class="infowindow">' + infolist.html() + '</div>');
-      infowindow.open(map, marker);
-      map.panTo(marker.getPosition());
-    });
+    // google.maps.event.addListener(marker, 'click', function() {
+    //   var infowindow = new google.maps.InfoWindow();
+    //   var infolist = jQuery('<ul></ul>');
+    //   for (Store_Name in snapLocation) {
+    //     infolist.append('<li><b>' + Store_Name + '</b>: ' + snapLocation[Store_Name] + '</li>');
+    //   }
+    //   infowindow.setContent('<div class="infowindow">' + infolist.html() + '</div>');
+    //   infowindow.open(map, marker);
+    //   map.panTo(marker.getPosition());
+    // });
   });
 }
 
