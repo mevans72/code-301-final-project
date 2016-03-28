@@ -1,0 +1,4 @@
+# Ignore Node modules
+node_modules
+# Ignore Mac finder crap
+.DS_Store
