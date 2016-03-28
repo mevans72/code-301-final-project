@@ -15,7 +15,7 @@ function localData(context, next) {
       snapEtag = xhr.getResponseHeader('snapEtag');
       if(localStorage.snapData && localStorage.snapEtag === snapEtag) {
         // loadSnapData(addAllMarkers); <--- Loading addAllMarkers as a callback
-        loadSnapData();
+        loadSnapData(addAllMarkers);
       }
       if (!localStorage.snapEtag || localStorage.snapEtag !== snapEtag) {
         localStorage.snapEtag = snapEtag;
@@ -24,7 +24,7 @@ function localData(context, next) {
         $.getJSON('assets/data/wa.json', function(snapData) {
           localStorage.snapData = JSON.stringify(snapData);
           // loadSnapData(addAllMarkers); <--- Loading addAllMarkers as a callback
-          loadSnapData();
+          loadSnapData(addAllMarkers);
         });
       }
       // next();
