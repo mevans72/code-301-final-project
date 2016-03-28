@@ -17,15 +17,6 @@ var map = new google.maps.Map(document.getElementById('map'), {
 
 
 function initMap() {
-  // var map = new google.maps.Map(document.getElementById('map'), {
-  //   center: {
-  //     lat: 47.6067,
-  //     lng: -122.3325
-  //   }, //Set a starting location of Seattle Public Library
-  //   zoom: 16
-  // });
-  // var infoWindow = new google.maps.InfoWindow({map: map});
-
   // Try HTML5 geolocation.
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
@@ -54,24 +45,6 @@ function initMap() {
 }
 
 
-  function sortByDistance(myLatitude, myLongitude, world) {
-    var distances = []; // This will hold an array of objects. Each object will have two keys: distance, and place. The distance will be the distance of the place from the given latitude and longitude
-    // Find the distance from each place in the world
-    for (var i = 0; i < world.length; i++) {
-      var place = world[i];
-      var distance = Math.sqrt(Math.pow(myLatitude - place.Latitude, 2) + Math.pow(myLongitude - place.Longitude, 2)); // Uses Euclidean distance
-      distances.push({distance: distance, place: place});
-    }
-    // Return the distances, sorted
-    return distances.sort(function(a, b) {
-      return a.distance - b.distance; // Switch the order of this subtraction to sort the other way
-    })
-    .slice(0, 10); // Gets the first ten places, according to their distance
-
-    console.log('test')
-    console.log(markers);
-    console.log(distances);
-  }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   infoWindow.setPosition(pos);
@@ -88,6 +61,26 @@ $(document).ready(function() {
   // console.log('SnapData exists? ' + snapData);
   // addAllMarkers();
 });
+function sortByDistance(myLatitude, myLongitude, world) {
+  var distances = []; // This will hold an array of objects. Each object will have two keys: distance, and place. The distance will be the distance of the place from the given latitude and longitude
+  // Find the distance from each place in the world
+  for (var i = 0; i < world.length; i++) {
+    var place = world[i];
+    var distance = Math.sqrt(Math.pow(myLatitude - place.Latitude, 2) + Math.pow(myLongitude - place.Longitude, 2)); // Uses Euclidean distance
+    distances.push({distance: distance, place: place});
+  }
+  // Return the distances, sorted
+  return distances.sort(function(a, b) {
+    return a.distance - b.distance; // Switch the order of this subtraction to sort the other way
+  })
+  .slice(0, 10); // Gets the first ten places, according to their distance
+
+  markers.push(distances);
+
+  console.log('test')
+  console.log(markers);
+  console.log(distances);
+}
 
 function addAllMarkers() {
   console.log('running addAllMarkers function');
@@ -106,146 +99,4 @@ function addAllMarkers() {
     // console.log('Oh SNAP Latitude: ' + snapLocation.Latitude);
     // console.log('Oh SNAP Longitude: ' + snapLocation.Longitude);
   });
-}
-
-
-
-////Looking at options below...TEST/Garbage Code below...
-// function addAllMarkers() {
-//   console.log('running addAllMarkers function');
-//   snapData.forEach(function(snapLocation) {
-//     var marker = new google.maps.Marker({
-//       position: {
-//         lat: snapLocation.Latitude,
-//         lng: snapLocation.Longitude
-//       },
-//       clickable: true,
-//       map: map,
-//       animation: google.maps.Animation.DROP
-//     });
-
-
-    // google.maps.event.addListener(marker, 'click', function() {
-    //   var infowindow = new google.maps.InfoWindow();
-    //   var infolist = jQuery('<ul></ul>');
-    //   for (Store_Name in snapLocation) {
-    //     infolist.append('<li><b>' + Store_Name + '</b>: ' + snapLocation[Store_Name] + '</li>');
-    //   }
-    //   infowindow.setContent('<div class="infowindow">' + infolist.html() + '</div>');
-    //   infowindow.open(map, marker);
-    //   map.panTo(marker.getPosition());
-    // });
-//   });
-// }
-
-
-//Example to call for testing - ClosestLocation( pos.lat, pos.lng, "This is my Location" );
-
-function ClosestLocation(Latitude, Longitude, title) {
-  // Create a Google coordinate object for where to center the map
-  // var latlng = new google.maps.LatLng(Latitude, Longitude);
-
-  // Map options for how to display the Google map
-  // var mapOptions = {
-  //   zoom: 12,
-  //   center: latlng
-  // };
-
-  // Show the Google map in the div with the attribute id 'map'.
-  // map = new google.maps.Map(document.getElementById('map'), mapOptions);
-
-  // Place a Google Marker at the same location as the map center
-  // When you hover over the marker, it will display the title
-  // var marker = new google.maps.Marker({
-  //   position: latlng,
-  //   map: map,
-  //   title: title
-  // });
-
-  // Create an InfoWindow for the marker
-  // var contentString = "<b>" + title + "</b>"; // HTML text to display in the InfoWindow
-  // var infowindow = new google.maps.InfoWindow({
-  //   content: contentString
-  // });
-
-  // Set event to display the InfoWindow anchored to the marker when the marker is clicked.
-  // google.maps.event.addListener(marker, 'click', function() {
-  //   infowindow.open(map, marker);
-  // });
-
-  // find the closest location to the user's location
-  var closest = 0;
-  var mindist = 99999;
-
-  for (var i = 0; i < snapData.length; i++) {
-    // get the distance between user's location and this point
-    var dist = Haversine(snapData[i].Latitude, snapData[i].Longitude, Latitude, Longitude);
-
-    // check if this is the shortest distance so far
-    if (dist < mindist) {
-      closest = i;
-      mindist = dist;
-    }
-  }
-
-  // Create a Google coordinate object for the closest location
-  // var latlng = new google.maps.LatLng(snapData[closest].Latitude, snapData[closest].Longitude);
-  console.log('Exmaple of a Google coordinate object for the closest location: ' + latlng);
-  // Place a Google Marker at the closest location as the map center
-  // When you hover over the marker, it will display the title
-  // var marker2 = new google.maps.Marker({
-  //   position: latlng,
-  //   map: map,
-  //   title: "Closest Location to User: Distance is " + mindist + " km"
-  // });
-
-  // Create an InfoWindow for the marker
-  // var contentString = "<b>" + "Closest Location to User: Distance is " + mindist + " km" + "</b>"; // HTML text to display in the InfoWindow
-  // var infowindow = new google.maps.InfoWindow({
-  //   content: contentString
-  // });
-
-  // Set event to display the InfoWindow anchored to the marker when the marker is clicked.
-  // google.maps.event.addListener(marker2, 'click', function() {
-  //   infowindow.open(map, marker2);
-  // });
-  //
-  // map.setCenter(latlng);
-}
-// Convert Degress to Radians
-function Deg2Rad(deg) {
-  return deg * Math.PI / 180;
-}
-
-// Get Distance between two lat/lng points using the Haversine function
-// First published by Roger Sinnott in Sky & Telescope magazine in 1984 (“Virtues of the Haversine”)
-//
-function Haversine(lat1, lon1, lat2, lon2) {
-  var R = 6372.8; // Earth Radius in Kilometers
-
-  var dLat = Deg2Rad(lat2 - lat1);
-  var dLon = Deg2Rad(lon2 - lon1);
-
-  var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-    Math.cos(Deg2Rad(lat1)) * Math.cos(Deg2Rad(lat2)) *
-    Math.sin(dLon / 2) * Math.sin(dLon / 2);
-  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  var d = R * c;
-
-  // Return Distance in Kilometers
-  return d;
-}
-
-// Get Distance between two lat/lng points using the Pythagoras Theorem on a Equirectangular projection to account
-// for curvature of the longitude lines.
-function PythagorasEquirectangular(lat1, lon1, lat2, lon2) {
-  lat1 = Deg2Rad(lat1);
-  lat2 = Deg2Rad(lat2);
-  lon1 = Deg2Rad(lon1);
-  lon2 = Deg2Rad(lon2);
-  var R = 6371; // km
-  var x = (lon2 - lon1) * Math.cos((lat1 + lat2) / 2);
-  var y = (lat2 - lat1);
-  var d = Math.sqrt(x * x + y * y) * R;
-  return d;
 }
