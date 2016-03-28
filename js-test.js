@@ -69,26 +69,26 @@ function sortByDistance(myLatitude, myLongitude, world) {
     var distance = Math.sqrt(Math.pow(myLatitude - place.Latitude, 2) + Math.pow(myLongitude - place.Longitude, 2)); // Uses Euclidean distance
     distances.push({distance: distance, place: place});
   }
+  console.log('test');
   // Return the distances, sorted
-  return distances.sort(function(a, b) {
+  markers = distances.sort(function(a, b) {
     return a.distance - b.distance; // Switch the order of this subtraction to sort the other way
   })
   .slice(0, 10); // Gets the first ten places, according to their distance
 
-  markers.push(distances);
+  // markers.push(distances);
 
-  console.log('test')
-  console.log(markers);
-  console.log(distances);
+  // console.log(markers);
+  // console.log(distances);
 }
 
 function addAllMarkers() {
   console.log('running addAllMarkers function');
-  snapData.forEach(function(snapLocation) {
+  markers.forEach(function(snapLocation) {
     var marker = new google.maps.Marker({
       position: {
-        lat: snapLocation.Latitude,
-        lng: snapLocation.Longitude
+        lat: snapLocation.place.Latitude,
+        lng: snapLocation.place.Longitude
       },
       clickable: true,
       map: map,
