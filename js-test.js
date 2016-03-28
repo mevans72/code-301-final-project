@@ -57,6 +57,7 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 
 $(document).ready(function() {
   initMap();
+  sortByDistance();
   localData();
   // console.log('SnapData exists? ' + snapData);
   // addAllMarkers();

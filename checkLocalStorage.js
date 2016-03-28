@@ -6,28 +6,26 @@ function loadSnapData(callback) {
 };
 
 
-function localData(context, next) {
+function localData() {
   var snapEtag;
   $.ajax({
     type: 'HEAD',
     url: 'assets/data/wa.json',
     success: function(data, message, xhr) {
-      snapEtag = xhr.getResponseHeader('snapEtag');
+      snapEtag = xhr.getResponseHeader('etag');
       if(localStorage.snapData && localStorage.snapEtag === snapEtag) {
-        // loadSnapData(addAllMarkers); <--- Loading addAllMarkers as a callback
-        loadSnapData(addAllMarkers);
-      }
-      if (!localStorage.snapEtag || localStorage.snapEtag !== snapEtag) {
-        localStorage.snapEtag = snapEtag;
+        snapData = JSON.parse(localStorage.snapData);
+        // loadSnapData();
       }
       if (!localStorage.snapData || localStorage.snapEtag !== snapEtag) {
-        $.getJSON('assets/data/wa.json', function(snapData) {
-          localStorage.snapData = JSON.stringify(snapData);
-          // loadSnapData(addAllMarkers); <--- Loading addAllMarkers as a callback
-          loadSnapData(addAllMarkers);
+        $.getJSON('assets/data/wa.json', function(data) {
+          localStorage.snapData = JSON.stringify(data);
+          localStorage.snapEtag = snapEtag;
+          snapData = JSON.parse(localStorage.snapData);
+          // loadSnapData();
         });
       }
-      // next();
     }
+
   });
 };
