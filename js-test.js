@@ -53,6 +53,26 @@ function initMap() {
   }
 }
 
+
+  function sortByDistance(myLatitude, myLongitude, world) {
+    var distances = []; // This will hold an array of objects. Each object will have two keys: distance, and place. The distance will be the distance of the place from the given latitude and longitude
+    // Find the distance from each place in the world
+    for (var i = 0; i < world.length; i++) {
+      var place = world[i];
+      var distance = Math.sqrt(Math.pow(myLatitude - place.Latitude, 2) + Math.pow(myLongitude - place.Longitude, 2)); // Uses Euclidean distance
+      distances.push({distance: distance, place: place});
+    }
+    // Return the distances, sorted
+    return distances.sort(function(a, b) {
+      return a.distance - b.distance; // Switch the order of this subtraction to sort the other way
+    })
+    .slice(0, 10); // Gets the first ten places, according to their distance
+
+    console.log('test')
+    console.log(markers);
+    console.log(distances);
+  }
+
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   infoWindow.setPosition(pos);
   infoWindow.setContent(browserHasGeolocation ?
