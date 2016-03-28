@@ -3,15 +3,27 @@
 // failed.", it means you probably did not give permission for the browser to
 // locate you.
 var pos = {};
+var markers = [];
+
+//Initial Map needs to be declared and set before things such as marker or other manipulation takes place. Will need to refactor this in a bad way...
+var map = new google.maps.Map(document.getElementById('map'), {
+  center: {
+    lat: 47.6067,
+    lng: -122.3325
+  }, //Set a starting location of Seattle Public Library
+  zoom: 16
+});
+
+
 
 function initMap() {
-  var map = new google.maps.Map(document.getElementById('map'), {
-    center: {
-      lat: 47.6067,
-      lng: -122.3325
-    }, //Set a starting location of Seattle Public Library
-    zoom: 16
-  });
+  // var map = new google.maps.Map(document.getElementById('map'), {
+  //   center: {
+  //     lat: 47.6067,
+  //     lng: -122.3325
+  //   }, //Set a starting location of Seattle Public Library
+  //   zoom: 16
+  // });
   // var infoWindow = new google.maps.InfoWindow({map: map});
 
   // Try HTML5 geolocation.
@@ -25,35 +37,19 @@ function initMap() {
       // infoWindow.setContent('We found you here!');
       map.setCenter(pos);
 
-      var marker = new google.maps.Marker({
+      var posMarker = new google.maps.Marker({
         position: pos,
         animation: google.maps.Animation.DROP
           // draggable: true,
       });
-      marker.setMap(map);
+      posMarker.setMap(map);
+
     }, function() {
       handleLocationError(true, infoWindow, map.getCenter());
     });
   } else {
     // Browser doesn't support Geolocation
     handleLocationError(false, infoWindow, map.getCenter());
-  }
-  function addAllMarkers() {
-    console.log('running addAllMarkers function');
-    snapData.forEach(function(snapLocation) {
-      // var marker = new google.maps.Marker({
-      //   position: {
-      //     lat: snapLocation.Latitude,
-      //     lng: snapLocation.Longitude
-      //   },
-      //   clickable: true,
-      //   map: map,
-      //   animation: google.maps.Animation.DROP
-      // });
-      // marker.setMap(map);
-      console.log('Oh SNAP Latitude: ' + snapLocation.Latitude);
-      console.log('Oh SNAP Longitude: ' + snapLocation.Longitude);
-    });
   }
 }
 
@@ -69,14 +65,10 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 $(document).ready(function() {
   initMap();
   localData();
-  console.log('SnapData exists? ' + snapData);
+  // console.log('SnapData exists? ' + snapData);
   // addAllMarkers();
 });
 
-
-
-
-////Looking at options below...TEST/Garbage Code below...
 function addAllMarkers() {
   console.log('running addAllMarkers function');
   snapData.forEach(function(snapLocation) {
@@ -89,6 +81,28 @@ function addAllMarkers() {
       map: map,
       animation: google.maps.Animation.DROP
     });
+    marker.setMap(map);
+    // markers.push(marker);
+    // console.log('Oh SNAP Latitude: ' + snapLocation.Latitude);
+    // console.log('Oh SNAP Longitude: ' + snapLocation.Longitude);
+  });
+}
+
+
+
+////Looking at options below...TEST/Garbage Code below...
+// function addAllMarkers() {
+//   console.log('running addAllMarkers function');
+//   snapData.forEach(function(snapLocation) {
+//     var marker = new google.maps.Marker({
+//       position: {
+//         lat: snapLocation.Latitude,
+//         lng: snapLocation.Longitude
+//       },
+//       clickable: true,
+//       map: map,
+//       animation: google.maps.Animation.DROP
+//     });
 
 
     // google.maps.event.addListener(marker, 'click', function() {
@@ -101,8 +115,11 @@ function addAllMarkers() {
     //   infowindow.open(map, marker);
     //   map.panTo(marker.getPosition());
     // });
-  });
-}
+//   });
+// }
+
+
+//Example to call for testing - ClosestLocation( pos.lat, pos.lng, "This is my Location" );
 
 function ClosestLocation(Latitude, Longitude, title) {
   // Create a Google coordinate object for where to center the map
@@ -152,27 +169,28 @@ function ClosestLocation(Latitude, Longitude, title) {
   }
 
   // Create a Google coordinate object for the closest location
-  var latlng = new google.maps.LatLng(snapData[closest].Latitude, snapData[closest].Longitude);
+  // var latlng = new google.maps.LatLng(snapData[closest].Latitude, snapData[closest].Longitude);
+  console.log('Exmaple of a Google coordinate object for the closest location: ' + latlng);
   // Place a Google Marker at the closest location as the map center
   // When you hover over the marker, it will display the title
-  var marker2 = new google.maps.Marker({
-    position: latlng,
-    map: map,
-    title: "Closest Location to User: Distance is " + mindist + " km"
-  });
+  // var marker2 = new google.maps.Marker({
+  //   position: latlng,
+  //   map: map,
+  //   title: "Closest Location to User: Distance is " + mindist + " km"
+  // });
 
   // Create an InfoWindow for the marker
-  var contentString = "<b>" + "Closest Location to User: Distance is " + mindist + " km" + "</b>"; // HTML text to display in the InfoWindow
-  var infowindow = new google.maps.InfoWindow({
-    content: contentString
-  });
+  // var contentString = "<b>" + "Closest Location to User: Distance is " + mindist + " km" + "</b>"; // HTML text to display in the InfoWindow
+  // var infowindow = new google.maps.InfoWindow({
+  //   content: contentString
+  // });
 
   // Set event to display the InfoWindow anchored to the marker when the marker is clicked.
-  google.maps.event.addListener(marker2, 'click', function() {
-    infowindow.open(map, marker2);
-  });
-
-  map.setCenter(latlng);
+  // google.maps.event.addListener(marker2, 'click', function() {
+  //   infowindow.open(map, marker2);
+  // });
+  //
+  // map.setCenter(latlng);
 }
 // Convert Degress to Radians
 function Deg2Rad(deg) {

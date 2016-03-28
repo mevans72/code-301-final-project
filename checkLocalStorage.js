@@ -2,7 +2,7 @@ var snapData = [];
 
 function loadSnapData(callback) {
   snapData = JSON.parse(localStorage.snapData);
-  callback();
+  if (callback) callback();
 };
 
 
@@ -14,7 +14,8 @@ function localData(context, next) {
     success: function(data, message, xhr) {
       snapEtag = xhr.getResponseHeader('snapEtag');
       if(localStorage.snapData && localStorage.snapEtag === snapEtag) {
-        loadSnapData(addAllMarkers);
+        // loadSnapData(addAllMarkers); <--- Loading addAllMarkers as a callback
+        loadSnapData();
       }
       if (!localStorage.snapEtag || localStorage.snapEtag !== snapEtag) {
         localStorage.snapEtag = snapEtag;
@@ -22,7 +23,8 @@ function localData(context, next) {
       if (!localStorage.snapData || localStorage.snapEtag !== snapEtag) {
         $.getJSON('assets/data/wa.json', function(snapData) {
           localStorage.snapData = JSON.stringify(snapData);
-          loadSnapData(addAllMarkers);
+          // loadSnapData(addAllMarkers); <--- Loading addAllMarkers as a callback
+          loadSnapData();
         });
       }
       // next();
