@@ -1,14 +1,87 @@
 google.maps.event.addDomListener(window, 'load', init);
 var map;
+var pos = {};
 
 $('search_bar').on("change",function(){
-  
-})
-console.log('marcus');
+});
+
 function init() {
-  var mapOptions = {
-    center: new google.maps.LatLng(47.571893, -122.638551),
-    zoom: 11,
+  //End up update
+  var mapOptions = makeMapOptions();
+
+  function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+    infoWindow.setPosition(pos);
+    infoWindow.setContent(browserHasGeolocation ?
+      'Error: The Geolocation service failed.' :
+      'Error: Your browser doesn\'t support geolocation.');
+  }
+
+  var mapElement = document.getElementById('map');
+  map = new google.maps.Map(mapElement, mapOptions);
+  markCurrentLocation(function () {
+    sortByDistance(pos.lat, pos.lng, snapData);
+    addAllMarkers();
+  });
+}
+
+function markCurrentLocation(cb) {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+      map.setCenter(pos);
+      var posMarker = new google.maps.Marker({
+        position: pos,
+        animation: google.maps.Animation.DROP
+      });
+      posMarker.setMap(map);
+      cb();
+    }, function() {
+      handleLocationError(true, infoWindow, map.getCenter());
+    });
+  } else {
+    handleLocationError(false, infoWindow, map.getCenter());
+  }
+}
+
+function sortByDistance(myLatitude, myLongitude, world) {
+  var distances = [];
+  for (var i = 0; i < world.length; i++) {
+    var place = world[i];
+    var distance = Math.sqrt(Math.pow(myLatitude - place.Latitude, 2) + Math.pow(myLongitude - place.Longitude, 2)); // Uses Euclidean distance
+    distances.push({distance: distance, place: place});
+  }
+  // Return the distances, sorted
+  markers = distances.sort(function(a, b) {
+    return a.distance - b.distance; // Switch the order of this subtraction to sort the other way
+  })
+  .slice(0, 10); // Gets the first ten places, according to their distance
+}
+
+function addAllMarkers() {
+  markers.forEach(function(snapLocation) {
+    var marker = new google.maps.Marker({
+      position: {
+        lat: snapLocation.place.Latitude,
+        lng: snapLocation.place.Longitude
+      },
+      clickable: true,
+      map: map,
+      animation: google.maps.Animation.DROP
+    });
+    marker.setMap(map);
+    // markers.push(marker);
+    console.log('Oh SNAP Latitude: ' + snapLocation.place.Latitude);
+    console.log('Oh SNAP Longitude: ' + snapLocation.place.Longitude);
+  });
+}
+
+function makeMapOptions() {
+  return {
+    center: new google.maps.LatLng(47.6067, -122.3325),
+    zoom: 15,
     zoomControl: true,
     zoomControlOptions: {
       style: google.maps.ZoomControlStyle.DEFAULT,
@@ -141,82 +214,5 @@ function init() {
         "weight": 1.2
       }]
     }],
-  }
-  var mapElement = document.getElementById('map');
-  var map = new google.maps.Map(mapElement, mapOptions);
-  // var locations = [
-  //   ['Robs Quick Stop', 'undefined', '123-123-123', '123@gmail.com', 'www.123.com', 47.540416, -122.77051640000002, 'https://mapbuildr.com/assets/img/markers/solid-pin-yellow.png']
-  // ];
-  // for (i = 0; i < locations.length; i++) {
-  //   if (locations[i][1] == 'undefined') {
-  //     description = '';
-  //   } else {
-  //     description = locations[i][1];
-  //   }
-  //   if (locations[i][2] == 'undefined') {
-  //     telephone = '';
-  //   } else {
-  //     telephone = locations[i][2];
-  //   }
-  //   if (locations[i][3] == 'undefined') {
-  //     email = '';
-  //   } else {
-  //     email = locations[i][3];
-  //   }
-  //   if (locations[i][4] == 'undefined') {
-  //     web = '';
-  //   } else {
-  //     web = locations[i][4];
-  //   }
-  //   if (locations[i][7] == 'undefined') {
-  //     markericon = '';
-  //   } else {
-  //     markericon = locations[i][7];
-  //   }
-  //   // marker = new google.maps.Marker({
-  //   //   icon: markericon,
-  //   //   position: new google.maps.LatLng(locations[i][5], locations[i][6]),
-  //   //   map: map,
-  //   //   title: locations[i][0],
-  //   //   desc: description,
-  //   //   tel: telephone,
-  //   //   email: email,
-  //   //   web: web
-  //   // });
-  //   if (web.substring(0, 7) != "http://") {
-  //     link = "http://" + web;
-  //   } else {
-  //     link = web;
-  //   }
-  //   bindInfoWindow(marker, map, locations[i][0], description, telephone, email, web, link);
-  // }
-
-  function bindInfoWindow(marker, map, title, desc, telephone, email, web, link) {
-    var infoWindowVisible = (function() {
-      var currentlyVisible = false;
-      return function(visible) {
-        if (visible !== undefined) {
-          currentlyVisible = visible;
-        }
-        return currentlyVisible;
-      };
-    }());
-    iw = new google.maps.InfoWindow();
-    google.maps.event.addListener(marker, 'click', function() {
-      if (infoWindowVisible()) {
-        iw.close();
-        infoWindowVisible(false);
-      } else {
-        var html = "<div style='color:#000;background-color:#fff;padding:5px;width:150px;'><h4>" + title + "</h4><p>" + desc + "<p><p>" + telephone + "<p><a href='mailto:" + email + "' >" + email + "<a><a href='" + link + "'' >" + web + "<a></div>";
-        iw = new google.maps.InfoWindow({
-          content: html
-        });
-        iw.open(map, marker);
-        infoWindowVisible(true);
-      }
-    });
-    google.maps.event.addListener(iw, 'closeclick', function() {
-      infoWindowVisible(false);
-    });
-  }
+  };
 }
