@@ -30,18 +30,13 @@
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="icon" type="image/png" href="">
-
- <script id="tab-template" type="text/x-handlebars-template">
-   <article>
-     <header>
-       <h1>{{title}}</h1>
-       <div class="byline"></div>
-     </header>
-     <section class="template-body">{{{body}}}</section>
-   </article>
- </script>
+  <script id="storeListView-template" type="text/x-handlebars-template">
+  <div class="text-section">
+    <h4>{{Store_Name}}</h4>
+    <h5>{{Address}}</h5>
+  </div>
 </head>
-
+</script>
 <body>
   <header></header>
   <!-- Primary Page
@@ -51,73 +46,12 @@
   <div id="slide-bar">
     <div id="before">X</div>
     <div class="search-bar">
-
       <input type="search" name="name" value="">
-<span class="icon-search2"></span>
+      <span class="icon-search2"></span>
     </div>
     <div class="filter-bar">
-      <button class="more-filter"type="button" name="button">More Filter</button>
+      <button class="more-filter" type="button" name="button">More Filter</button>
     </div>
-    <div class="text-container">
-      <div class="text-section">
-        <h4>Store Name</h4>
-        <h5>Store Location</h5>
-      </div><div class="text-section">
-        <h4>Store Name</h4>
-        <h5>Store Location</h5>
-      </div><div class="text-section">
-        <h4>Store Name</h4>
-        <h5>Store Location</h5>
-      </div><div class="text-section">
-        <h4>Store Name</h4>
-        <h5>Store Location</h5>
-      </div><div class="text-section">
-        <h4>Store Name</h4>
-        <h5>Store Location</h5>
-      </div><div class="text-section">
-        <h4>Store Name</h4>
-        <h5>Store Location</h5>
-      </div><div class="text-section">
-        <h4>Store Name</h4>
-        <h5>Store Location</h5>
-      </div><div class="text-section">
-        <h4>Store Name</h4>
-        <h5>Store Location</h5>
-      </div><div class="text-section">
-        <h4>Store Name</h4>
-        <h5>Store Location</h5>
-      </div>
-      <div class="text-section">
-        <h4>Store Name</h4>
-        <h5>Store Location</h5>
-      </div>
-      <div class="text-section">
-        <h4>Store Name</h4>
-        <h5>Store Location</h5>
-      </div><div class="text-section">
-        <h4>Store Name</h4>
-        <h5>Store Location</h5>
-      </div><div class="text-section">
-        <h4>Store Name</h4>
-        <h5>Store Location</h5>
-      </div><div class="text-section">
-        <h4>Store Name</h4>
-        <h5>Store Location</h5>
-      </div><div class="text-section">
-        <h4>Store Name</h4>
-        <h5>Store Location</h5>
-      </div><div class="text-section">
-        <h4>Store Name</h4>
-        <h5>Store Location</h5>
-      </div><div class="text-section">
-        <h4>Store Name</h4>
-        <h5>Store Location</h5>
-      </div><div class="text-section">
-        <h4>Store Name</h4>
-        <h5>Store Location</h5>
-      </div>
-    </div>
-
   </div>
 
   <section id="aboutus" class="tab-content">
@@ -134,24 +68,16 @@
   <!-- End Document
     –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <script src="https://code.jquery.com/jquery-2.2.2.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+
   <!-- <script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyCBAq3SpIW6bHt9D2DytPO8KvPDqjw8k2A&sensor=false&extension=.js'></script> -->
   <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=visualization"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.js"></script>
 
-<<<<<<< HEAD
   <script src="js/template.js"></script>
   <script src="js/map.js"></script>
   <script src="js/bar.js"></script>
-
-  <!-- <script src="checkLocalStorage.js"></script>
-  <script src="js-test.js"></script> -->
-
-=======
   <script src="js/checkLocalStorage.js"></script>
->>>>>>> dev
-
-  <script src="js/map.js"></script>
-  <script src="js/bar.js"></script>
 </body>
 
 </html>

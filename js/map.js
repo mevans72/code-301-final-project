@@ -2,8 +2,7 @@ google.maps.event.addDomListener(window, 'load', init);
 var map;
 var pos = {};
 
-$('search_bar').on("change",function(){
-});
+$('search_bar').on("change", function() {});
 
 function init() {
   //End up update
@@ -18,8 +17,9 @@ function init() {
 
   var mapElement = document.getElementById('map');
   map = new google.maps.Map(mapElement, mapOptions);
-  markCurrentLocation(function () {
-    sortByDistance(pos.lat, pos.lng, snapData);
+  markCurrentLocation(function() {
+    sortByDistance(pos.lat, pos.lng, snapData.all, renderStoreList);
+    console.log(snapData.all);
     addAllMarkers();
   });
 }
@@ -44,20 +44,52 @@ function markCurrentLocation(cb) {
   } else {
     handleLocationError(false, infoWindow, map.getCenter());
   }
-}
+};
 
-function sortByDistance(myLatitude, myLongitude, world) {
+function renderStoreList(markers) {
+
+  // var render = Handlebars.compile($('#storeListView-template').text());
+
+  var toHtml = function(a) {
+    var template = Handlebars.compile($('#storeListView-template').text());
+    return template(a);
+  };
+
+  console.log('render');
+  $('#slide-bar').find('.text-container').empty();
+
+  console.log(markers);
+  markers.forEach(function(a) {
+    console.log(a.place);
+    $('#slide-bar .text-container').append(toHtml(a.place));
+  });
+
+};
+
+//   $('#map .slide-bar .text-container').append(
+//
+//   );
+
+
+var markers = [];
+
+function sortByDistance(myLatitude, myLongitude, world, callback) {
   var distances = [];
   for (var i = 0; i < world.length; i++) {
     var place = world[i];
     var distance = Math.sqrt(Math.pow(myLatitude - place.Latitude, 2) + Math.pow(myLongitude - place.Longitude, 2)); // Uses Euclidean distance
-    distances.push({distance: distance, place: place});
+    distances.push({
+      distance: distance,
+      place: place
+    });
   }
   // Return the distances, sorted
   markers = distances.sort(function(a, b) {
     return a.distance - b.distance; // Switch the order of this subtraction to sort the other way
   })
-  .slice(0, 10); // Gets the first ten places, according to their distance
+    .slice(0, 10); // Gets the first ten places, according to their distance
+  console.log(distances);
+  callback(markers);
 }
 
 function addAllMarkers() {
@@ -73,8 +105,8 @@ function addAllMarkers() {
     });
     marker.setMap(map);
     // markers.push(marker);
-    console.log('Oh SNAP Latitude: ' + snapLocation.place.Latitude);
-    console.log('Oh SNAP Longitude: ' + snapLocation.place.Longitude);
+    // console.log('Oh SNAP Latitude: ' + snapLocation.place.Latitude);
+    // console.log('Oh SNAP Longitude: ' + snapLocation.place.Longitude);
   });
 }
 
