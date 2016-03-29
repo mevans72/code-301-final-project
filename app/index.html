@@ -20,23 +20,32 @@
 
   <!-- CSS
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="vendor/css/normalize.css">
 
   <link rel="stylesheet" href="vendor/css/skeleton.css">
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/loading.css">
+
 
 
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="icon" type="image/png" href="">
   <script id="storeListView-template" type="text/x-handlebars-template">
-  <div class="text-section">
-    <h4>{{Store_Name}}</h4>
-    <h5>{{Address}}</h5>
-  </div>
+    <div class="text-section">
+      <div class="h-container">
+        <h4>{{Store_Name}}</h4>
+        <h5>{{Address}}</h5>
+      </div>
+      <button class="review-button">
+        Review
+      </button>
+    </div>
 </head>
 </script>
+
 <body>
   <header></header>
   <!-- Primary Page
@@ -53,6 +62,21 @@
       <button class="more-filter" type="button" name="button">More Filter</button>
     </div>
     <div class="text-container">
+      <div class="spinner">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+      </div>
+    </div>
+
+  </div>
+  <div id="review-bar">
+    <div id="store-title">
+      <h4>Robs Quick Stop</h4>
+      <h5>2708 15th St</h5>
+    </div>
+    <div class="back-button">
+      <span class="icon-forward"></span>
     </div>
   </div>
 
