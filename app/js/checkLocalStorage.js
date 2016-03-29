@@ -5,7 +5,6 @@ function loadSnapData(callback) {
   if (callback) callback();
 };
 
-
 function localData() {
   var snapEtag;
   $.ajax({

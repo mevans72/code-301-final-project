@@ -17,7 +17,6 @@ function init() {
 
   var mapElement = document.getElementById('map');
   map = new google.maps.Map(mapElement, mapOptions);
-  console.log(snapData.all);
   markCurrentLocation(function() {
     sortByDistance(pos.lat, pos.lng, snapData.all, renderStoreList);
     addAllMarkers();
@@ -47,28 +46,15 @@ function markCurrentLocation(cb) {
 };
 
 function renderStoreList(markers) {
-  // var render = Handlebars.compile($('#storeListView-template').text());
+  $('#slide-bar .text-container').html('');
 
-  var toHtml = function(a) {
-    var template = Handlebars.compile($('#storeListView-template').text());
-    return template(a);
-  };
-
-  console.log('render');
   $('#slide-bar').find('.text-container').empty();
 
-  console.log(markers);
+  var toHtml = Handlebars.compile($('#storeListView-template').text());
   markers.forEach(function(a) {
-    console.log(a.place);
     $('#slide-bar .text-container').append(toHtml(a.place));
   });
-
 };
-
-//   $('#map .slide-bar .text-container').append(
-//
-//   );
-
 
 var markers = [];
 
