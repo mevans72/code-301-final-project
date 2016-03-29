@@ -31,11 +31,7 @@ google.maps.event.addDomListener(window, 'load', function(){
       var matches = snapData.all.filter(function (store) {
         return store.Store_Name.match(searchBar.val());
       });
-      renderStoreList(matches.map(function (e) {
-        return {
-          place: e
-        };
-      }));
+      renderPlaces(matches);
     }
   });
 });
