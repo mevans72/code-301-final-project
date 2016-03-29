@@ -32,6 +32,40 @@ body {
     bottom: 0;
     width: 100%;
   }
+  #review-bar{
+    position: absolute;
+    width: 300px;
+    top: 58px;
+    right: 0;
+    height: 100%;
+    background-color: white;
+    z-index: 1000;
+    .grid{
+      background-color: $black;
+      #store-title{
+        // background-color: $black;
+        padding: 20px;
+        height:auto;
+
+        h4{
+          color:white;
+          font-weight: 200;
+        }
+        h5{
+          color:$light_black;
+        }
+      }
+      .back-button{
+        margin-top: 18px;
+        // background-color: $black;
+        span{
+          color: white;
+        }
+      }
+    }
+
+
+  }
   #slide-bar {
     position: absolute;
     width: 300px;
@@ -113,14 +147,35 @@ body {
       }
     }
     .text-container{
+      .spinner{
+        position: absolute;
+        top:15%;
+        left:50%-15%;
+      }
       overflow-y: scroll;
       height: 800px;
       .text-section{
         position: relative;;
         padding: 20px;
         border-bottom: 1px solid $hr;
+        -webkit-transition: all 0.5s ease-in-out 0s;
+
+        .h-container{
+          width: 50%;
+          clear: both;
+          margin: 0;
+          display: inline;
+        }
+        .review-button{
+          width:50%;
+          display: inline;
+        }
+        &:hover{
+          background-color:$black;
+        }
       }
     }
+
 
   }
 }
