@@ -5,8 +5,7 @@ function loadSnapData(callback) {
   if (callback) callback();
 };
 
-
-function localData() {
+function localData(callback) {
   var snapEtag;
   $.ajax({
     type: 'HEAD',
@@ -15,6 +14,7 @@ function localData() {
       snapEtag = xhr.getResponseHeader('etag');
       if(localStorage.snapData && localStorage.snapEtag === snapEtag) {
         snapData.all = JSON.parse(localStorage.snapData);
+        callback();
         // loadSnapData();
       }
       if (!localStorage.snapData || localStorage.snapEtag !== snapEtag) {
@@ -22,15 +22,10 @@ function localData() {
           localStorage.snapData = JSON.stringify(data);
           localStorage.snapEtag = snapEtag;
           snapData.all = JSON.parse(localStorage.snapData);
+          callback();
           // loadSnapData();
         });
       }
     }
-
   });
 };
-
-
-$(document).ready(function() {
-  localData();
-});
