@@ -19,7 +19,8 @@ function init() {
   var mapElement = document.getElementById('map');
   map = new google.maps.Map(mapElement, mapOptions);
   markCurrentLocation(function () {
-    sortByDistance(pos.lat, pos.lng, snapData.all,renderStoreList());
+    sortByDistance(pos.lat, pos.lng, snapData.all,renderStoreList);
+    console.log(snapData.all);
     addAllMarkers();
   });
 }
@@ -44,19 +45,32 @@ function markCurrentLocation(cb) {
   } else {
     handleLocationError(false, infoWindow, map.getCenter());
   }
-}
-function renderStoreList(){
-  var render = Handlebars.compile($('#storeListView-template').text());
+};
+
+function renderStoreList(markers){
+
+  // var render = Handlebars.compile($('#storeListView-template').text());
+
+  var toHtml = function(a){
+    var template = Handlebars.compile($('#storeListView-template').text());
+    return template(a);
+  }
 
   console.log('render');
-  $('#map .slide-bar .text-container').empty();
+  $('#slide-bar').find ('.text-container').empty();
 
   console.log(markers);
-  $('#map .slide-bar .text-container').append(
-    // repos.with('name').map(render)
-    markers.map(render)
-  );
-};
+  markers.forEach(function(a){
+    console.log(a.place);
+    $('#slide-bar .text-container').append(toHtml(a.place));
+  });
+
+  }
+
+//   $('#map .slide-bar .text-container').append(
+//
+//   );
+
 
 var markers = [];
 
@@ -72,8 +86,8 @@ function sortByDistance(myLatitude, myLongitude, world, callback) {
     return a.distance - b.distance; // Switch the order of this subtraction to sort the other way
   })
   .slice(0, 10); // Gets the first ten places, according to their distance
-  // console.log(markers);
-  callback;
+  console.log(distances);
+  callback(markers);
 }
 
 function addAllMarkers() {
