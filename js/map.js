@@ -17,9 +17,9 @@ function init() {
 
   var mapElement = document.getElementById('map');
   map = new google.maps.Map(mapElement, mapOptions);
+  console.log(snapData.all);
   markCurrentLocation(function() {
     sortByDistance(pos.lat, pos.lng, snapData.all, renderStoreList);
-    console.log(snapData.all);
     addAllMarkers();
   });
 }
@@ -47,7 +47,6 @@ function markCurrentLocation(cb) {
 };
 
 function renderStoreList(markers) {
-
   // var render = Handlebars.compile($('#storeListView-template').text());
 
   var toHtml = function(a) {
