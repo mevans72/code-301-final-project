@@ -40,25 +40,29 @@ body {
     height: 100%;
     background-color: white;
     z-index: 1000;
-    #store-title{
-      background-color: $black;
-      padding: 20px;
-      height:auto;
-      width: 50%;
-      
-      h4{
-        color:white;
-        font-weight: 200;
+    .title-container {
+      widows: 100%;
+      display: inline;
+      #store-title{
+        background-color: $black;
+        padding: 20px;
+        height:auto;
+        width: 50%;
+        h4{
+          color:white;
+          font-weight: 200;
+        }
+        h5{
+          color:$light_black;
+        }
       }
-      h5{
-        color:$light_black;
-      }
+      .back-button{
+        background-color: $black;
+        width: 50%;
+        span{
+          color: white;
+        }
     }
-    .back-button{
-      background-color: $black;
-      span{
-        color: white;
-      }
     }
   }
   #slide-bar {
