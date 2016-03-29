@@ -1,32 +1,11 @@
 google.maps.event.addDomListener(window, 'load', init);
 var map;
 var pos = {};
-var markers = [];
-
 
 $('search_bar').on("change",function(){
 
 });
 function init() {
-  //Updating "current location" function, and will debrief the team tomorrow
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      pos = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      };
-      map.setCenter(pos);
-      var posMarker = new google.maps.Marker({
-        position: pos,
-        animation: google.maps.Animation.DROP
-      });
-      posMarker.setMap(map);
-    }, function() {
-      handleLocationError(true, infoWindow, map.getCenter());
-    });
-  } else {
-    handleLocationError(false, infoWindow, map.getCenter());
-  }
   //End up update
   var mapOptions = {
     center: new google.maps.LatLng(47.6067, -122.3325),
@@ -173,7 +152,28 @@ function init() {
   }
 
   var mapElement = document.getElementById('map');
-  var map = new google.maps.Map(mapElement, mapOptions);
+  map = new google.maps.Map(mapElement, mapOptions);
+
+  //Updating "current location" function, and will debrief the team tomorrow
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+      map.setCenter(pos);
+      var posMarker = new google.maps.Marker({
+        position: pos,
+        animation: google.maps.Animation.DROP
+      });
+      posMarker.setMap(map);
+    }, function() {
+      handleLocationError(true, infoWindow, map.getCenter());
+    });
+  } else {
+    handleLocationError(false, infoWindow, map.getCenter());
+  }
+
   // var locations = [
   //   ['Robs Quick Stop', 'undefined', '123-123-123', '123@gmail.com', 'www.123.com', 47.540416, -122.77051640000002, 'https://mapbuildr.com/assets/img/markers/solid-pin-yellow.png']
   // ];

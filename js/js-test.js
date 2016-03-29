@@ -1,3 +1,5 @@
+var markers = [];
+
 function sortByDistance(myLatitude, myLongitude, world) {
   var distances = [];
   for (var i = 0; i < world.length; i++) {
