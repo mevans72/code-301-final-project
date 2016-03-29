@@ -5,7 +5,6 @@ function loadSnapData(callback) {
   if (callback) callback();
 };
 
-
 function localData() {
   var snapEtag;
   $.ajax({
@@ -29,7 +28,6 @@ function localData() {
 
   });
 };
-
 
 $(document).ready(function() {
   localData();

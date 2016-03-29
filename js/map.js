@@ -2,8 +2,7 @@ google.maps.event.addDomListener(window, 'load', init);
 var map;
 var pos = {};
 
-$('search_bar').on("change",function(){
-});
+$('search_bar').on("change", function() {});
 
 function init() {
   //End up update
@@ -18,7 +17,7 @@ function init() {
 
   var mapElement = document.getElementById('map');
   map = new google.maps.Map(mapElement, mapOptions);
-  markCurrentLocation(function () {
+  markCurrentLocation(function() {
     sortByDistance(pos.lat, pos.lng, snapData);
     addAllMarkers();
   });
@@ -32,11 +31,17 @@ function markCurrentLocation(cb) {
         lng: position.coords.longitude
       };
       map.setCenter(pos);
-      var posMarker = new google.maps.Marker({
+      var posMarker = createMarker({
         position: pos,
-        animation: google.maps.Animation.DROP
+        animation: google.maps.Animation.BOUNCE
       });
       posMarker.setMap(map);
+
+      // posMarker.addListener('click', function() {
+      //   map.setZoom(20);
+      //   map.setCenter(posMarker.getPosition());
+      // });
+
       cb();
     }, function() {
       handleLocationError(true, infoWindow, map.getCenter());
@@ -51,27 +56,39 @@ function sortByDistance(myLatitude, myLongitude, world) {
   for (var i = 0; i < world.length; i++) {
     var place = world[i];
     var distance = Math.sqrt(Math.pow(myLatitude - place.Latitude, 2) + Math.pow(myLongitude - place.Longitude, 2)); // Uses Euclidean distance
-    distances.push({distance: distance, place: place});
+    distances.push({
+      distance: distance,
+      place: place
+    });
   }
   // Return the distances, sorted
   markers = distances.sort(function(a, b) {
     return a.distance - b.distance; // Switch the order of this subtraction to sort the other way
   })
-  .slice(0, 10); // Gets the first ten places, according to their distance
+    .slice(0, 10); // Gets the first ten places, according to their distance
+}
+
+function createMarker(options) {
+  options.clickable = true;
+  var marker = new google.maps.Marker(options);
+  marker.addListener('click', function() {
+    map.setZoom(20);
+    map.setCenter(marker.getPosition());
+  });
+
+  return marker;
 }
 
 function addAllMarkers() {
   markers.forEach(function(snapLocation) {
-    var marker = new google.maps.Marker({
+    var marker = createMarker({
       position: {
         lat: snapLocation.place.Latitude,
         lng: snapLocation.place.Longitude
       },
-      clickable: true,
       map: map,
       animation: google.maps.Animation.DROP
     });
-    marker.setMap(map);
     // markers.push(marker);
     console.log('Oh SNAP Latitude: ' + snapLocation.place.Latitude);
     console.log('Oh SNAP Longitude: ' + snapLocation.place.Longitude);
