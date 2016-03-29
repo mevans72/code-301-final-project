@@ -19,7 +19,7 @@ function init() {
   var mapElement = document.getElementById('map');
   map = new google.maps.Map(mapElement, mapOptions);
   markCurrentLocation(function () {
-    sortByDistance(pos.lat, pos.lng, snapData);
+    sortByDistance(pos.lat, pos.lng, snapData.all,renderStoreList());
     addAllMarkers();
   });
 }
@@ -45,8 +45,22 @@ function markCurrentLocation(cb) {
     handleLocationError(false, infoWindow, map.getCenter());
   }
 }
+function renderStoreList(){
+  var render = Handlebars.compile($('#storeListView-template').text());
 
-function sortByDistance(myLatitude, myLongitude, world) {
+  console.log('render');
+  $('#map .slide-bar .text-container').empty();
+
+  console.log(markers);
+  $('#map .slide-bar .text-container').append(
+    // repos.with('name').map(render)
+    markers.map(render)
+  );
+};
+
+var markers = [];
+
+function sortByDistance(myLatitude, myLongitude, world, callback) {
   var distances = [];
   for (var i = 0; i < world.length; i++) {
     var place = world[i];
@@ -58,6 +72,8 @@ function sortByDistance(myLatitude, myLongitude, world) {
     return a.distance - b.distance; // Switch the order of this subtraction to sort the other way
   })
   .slice(0, 10); // Gets the first ten places, according to their distance
+  // console.log(markers);
+  callback;
 }
 
 function addAllMarkers() {
@@ -73,8 +89,8 @@ function addAllMarkers() {
     });
     marker.setMap(map);
     // markers.push(marker);
-    console.log('Oh SNAP Latitude: ' + snapLocation.place.Latitude);
-    console.log('Oh SNAP Longitude: ' + snapLocation.place.Longitude);
+    // console.log('Oh SNAP Latitude: ' + snapLocation.place.Latitude);
+    // console.log('Oh SNAP Longitude: ' + snapLocation.place.Longitude);
   });
 }
 
