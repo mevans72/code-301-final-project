@@ -1,6 +1,6 @@
 {
   "firebase": "code-301-final-project-2",
-  "public": "app\t",
+  "public": "app",
   "ignore": [
     "firebase.json",
     "**/.*",
