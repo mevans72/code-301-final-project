@@ -1,0 +1,9 @@
+{
+  "firebase": "code-301-final-project-2",
+  "public": "app\t",
+  "ignore": [
+    "firebase.json",
+    "**/.*",
+    "**/node_modules/**"
+  ]
+}
