@@ -1,9 +1,10 @@
-google.maps.event.addDomListener(window, 'load', init);
+$(document).ready(function() {
+  localData(init);
+});
+
 var map;
 var pos = {};
 var currentMarkers = [];
-
-$('search_bar').on("change", function() {});
 
 function init() {
   //End up update
