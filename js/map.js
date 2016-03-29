@@ -1,14 +1,36 @@
 google.maps.event.addDomListener(window, 'load', init);
 var map;
+var pos = {};
+var markers = [];
+
 
 $('search_bar').on("change",function(){
-  
-})
-console.log('marcus');
+
+});
 function init() {
+  //Updating "current location" function, and will debrief the team tomorrow
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+      map.setCenter(pos);
+      var posMarker = new google.maps.Marker({
+        position: pos,
+        animation: google.maps.Animation.DROP
+      });
+      posMarker.setMap(map);
+    }, function() {
+      handleLocationError(true, infoWindow, map.getCenter());
+    });
+  } else {
+    handleLocationError(false, infoWindow, map.getCenter());
+  }
+  //End up update
   var mapOptions = {
-    center: new google.maps.LatLng(47.571893, -122.638551),
-    zoom: 11,
+    center: new google.maps.LatLng(47.6067, -122.3325),
+    zoom: 15,
     zoomControl: true,
     zoomControlOptions: {
       style: google.maps.ZoomControlStyle.DEFAULT,
@@ -141,7 +163,15 @@ function init() {
         "weight": 1.2
       }]
     }],
+  };
+
+  function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+    infoWindow.setPosition(pos);
+    infoWindow.setContent(browserHasGeolocation ?
+      'Error: The Geolocation service failed.' :
+      'Error: Your browser doesn\'t support geolocation.');
   }
+
   var mapElement = document.getElementById('map');
   var map = new google.maps.Map(mapElement, mapOptions);
   // var locations = [

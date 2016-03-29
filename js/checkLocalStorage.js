@@ -29,3 +29,8 @@ function localData() {
 
   });
 };
+
+
+$(document).ready(function() {
+  localData();
+});
