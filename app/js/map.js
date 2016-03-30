@@ -20,7 +20,7 @@ function init() {
 
   mapElement = document.getElementById('map');
   map = new google.maps.Map(mapElement, mapOptions);
-  //COMMENT: Looking to add a event listener to the map to potentially pan to and redraw new markers
+  // COMMENT: Looking to add a event listener to the map to potentially pan to and redraw new markers
   map.addListener('click', function(e) {
     placeMarkerAndPanTo(e.latLng, map);
     console.log(e.latLng.lng());
@@ -30,6 +30,7 @@ function init() {
   //   renderPlaces(snapData.all);
   // });
 
+  initSearches();
   addMarker({Latitude: 47.6198, Longitude: -122.3528}, map, function () {});
   addListItem({Store_Name: "hi"}, function() {});
 }
