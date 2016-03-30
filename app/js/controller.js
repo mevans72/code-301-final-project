@@ -3,6 +3,7 @@
 
   controller.app = function() {
   };
+
   controller.search = function() {
     $('#before').on('click', function(e) {
       // e.preventDefault();
@@ -16,6 +17,7 @@
       }
     });
   };
+
   controller.review = function() {
     $('#review-button').on('click', function(e) {
       if ($('#review-bar').css('right') === '-300px') {
@@ -34,6 +36,7 @@
       }
     });
   };
+
   controller.about = function() {
     console.log("About is great!");
     $("#fancy-about").fancybox({
@@ -41,6 +44,7 @@
       closeEffect: 'none'
     });
   };
+
   controller.help = function() {
     console.log("Help is great!");
     if ($('#fancy-help').css('display') !== 'visible') {
@@ -49,6 +53,7 @@
       $('#ancy-help').hide();
     }
   };
+
   controller.resources = function() {
     console.log("Help is great!");
     if ($('#fancy-resources').css('display') !== 'visible') {
