@@ -2,10 +2,6 @@ $(document).ready(function() {
   localData(init);
 });
 
-var map;
-var mapElement;
-var pos = {};
-var posMarker;
 var currentMarkers = [];
 
 function init() {
@@ -18,7 +14,7 @@ function init() {
       'Error: Your browser doesn\'t support geolocation.');
   }
 
-  mapElement = document.getElementById('map');
+  var mapElement = document.getElementById('map');
   map = new google.maps.Map(mapElement, mapOptions);
   // COMMENT: Looking to add a event listener to the map to potentially pan to and redraw new markers
   map.addListener('click', function(e) {
@@ -46,12 +42,12 @@ function placeMarkerAndPanTo(latLng, map) {
 function markCurrentLocation(cb) {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
-      pos = {
+      var pos = {
         lat: position.coords.latitude,
         lng: position.coords.longitude
       };
       map.setCenter(pos);
-      posMarker = new google.maps.Marker({
+      var posMarker = new google.maps.Marker({
         position: pos,
         animation: google.maps.Animation.BOUNCE,
         //COMMENT: We're appending the object info to a new customInfo field. This will behelpful for comparing to DOM objects, etc.
@@ -157,7 +153,6 @@ function addPlace(place, map) {
 
   item = addListItem(place, listeners);
   marker = addMarker(place, map, listeners);
-  currentMarkers.push(marker);
 }
 
 function setPlaces(places, map) {
