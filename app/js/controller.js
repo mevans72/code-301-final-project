@@ -17,6 +17,17 @@
       }
     });
   };
+  controller.review = function(e) {
+    console.log("Reviews are great!");
+    $('#review-button').on('click', function(e) {
+      // e.preventDefault();
+      if ($('#review-bar').css('right') === '-300px') {
+        $('#review-bar').css('right', '0px');
+      } else {
+        $('#review-bar').css('right', '0px');
+      }
+    });
+  };
   controller.reviewBack = function() {
     console.log("Reviews are great!");
     $('#review-back').on('click', function(e) {

@@ -32,12 +32,12 @@
   <!-- Handlebar Templates
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <script id="storeListView-template" type="text/x-handlebars-template">
-    <div class="text-section" data-store-name="{{Store_Name}}">
+    <div class="text-section">
       <div class="h-container">
         <h4>{{Store_Name}}</h4>
         <h5>{{Address}}</h5>
       </div>
-        <a href="/review"><button class="review-button" type="button" id="review-button">Review</button></a>
+        <a href="/review" id="review-button"><button class="review-button" type="button">Review</button></a>
     </div>
 </script>
 </head>
@@ -123,8 +123,8 @@
   <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=visualization"></script>
   <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.js"></script>
-  <script src="vendor/js/jquery.fancybox-1.3.4.pack.js"></script>
-  <script src="vendor/js/jquery.easing-1.4.pack.js"></script>
+  <!-- <script src="vendor/js/jquery.fancybox-1.3.4.pack.js"></script>
+  <script src="vendor/js/jquery.easing-1.3.pack.js"></script> -->
   <script src="vendor/js/jquery.bxslider.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/page.js/1.7.1/page.min.js"></script>
   <!-- <script src="js/template.js"></script> -->
@@ -132,7 +132,6 @@
   <script src="js/bar.js"></script>
   <script src="js/search.js"></script>
   <script src="js/map.js"></script>
-  <script src="js/markerEvent.js"></script>
   <script src="js/controller.js"></script>
   <script src="js/routes.js"></script>
 </body>
