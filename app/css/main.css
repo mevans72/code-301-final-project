@@ -33,13 +33,13 @@ body {
     top: 136px;
     right: 0;
     height: 400px;
-    /* background-color: white; */
-    background-color: red;
+    background-color: white;
     z-index: 6;
     padding: 20px;
     text-align: right; }
     body #write-review input {
-      margin-left: 0; }
+      margin-left: 0;
+      z-index: 7; }
     body #write-review a {
       text-decoration: none;
       font-size: 1.5em;

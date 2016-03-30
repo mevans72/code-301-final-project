@@ -1,9 +1,10 @@
-page('/', controller.app);
-page('/search', controller.search);
-page('/review', controller.review);
-page('/review-back', controller.reviewBack);
-page('/about', controller.about);
-page('/help', controller.help);
-page('/resources', controller.resources);
+page('/', controller.base, controller.app);
+page('/search', controller.base, controller.search);
+page('/review', controller.base, controller.review);
+page('/review-back', controller.base, controller.reviewBack);
+page('/about', controller.base, controller.about);
+page('/help', controller.base, controller.help);
+page('/resources', controller.base, controller.resources);
+page('/new-review', controller.base, controller.newReview);
 
 page();

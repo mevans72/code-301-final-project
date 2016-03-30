@@ -3,6 +3,11 @@
 
   controller.app = function() {};
 
+  controller.base = function (context, next) {
+    $('#write-review').css('display', 'none');
+    next();
+  }
+
   controller.search = function() {
     // e.preventDefault();
     if ($('#slide-bar').css('right') == '0px') {
@@ -55,6 +60,10 @@
       $('#ancy-resources').hide();
     }
   };
+
+  controller.newReview = function () {
+    $('#write-review').css('display', 'block');
+  }
 
   module.controller = controller;
 })(window);
