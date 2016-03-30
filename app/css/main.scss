@@ -32,6 +32,38 @@ body {
     bottom: 0;
     width: 100%;
   }
+
+  #write-review {
+    display:none;
+    position: absolute;
+    width: 300px;
+    top: 136px;
+    right: 0;
+    height: 400px;
+    /* background-color: white; */
+    background-color: red;
+    z-index: 6;
+    padding: 20px;
+
+    input {
+      margin-left: 0;
+    }
+
+    text-align: right;
+
+    a {
+      text-decoration: none;
+      font-size: 1.5em;
+      color: black;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 175px;
+      resize: none;
+    }
+  }
+
   #review-bar{
     // display: none;
     position: absolute;
@@ -73,16 +105,22 @@ body {
             line-height: 1.5;
           }
         }
-        .rating{
+        .rating {
           span{
             color:orange;
           }
         }
-        .review{
-          
+        .review {
+          word-break: break-all;
         }
       }
     }
+
+      a {
+        display: block;
+        width: 180px;
+        margin: 0 auto;
+      }
   }
   #slide-bar {
     position: absolute;
