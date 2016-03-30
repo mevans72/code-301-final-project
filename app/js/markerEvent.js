@@ -1,0 +1,14 @@
+function markerTesting() {
+  // var mapDiv = document.getElementById('map');
+  // var map = new google.maps.Map(mapDiv, {
+  //   zoom: 8,
+  //   center: new google.maps.LatLng(-34.397, 150.644)
+  // });
+
+  // We add a DOM event here to show an alert if the DIV containing the
+  // map is clicked.
+  google.maps.event.addDomListener(mapElement, 'click', function() {
+    window.alert('Map was clicked!');
+  });
+}
+//things moved to maps.js for more testing... :) 
