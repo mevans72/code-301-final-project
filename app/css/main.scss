@@ -33,6 +33,7 @@ body {
     width: 100%;
   }
   #review-bar{
+    display: none;
     position: absolute;
     width: 300px;
     top: 58px;
@@ -53,6 +54,7 @@ body {
         }
         h5{
           color:$light_black;
+
         }
       }
       .back-button{
@@ -165,13 +167,23 @@ body {
           clear: both;
           margin: 0;
           display: inline;
+          h5{
+            margin-bottom: 0.5em;
+          }
         }
         .review-button{
           width:50%;
           display: inline;
+          margin-bottom: 0;
+          &:hover{
+
+          }
         }
         &:hover{
           background-color:$black;
+        }
+        &:hover h4{
+          color:white;
         }
       }
     }
