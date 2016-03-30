@@ -9,23 +9,24 @@
       // e.preventDefault();
       if ($('#slide-bar').css('right') == '0px') {
         $('#slide-bar').css('right', '-300px');
-        $(this).find('a').attr("href","/app/");
+        $('#review-bar').css('right', '-300px');
+        $(this).find('a').attr("href","/search/");
       } else {
         $('#slide-bar').css('right', '0px');
-        $(this).find('a').attr("href","/search/");
+        $(this).find('a').attr("href","/");
       }
     });
   };
-  controller.review = function() {
+  controller.reviewBack = function() {
     console.log("Reviews are great!");
-    $('#review-button').on('click', function(e) {
+    $('#review-back').on('click', function(e) {
       // e.preventDefault();
       if ($('#review-bar').css('right') == '0px') {
         $('#review-bar').css('right', '-300px');
-        $(this).find('a').attr("href","/app/");
+        // $(this).find('a').attr("href","/app/");
       } else {
         $('#review-bar').css('right', '0px');
-        $(this).find('a').attr("href","/review/");
+        // $(this).find('a').attr("href","/review/");
         // #review-bar > div > div.col-4 > a
       }
     });

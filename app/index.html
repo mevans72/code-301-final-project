@@ -32,14 +32,12 @@
   <!-- Handlebar Templates
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <script id="storeListView-template" type="text/x-handlebars-template">
-    <div class="text-section">
-      <div class="h-container" data-store-name="{{Store_Name}}">
+    <div class="text-section" data-store-name="{{Store_Name}}">
+      <div class="h-container">
         <h4>{{Store_Name}}</h4>
         <h5>{{Address}}</h5>
       </div>
-      <button class="review-button">
-        Review
-      </button>
+        <a href="/review"><button class="review-button" type="button" id="review-button">Review</button></a>
     </div>
 </script>
 </head>
@@ -80,7 +78,7 @@
         </div>
         <div class="col-4">
           <div class="back-button">
-            <a href="/review"><button class="icon-forward" type="button" id="review-button"></button></a>
+            <a href="/review-back"><button class="icon-forward" type="button" id="review-back"></button></a>
           </div>
         </div>
       </div>
