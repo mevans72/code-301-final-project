@@ -3,6 +3,7 @@ $(document).ready(function() {
 });
 
 var map;
+var mapElement;
 var pos = {};
 var currentMarkers = [];
 
@@ -17,7 +18,7 @@ function init() {
       'Error: Your browser doesn\'t support geolocation.');
   }
 
-  var mapElement = document.getElementById('map');
+  mapElement = document.getElementById('map');
   map = new google.maps.Map(mapElement, mapOptions);
   markCurrentLocation(function() {
     renderPlaces(snapData.all);
