@@ -2,37 +2,32 @@
 <html lang="en">
 
 <head>
-
   <!-- Basic Page Needs
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
-  <title>Mapbox Demo</title>
+  <title>SnapToIt</title>
   <meta name="description" content="">
   <meta name="author" content="">
-
   <!-- Mobile Specific Metas
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
   <!-- FONT
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <!-- <link href="http://fonts.googleapis.com/css?family=Raleway:400,500,300,600" rel="stylesheet" type="text/css"> -->
-
   <!-- CSS
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="stylesheet" href="vendor/css/normalize.css">
-
   <link rel="stylesheet" href="vendor/css/skeleton.css">
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/grid.css">
   <link rel="stylesheet" href="css/loading.css">
-
-
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="icon" type="image/png" href="">
+  <!-- Handlebar Templates
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <script id="storeListView-template" type="text/x-handlebars-template">
     <div class="text-section">
       <div class="h-container">
@@ -43,14 +38,13 @@
         Review
       </button>
     </div>
-</head>
 </script>
+</head>
 
 <body>
   <header></header>
   <!-- Primary Page
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-
   <div id='map'></div>
   <div id="slide-bar">
     <div id="before">X</div>
@@ -85,16 +79,12 @@
       </div>
     </div>
 
-
-
-
   </div>
 
   <section id="aboutus" class="tab-content">
     <article class="template" data-category="bio">
       <h1></h1>
       <div class="byline">
-
       </div>
     </article>
   </section>
@@ -105,17 +95,15 @@
     –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <script src="https://code.jquery.com/jquery-2.2.2.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
-
-  <!-- <script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyCBAq3SpIW6bHt9D2DytPO8KvPDqjw8k2A&sensor=false&extension=.js'></script> -->
   <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=visualization"></script>
   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.js"></script>
-
   <!-- <script src="js/template.js"></script> -->
   <script src="js/checkLocalStorage.js"></script>
   <script src="js/map.js"></script>
   <script src="js/bar.js"></script>
   <script src="js/search.js"></script>
+  <script src="js/markerEvent.js"></script>
 </body>
 
 </html>

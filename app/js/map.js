@@ -3,7 +3,9 @@ $(document).ready(function() {
 });
 
 var map;
+var mapElement;
 var pos = {};
+var posMarker;
 var currentMarkers = [];
 
 function init() {
@@ -17,12 +19,33 @@ function init() {
       'Error: Your browser doesn\'t support geolocation.');
   }
 
-  var mapElement = document.getElementById('map');
+  mapElement = document.getElementById('map');
   map = new google.maps.Map(mapElement, mapOptions);
+  //COMMENT: Looking to add a event listener to the map to potentially pan to and redraw new markers
+  map.addListener('click', function(e) {
+    placeMarkerAndPanTo(e.latLng, map);
+    console.log(e.latLng.lng());
+  });
+
   markCurrentLocation(function() {
     renderPlaces(snapData.all);
   });
 }
+//COMMENT: Looking to add a event listener to the map to potentially pan to and redraw new markers
+function placeMarkerAndPanTo(latLng, map) {
+  var marker = new google.maps.Marker({
+    position: latLng,
+    map: map
+  });
+  marker.setVisible(false);
+  map.panTo(latLng);
+  console.log('Current Location is: ' + latLng);
+  clearCurrentMarkers();
+  var panToLocationMarker = sortByDistance(latLng.lat(),latLng.lng(), snapData.all);
+  renderStoreList(panToLocationMarker);
+  addMarkers(panToLocationMarker);
+}
+
 
 function markCurrentLocation(cb) {
   if (navigator.geolocation) {
@@ -32,11 +55,17 @@ function markCurrentLocation(cb) {
         lng: position.coords.longitude
       };
       map.setCenter(pos);
-      var posMarker = new google.maps.Marker({
+      posMarker = new google.maps.Marker({
         position: pos,
-        animation: google.maps.Animation.DROP
+        animation: google.maps.Animation.BOUNCE,
+        //COMMENT: We're appending the object info to a new customInfo field. This will behelpful for comparing to DOM objects, etc.
+        customInfo: pos
       });
       posMarker.setMap(map);
+      //COMMENT: Adding an event listener. This is a temp example, but we can leverage this for cooler things...
+      google.maps.event.addListener(posMarker, 'click', function() {
+        console.log('Current Location is: lat:' + position.coords.latitude + ", lng:" + position.coords.longitude);
+      });
       cb();
     }, function() {
       handleLocationError(true, infoWindow, map.getCenter());
@@ -56,7 +85,6 @@ function sortByDistance(myLatitude, myLongitude, world) {
       place: place
     });
   }
-
   // Return the distances, sorted
   return distances.sort(function(a, b) {
     return a.distance - b.distance; // Switch the order of this subtraction to sort the other way
@@ -67,9 +95,9 @@ function sortByDistance(myLatitude, myLongitude, world) {
 
 function renderPlaces(places) {
   // renders places both in the store list and on the map
-    var distances = sortByDistance(pos.lat, pos.lng, places);
-    renderStoreList(distances);
-    addMarkers(distances);
+  var distances = sortByDistance(pos.lat, pos.lng, places);
+  renderStoreList(distances);
+  addMarkers(distances);
 }
 
 function renderStoreList(places) {
@@ -102,13 +130,17 @@ function addMarkers(places) {
       },
       clickable: true,
       map: map,
-      animation: google.maps.Animation.DROP
+      animation: google.maps.Animation.DROP,
+      //COMMENT: We're appending the object info to a new customInfo field. This will behelpful for comparing to DOM objects, etc.
+      customInfo: snapLocation
     });
     marker.setMap(map);
     currentMarkers.push(marker);
-    // markers.push(marker);
-    // console.log('Oh SNAP Latitude: ' + snapLocation.place.Latitude);
-    // console.log('Oh SNAP Longitude: ' + snapLocation.place.Longitude);
+    google.maps.event.addListener(marker, 'click', function() {
+      console.log('Marker Name: ' + this.customInfo.Store_Name);
+      //COMMENT: repositions the map on this marker... we can remove if peeps dont like it...
+      map.setCenter(this.getPosition());
+    });
   });
 }
 
