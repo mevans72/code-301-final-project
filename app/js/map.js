@@ -27,10 +27,13 @@ function init() {
     console.log(e.latLng.lng());
   });
 
-  markCurrentLocation(function() {
-    renderPlaces(snapData.all);
-  });
+  // markCurrentLocation(function() {
+  //   renderPlaces(snapData.all);
+  // });
+
+  console.log('hi');
 }
+
 //COMMENT: Looking to add a event listener to the map to potentially pan to and redraw new markers
 function placeMarkerAndPanTo(latLng, map) {
   var marker = new google.maps.Marker({
@@ -41,11 +44,10 @@ function placeMarkerAndPanTo(latLng, map) {
   map.panTo(latLng);
   console.log('Current Location is: ' + latLng);
   clearCurrentMarkers();
-  var panToLocationMarker = sortByDistance(latLng.lat(),latLng.lng(), snapData.all);
-  renderStoreList(panToLocationMarker);
-  addMarkers(panToLocationMarker);
+  var panToLocationMarker = sortByDistance(latLng.lat(), latLng.lng(), snapData.all);
+  setStoreList(panToLocationMarker);
+  setMarkers(panToLocationMarker);
 }
-
 
 function markCurrentLocation(cb) {
   if (navigator.geolocation) {
@@ -93,14 +95,36 @@ function sortByDistance(myLatitude, myLongitude, world) {
   }); // Gets the first ten places, according to their distance
 }
 
-function renderPlaces(places) {
-  // renders places both in the store list and on the map
-  var distances = sortByDistance(pos.lat, pos.lng, places);
-  renderStoreList(distances);
-  addMarkers(distances);
+function addMarker(place, map, listener) {
+  var marker = new google.maps.Marker({
+    position: {
+      lat: place.Latitude,
+      lng: place.Longitude
+    },
+    clickable: true,
+    map: map,
+    animation: google.maps.Animation.DROP,
+  });
+
+  marker.setMap(map);
+  currentMarkers.push(marker);
+  google.maps.event.addListener(marker, 'click', function() {
+    console.log('Marker Name: ' + this.customInfo.Store_Name);
+    listener();
+  });
+
+  return marker;
 }
 
-function renderStoreList(places) {
+/* 
+function setPlaces(places) {
+  // renders places both in the store list and on the map
+  var distances = sortByDistance(pos.lat, pos.lng, places);
+  setStoreList(distances);
+  setMarkers(distances);
+}
+
+function setStoreList(places) {
   $('#slide-bar .text-container').html('');
 
   $('#slide-bar').find('.text-container').empty();
@@ -119,7 +143,7 @@ function clearCurrentMarkers() {
   currentMarkers = [];
 }
 
-function addMarkers(places) {
+function setMarkers(places) {
   clearCurrentMarkers();
 
   places.forEach(function(snapLocation) {
@@ -143,6 +167,7 @@ function addMarkers(places) {
     });
   });
 }
+*/
 
 function makeMapOptions() {
   return {
