@@ -32,39 +32,95 @@ body {
     bottom: 0;
     width: 100%;
   }
+
+  #write-review {
+    display:none;
+    position: absolute;
+    width: 300px;
+    top: 136px;
+    right: 0;
+    height: 400px;
+    /* background-color: white; */
+    background-color: red;
+    z-index: 6;
+    padding: 20px;
+
+    input {
+      margin-left: 0;
+    }
+
+    text-align: right;
+
+    a {
+      text-decoration: none;
+      font-size: 1.5em;
+      color: black;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 175px;
+      resize: none;
+    }
+  }
+
   #review-bar{
+    // display: none;
     position: absolute;
     width: 300px;
     top: 58px;
     right: 0;
     height: 100%;
     background-color: white;
-    z-index: 1000;
-    .grid{
-      background-color: $black;
-      #store-title{
-        // background-color: $black;
-        padding: 20px;
-        height:auto;
+    z-index: 5;
+    .title-section{
+      .grid{
+        background-color: $black;
+        padding:15px;
+        .col-8{
+          .store-container{
+            h4{
+              color:white;
+            }
+            h5{
 
-        h4{
-          color:white;
-          font-weight: 200;
+            }
+          }
         }
-        h5{
-          color:$light_black;
+        .col-4{
+          .back-button{
+            button{
+              color:white;
+            }
+          }
         }
       }
-      .back-button{
-        margin-top: 18px;
-        // background-color: $black;
-        span{
-          color: white;
+    }
+    .review-section{
+      .grid{
+        padding:15px;
+        .name{
+          h4{
+            font-size: 15px;
+            line-height: 1.5;
+          }
+        }
+        .rating {
+          span{
+            color:orange;
+          }
+        }
+        .review {
+          word-break: break-all;
         }
       }
     }
 
-
+      a {
+        display: block;
+        width: 180px;
+        margin: 0 auto;
+      }
   }
   #slide-bar {
     position: absolute;
@@ -165,13 +221,23 @@ body {
           clear: both;
           margin: 0;
           display: inline;
+          h5{
+            margin-bottom: 0.5em;
+          }
         }
         .review-button{
           width:50%;
           display: inline;
+          margin-bottom: 0;
+          // &:hover{
+          //
+          // }
         }
         &:hover{
           background-color:$black;
+        }
+        &:hover h4{
+          color:white;
         }
       }
     }
