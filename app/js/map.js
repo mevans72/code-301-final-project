@@ -26,13 +26,11 @@ function init() {
     console.log(e.latLng.lng());
   });
 
-  // markCurrentLocation(function() {
-  //   renderPlaces(snapData.all);
-  // });
+  markCurrentLocation(function(pos) {
+    setPlaces(sortByDistance(pos.lat, pos.lng, snapData.all), map);
+  });
 
   initSearches();
-  addMarker({Latitude: 47.6198, Longitude: -122.3528}, map, function () {});
-  addListItem({Store_Name: "hi"}, function() {});
 }
 
 //COMMENT: Looking to add a event listener to the map to potentially pan to and redraw new markers
@@ -69,7 +67,7 @@ function markCurrentLocation(cb) {
       google.maps.event.addListener(posMarker, 'click', function() {
         console.log('Current Location is: lat:' + position.coords.latitude + ", lng:" + position.coords.longitude);
       });
-      cb();
+      cb(pos);
     }, function() {
       handleLocationError(true, infoWindow, map.getCenter());
     });
@@ -110,7 +108,6 @@ function addMarker(place, map, listener) {
   marker.setMap(map);
   currentMarkers.push(marker);
   google.maps.event.addListener(marker, 'click', function() {
-    console.log('Marker Name: ' + this.customInfo.Store_Name);
     listener();
   });
 
@@ -121,6 +118,40 @@ var makeListItem = Handlebars.compile($('#storeListView-template').text());
 
 function addListItem(place, listener) {
   $('#slide-bar .text-container').append(makeListItem(place));
+  var item = $('#slide-bar .text-container .text-section:last');
+  item.on('click', listener);
+  return item;
+}
+
+function selectItem(item) {
+  var container = $('#slide-bar .text-container'),
+      pos = item.offset().top - container.offset().top + container.scrollTop();
+  container.scrollTop(pos);
+}
+
+function selectMarker(marker, map) {
+  map.panTo(marker.getPosition());
+}
+
+function addPlace(place, map) {
+  var marker, item;
+  item = addListItem(place, function () {
+    if (marker) {
+      selectMarker(marker, map);
+    }
+  });
+
+  marker = addMarker(place, map, function () {
+    if (item) {
+      selectItem(item);
+    }
+  });
+}
+
+function setPlaces(places, map) {
+  places.forEach(function (p) {
+    addPlace(p, map);
+  });
 }
 
 /* 
