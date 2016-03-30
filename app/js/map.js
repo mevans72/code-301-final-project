@@ -41,10 +41,9 @@ function placeMarkerAndPanTo(latLng, map) {
   map.panTo(latLng);
   console.log('Current Location is: ' + latLng);
   clearCurrentMarkers();
-  var panToLocationMarker = sortByDistance(e.latLng.lat(),e.latLng.lat(), snapData.all);
+  var panToLocationMarker = sortByDistance(latLng.lat(),latLng.lng(), snapData.all);
   renderStoreList(panToLocationMarker);
   addMarkers(panToLocationMarker);
-
 }
 
 
