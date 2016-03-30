@@ -1,8 +1,10 @@
-google.maps.event.addDomListener(window, 'load', init);
+$(document).ready(function() {
+  localData(init);
+});
+
 var map;
 var pos = {};
-
-$('search_bar').on("change", function() {});
+var currentMarkers = [];
 
 function init() {
   //End up update
@@ -17,10 +19,8 @@ function init() {
 
   var mapElement = document.getElementById('map');
   map = new google.maps.Map(mapElement, mapOptions);
-  console.log(snapData.all);
   markCurrentLocation(function() {
-    sortByDistance(pos.lat, pos.lng, snapData.all, renderStoreList);
-    addAllMarkers();
+    renderPlaces(snapData.all);
   });
 }
 
@@ -46,33 +46,7 @@ function markCurrentLocation(cb) {
   }
 };
 
-function renderStoreList(markers) {
-  // var render = Handlebars.compile($('#storeListView-template').text());
-
-  var toHtml = function(a) {
-    var template = Handlebars.compile($('#storeListView-template').text());
-    return template(a);
-  };
-
-  console.log('render');
-  $('#slide-bar').find('.text-container').empty();
-
-  console.log(markers);
-  markers.forEach(function(a) {
-    console.log(a.place);
-    $('#slide-bar .text-container').append(toHtml(a.place));
-  });
-
-};
-
-//   $('#map .slide-bar .text-container').append(
-//
-//   );
-
-
-var markers = [];
-
-function sortByDistance(myLatitude, myLongitude, world, callback) {
+function sortByDistance(myLatitude, myLongitude, world) {
   var distances = [];
   for (var i = 0; i < world.length; i++) {
     var place = world[i];
@@ -82,27 +56,56 @@ function sortByDistance(myLatitude, myLongitude, world, callback) {
       place: place
     });
   }
+
   // Return the distances, sorted
-  markers = distances.sort(function(a, b) {
+  return distances.sort(function(a, b) {
     return a.distance - b.distance; // Switch the order of this subtraction to sort the other way
-  })
-    .slice(0, 10); // Gets the first ten places, according to their distance
-  console.log(distances);
-  callback(markers);
+  }).slice(0, 10).map(function (dist) {
+    return dist.place;
+  }); // Gets the first ten places, according to their distance
 }
 
-function addAllMarkers() {
-  markers.forEach(function(snapLocation) {
+function renderPlaces(places) {
+  // renders places both in the store list and on the map
+    var distances = sortByDistance(pos.lat, pos.lng, places);
+    renderStoreList(distances);
+    addMarkers(distances);
+}
+
+function renderStoreList(places) {
+  $('#slide-bar .text-container').html('');
+
+  $('#slide-bar').find('.text-container').empty();
+
+  var toHtml = Handlebars.compile($('#storeListView-template').text());
+  places.forEach(function(a) {
+    $('#slide-bar .text-container').append(toHtml(a));
+  });
+};
+
+function clearCurrentMarkers() {
+  currentMarkers.forEach(function (m) {
+    m.setMap(null);
+  });
+
+  currentMarkers = [];
+}
+
+function addMarkers(places) {
+  clearCurrentMarkers();
+
+  places.forEach(function(snapLocation) {
     var marker = new google.maps.Marker({
       position: {
-        lat: snapLocation.place.Latitude,
-        lng: snapLocation.place.Longitude
+        lat: snapLocation.Latitude,
+        lng: snapLocation.Longitude
       },
       clickable: true,
       map: map,
       animation: google.maps.Animation.DROP
     });
     marker.setMap(map);
+    currentMarkers.push(marker);
     // markers.push(marker);
     // console.log('Oh SNAP Latitude: ' + snapLocation.place.Latitude);
     // console.log('Oh SNAP Longitude: ' + snapLocation.place.Longitude);
