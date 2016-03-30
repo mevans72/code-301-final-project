@@ -11,3 +11,4 @@ function markerTesting() {
     window.alert('Map was clicked!');
   });
 }
+//things moved to maps.js for more testing... :) 
