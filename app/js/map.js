@@ -3,11 +3,12 @@ $(document).ready(function() {
 });
 
 var map;
+var mapElement;
 var pos = {};
+var posMarker;
 var currentMarkers = [];
 
 function init() {
-  //End up update
   var mapOptions = makeMapOptions();
 
   function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -17,11 +18,29 @@ function init() {
       'Error: Your browser doesn\'t support geolocation.');
   }
 
-  var mapElement = document.getElementById('map');
+  mapElement = document.getElementById('map');
   map = new google.maps.Map(mapElement, mapOptions);
-  markCurrentLocation(function() {
-    renderPlaces(snapData.all);
+  // COMMENT: Looking to add a event listener to the map to potentially pan to and redraw new markers
+  map.addListener('click', function(e) {
+    placeMarkerAndPanTo(e.latLng, map);
   });
+
+  markCurrentLocation(function(pos) {
+    setPlaces(sortByDistance(pos.lat, pos.lng, snapData.all), map);
+  });
+
+  initSearches();
+}
+
+//COMMENT: Looking to add a event listener to the map to potentially pan to and redraw new markers
+function placeMarkerAndPanTo(latLng, map) {
+  var marker = new google.maps.Marker({
+    position: latLng,
+    map: map
+  });
+  marker.setVisible(false);
+  map.panTo(latLng);
+  setPlaces(sortByDistance(latLng.lat(), latLng.lng(), snapData.all), map);
 }
 
 function markCurrentLocation(cb) {
@@ -32,12 +51,18 @@ function markCurrentLocation(cb) {
         lng: position.coords.longitude
       };
       map.setCenter(pos);
-      var posMarker = new google.maps.Marker({
+      posMarker = new google.maps.Marker({
         position: pos,
-        animation: google.maps.Animation.DROP
+        animation: google.maps.Animation.BOUNCE,
+        //COMMENT: We're appending the object info to a new customInfo field. This will behelpful for comparing to DOM objects, etc.
+        customInfo: pos
       });
       posMarker.setMap(map);
-      cb();
+      //COMMENT: Adding an event listener. This is a temp example, but we can leverage this for cooler things...
+      google.maps.event.addListener(posMarker, 'click', function() {
+        console.log('Current Location is: lat:' + position.coords.latitude + ", lng:" + position.coords.longitude);
+      });
+      cb(pos);
     }, function() {
       handleLocationError(true, infoWindow, map.getCenter());
     });
@@ -56,7 +81,6 @@ function sortByDistance(myLatitude, myLongitude, world) {
       place: place
     });
   }
-
   // Return the distances, sorted
   return distances.sort(function(a, b) {
     return a.distance - b.distance; // Switch the order of this subtraction to sort the other way
@@ -65,51 +89,90 @@ function sortByDistance(myLatitude, myLongitude, world) {
   }); // Gets the first ten places, according to their distance
 }
 
-function renderPlaces(places) {
-  // renders places both in the store list and on the map
-    var distances = sortByDistance(pos.lat, pos.lng, places);
-    renderStoreList(distances);
-    addMarkers(distances);
+function addMarker(place, map, listeners) {
+  var marker = new google.maps.Marker({
+    position: {
+      lat: place.Latitude,
+      lng: place.Longitude
+    },
+    clickable: true,
+    map: map,
+    animation: google.maps.Animation.DROP,
+  });
+
+  marker.setMap(map);
+  currentMarkers.push(marker);
+
+  Object.keys(listeners).forEach(function (type) {
+    google.maps.event.addListener(marker, type, listeners[type]);
+  });
+
+  return marker;
 }
 
-function renderStoreList(places) {
-  $('#slide-bar .text-container').html('');
+var makeListItem = Handlebars.compile($('#storeListView-template').text());
 
-  $('#slide-bar').find('.text-container').empty();
+function addListItem(place, listeners) {
+  $('#slide-bar .text-container').append(makeListItem(place));
+  var item = $('#slide-bar .text-container .text-section:last');
 
-  var toHtml = Handlebars.compile($('#storeListView-template').text());
-  places.forEach(function(a) {
-    $('#slide-bar .text-container').append(toHtml(a));
+  Object.keys(listeners).forEach(function (type) {
+    item.on(type, listeners[type]);
   });
-};
+  return item;
+}
+
+function selectItem(item) {
+  var container = $('#slide-bar .text-container'),
+      pos = item.offset().top - container.offset().top + container.scrollTop();
+  container.scrollTop(pos);
+}
+
+function selectMarker(marker, map) {
+  map.panTo(marker.getPosition());
+}
+
+function selectPlace(item, marker) {
+  selectMarker(marker, map);
+  selectItem(item);
+}
+
+function addPlace(place, map) {
+  var marker, item;
+
+  var listeners = {
+    click: function () {
+      if (marker && item) {
+        selectPlace(item, marker);
+      }
+    },
+    mouseover: function () {
+      item.css('background-color', 'green');
+    },
+
+    mouseout: function () {
+      item.css('background-color', 'white');
+    }
+  };
+
+  item = addListItem(place, listeners);
+  marker = addMarker(place, map, listeners);
+  currentMarkers.push(marker);
+}
+
+function setPlaces(places, map) {
+  $('#slide-bar').find('.text-container').empty();
+  clearCurrentMarkers();
+  places.forEach(function (p) {
+    addPlace(p, map);
+  });
+}
 
 function clearCurrentMarkers() {
   currentMarkers.forEach(function (m) {
     m.setMap(null);
   });
-
   currentMarkers = [];
-}
-
-function addMarkers(places) {
-  clearCurrentMarkers();
-
-  places.forEach(function(snapLocation) {
-    var marker = new google.maps.Marker({
-      position: {
-        lat: snapLocation.Latitude,
-        lng: snapLocation.Longitude
-      },
-      clickable: true,
-      map: map,
-      animation: google.maps.Animation.DROP
-    });
-    marker.setMap(map);
-    currentMarkers.push(marker);
-    // markers.push(marker);
-    // console.log('Oh SNAP Latitude: ' + snapLocation.place.Latitude);
-    // console.log('Oh SNAP Longitude: ' + snapLocation.place.Longitude);
-  });
 }
 
 function makeMapOptions() {

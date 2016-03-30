@@ -2,22 +2,18 @@
 <html lang="en">
 
 <head>
-
   <!-- Basic Page Needs
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
-  <title>Mapbox Demo</title>
+  <title>SnapToIt</title>
   <meta name="description" content="">
   <meta name="author" content="">
-
   <!-- Mobile Specific Metas
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
   <!-- FONT
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <!-- <link href="http://fonts.googleapis.com/css?family=Raleway:400,500,300,600" rel="stylesheet" type="text/css"> -->
-
   <!-- CSS
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="stylesheet" href="vendor/css/normalize.css">
@@ -27,17 +23,18 @@
   <link rel="stylesheet" href="vendor/css/skeleton.css">
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/search.css">
   <link rel="stylesheet" href="css/grid.css">
   <link rel="stylesheet" href="css/loading.css">
-
 
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="icon" type="image/png" href="">
+  <!-- Handlebar Templates
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <script id="storeListView-template" type="text/x-handlebars-template">
     <div class="text-section">
-      <div class="h-container">
+      <div class="h-container" data-store-name="{{Store_Name}}">
         <h4>{{Store_Name}}</h4>
         <h5>{{Address}}</h5>
       </div>
@@ -45,23 +42,24 @@
         Review
       </button>
     </div>
-</head>
 </script>
+</head>
 
 <body>
   <header></header>
   <!-- Primary Page
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-
   <div id='map'></div>
   <div id="slide-bar">
-    <div id="before">X</div>
+    <div id="before" >
+      <a href="/search">X</a>
+    </div>
     <div class="search-bar">
       <input type="search" name="name" value="">
       <span class="icon-search2"></span>
     </div>
     <div class="filter-bar">
-      <button class="more-filter" type="button" name="button">More Filter</button>
+      <button class="more-filter" type="button" name="button">Get My Location</button>
     </div>
     <div class="text-container">
       <div class="spinner">
@@ -73,29 +71,50 @@
 
   </div>
   <div id="review-bar">
-    <div class="grid">
-      <div class="col-8">
-        <div id="store-title">
-          <h4>Robs Quick Stop</h4>
-          <h5>2708 15th St</h5>
+    <div class="title-section">
+      <div class="grid">
+        <div class="col-8">
+          <div class="store-container">
+            <h4>Robs Quick Stop</h4>
+            <h5>2708 15th St</h5>
+          </div>
         </div>
-      </div>
-      <div class="col-4">
-        <div class="back-button">
-          <button class="icon-forward" type="button"></button>
+        <div class="col-4">
+          <div class="back-button">
+            <a href="/review"><button class="icon-forward" type="button" id="review-button"></button></a>
+          </div>
         </div>
       </div>
     </div>
-
-
-
-
+    <div class="review-section">
+      <div class="grid">
+        <div class="col-6 name">
+          <h4>User Name</h4>
+        </div>
+        <div class="col-6 rating">
+          <span class="icon-star-full"></span>
+          <span class="icon-star-full"></span>
+          <span class="icon-star-full"></span>
+        </div>
+        <div class="col-12 review">
+          <p>
+            feedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedback
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
 
+
+  <section id="aboutus" class="tab-content">
+    <article class="template" data-category="bio">
+      <h1></h1>
+      <div class="byline">
+      </div>
+    </article>
+  </section>
   <a id="fancy-about"></a>
-
   <a id="fancy-resources"></a>
-
   <a id="fancy-help"></a>
 
   <footer>
@@ -104,20 +123,21 @@
     –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <script src="https://code.jquery.com/jquery-2.2.2.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
-
-  <!-- <script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyCBAq3SpIW6bHt9D2DytPO8KvPDqjw8k2A&sensor=false&extension=.js'></script> -->
   <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=visualization"></script>
-  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.js"></script>
   <script src="vendor/js/jquery.fancybox.js"></script>
   <script src="vendor/js/jquery.bxslider.js"></script>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/page.js/1.7.1/page.min.js"></script>
   <!-- <script src="js/template.js"></script> -->
   <script src="js/checkLocalStorage.js"></script>
-  <script src="js/map.js"></script>
   <script src="js/bar.js"></script>
   <script src="js/search.js"></script>
   <script src="js/fancy.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/markerEvent.js"></script>
+  <script src="js/controller.js"></script>
+  <script src="js/routes.js"></script>
 </body>
 
 </html>
