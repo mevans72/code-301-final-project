@@ -89,8 +89,7 @@ function sortByDistance(myLatitude, myLongitude, world) {
   }); // Gets the first ten places, according to their distance
 }
 
-function addMarker(place, map, listener) {
-  console.log(map);
+function addMarker(place, map, listeners) {
   var marker = new google.maps.Marker({
     position: {
       lat: place.Latitude,
@@ -103,8 +102,9 @@ function addMarker(place, map, listener) {
 
   marker.setMap(map);
   currentMarkers.push(marker);
-  google.maps.event.addListener(marker, 'click', function() {
-    listener();
+
+  Object.keys(listeners).forEach(function (type) {
+    google.maps.event.addListener(marker, type, listeners[type]);
   });
 
   return marker;
@@ -112,10 +112,13 @@ function addMarker(place, map, listener) {
 
 var makeListItem = Handlebars.compile($('#storeListView-template').text());
 
-function addListItem(place, listener) {
+function addListItem(place, listeners) {
   $('#slide-bar .text-container').append(makeListItem(place));
   var item = $('#slide-bar .text-container .text-section:last');
-  item.on('click', listener);
+
+  Object.keys(listeners).forEach(function (type) {
+    item.on(type, listeners[type]);
+  });
   return item;
 }
 
@@ -129,16 +132,31 @@ function selectMarker(marker, map) {
   map.panTo(marker.getPosition());
 }
 
+function selectPlace(item, marker) {
+  selectMarker(marker, map);
+  selectItem(item);
+}
+
 function addPlace(place, map) {
   var marker, item;
-  function selectPlace() {
-    if (item && marker) {
-      selectMarker(marker, map);
-      selectItem(item);
+
+  var listeners = {
+    click: function () {
+      if (marker && item) {
+        selectPlace(item, marker);
+      }
+    },
+    mouseover: function () {
+      item.css('background-color', 'green');
+    },
+
+    mouseout: function () {
+      item.css('background-color', 'white');
     }
-  }
-  item = addListItem(place, selectPlace);
-  marker = addMarker(place, map, selectPlace);
+  };
+
+  item = addListItem(place, listeners);
+  marker = addMarker(place, map, listeners);
   currentMarkers.push(marker);
 }
 
