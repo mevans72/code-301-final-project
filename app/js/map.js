@@ -9,7 +9,6 @@ var posMarker;
 var currentMarkers = [];
 
 function init() {
-  //End up update
   var mapOptions = makeMapOptions();
 
   function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -31,7 +30,8 @@ function init() {
   //   renderPlaces(snapData.all);
   // });
 
-  console.log('hi');
+  addMarker({Latitude: 47.6198, Longitude: -122.3528}, map, function () {});
+  addListItem({Store_Name: "hi"}, function() {});
 }
 
 //COMMENT: Looking to add a event listener to the map to potentially pan to and redraw new markers
@@ -114,6 +114,12 @@ function addMarker(place, map, listener) {
   });
 
   return marker;
+}
+
+var makeListItem = Handlebars.compile($('#storeListView-template').text());
+
+function addListItem(place, listener) {
+  $('#slide-bar .text-container').append(makeListItem(place));
 }
 
 /* 
