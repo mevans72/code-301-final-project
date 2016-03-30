@@ -9,7 +9,6 @@ var posMarker;
 var currentMarkers = [];
 
 function init() {
-  //End up update
   var mapOptions = makeMapOptions();
 
   function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -21,16 +20,18 @@ function init() {
 
   mapElement = document.getElementById('map');
   map = new google.maps.Map(mapElement, mapOptions);
-  //COMMENT: Looking to add a event listener to the map to potentially pan to and redraw new markers
+  // COMMENT: Looking to add a event listener to the map to potentially pan to and redraw new markers
   map.addListener('click', function(e) {
     placeMarkerAndPanTo(e.latLng, map);
-    console.log(e.latLng.lng());
   });
 
-  markCurrentLocation(function() {
-    renderPlaces(snapData.all);
+  markCurrentLocation(function(pos) {
+    setPlaces(sortByDistance(pos.lat, pos.lng, snapData.all), map);
   });
+
+  initSearches();
 }
+
 //COMMENT: Looking to add a event listener to the map to potentially pan to and redraw new markers
 function placeMarkerAndPanTo(latLng, map) {
   var marker = new google.maps.Marker({
@@ -39,13 +40,8 @@ function placeMarkerAndPanTo(latLng, map) {
   });
   marker.setVisible(false);
   map.panTo(latLng);
-  console.log('Current Location is: ' + latLng);
-  clearCurrentMarkers();
-  var panToLocationMarker = sortByDistance(latLng.lat(),latLng.lng(), snapData.all);
-  renderStoreList(panToLocationMarker);
-  addMarkers(panToLocationMarker);
+  setPlaces(sortByDistance(latLng.lat(), latLng.lng(), snapData.all), map);
 }
-
 
 function markCurrentLocation(cb) {
   if (navigator.geolocation) {
@@ -66,7 +62,7 @@ function markCurrentLocation(cb) {
       google.maps.event.addListener(posMarker, 'click', function() {
         console.log('Current Location is: lat:' + position.coords.latitude + ", lng:" + position.coords.longitude);
       });
-      cb();
+      cb(pos);
     }, function() {
       handleLocationError(true, infoWindow, map.getCenter());
     });
@@ -93,55 +89,72 @@ function sortByDistance(myLatitude, myLongitude, world) {
   }); // Gets the first ten places, according to their distance
 }
 
-function renderPlaces(places) {
-  // renders places both in the store list and on the map
-  var distances = sortByDistance(pos.lat, pos.lng, places);
-  renderStoreList(distances);
-  addMarkers(distances);
+function addMarker(place, map, listener) {
+  console.log(map);
+  var marker = new google.maps.Marker({
+    position: {
+      lat: place.Latitude,
+      lng: place.Longitude
+    },
+    clickable: true,
+    map: map,
+    animation: google.maps.Animation.DROP,
+  });
+
+  marker.setMap(map);
+  currentMarkers.push(marker);
+  google.maps.event.addListener(marker, 'click', function() {
+    listener();
+  });
+
+  return marker;
 }
 
-function renderStoreList(places) {
-  $('#slide-bar .text-container').html('');
+var makeListItem = Handlebars.compile($('#storeListView-template').text());
 
+function addListItem(place, listener) {
+  $('#slide-bar .text-container').append(makeListItem(place));
+  var item = $('#slide-bar .text-container .text-section:last');
+  item.on('click', listener);
+  return item;
+}
+
+function selectItem(item) {
+  var container = $('#slide-bar .text-container'),
+      pos = item.offset().top - container.offset().top + container.scrollTop();
+  container.scrollTop(pos);
+}
+
+function selectMarker(marker, map) {
+  map.panTo(marker.getPosition());
+}
+
+function addPlace(place, map) {
+  var marker, item;
+  function selectPlace() {
+    if (item && marker) {
+      selectMarker(marker, map);
+      selectItem(item);
+    }
+  }
+  item = addListItem(place, selectPlace);
+  marker = addMarker(place, map, selectPlace);
+  currentMarkers.push(marker);
+}
+
+function setPlaces(places, map) {
   $('#slide-bar').find('.text-container').empty();
-
-  var toHtml = Handlebars.compile($('#storeListView-template').text());
-  places.forEach(function(a) {
-    $('#slide-bar .text-container').append(toHtml(a));
+  clearCurrentMarkers();
+  places.forEach(function (p) {
+    addPlace(p, map);
   });
-};
+}
 
 function clearCurrentMarkers() {
   currentMarkers.forEach(function (m) {
     m.setMap(null);
   });
-
   currentMarkers = [];
-}
-
-function addMarkers(places) {
-  clearCurrentMarkers();
-
-  places.forEach(function(snapLocation) {
-    var marker = new google.maps.Marker({
-      position: {
-        lat: snapLocation.Latitude,
-        lng: snapLocation.Longitude
-      },
-      clickable: true,
-      map: map,
-      animation: google.maps.Animation.DROP,
-      //COMMENT: We're appending the object info to a new customInfo field. This will behelpful for comparing to DOM objects, etc.
-      customInfo: snapLocation
-    });
-    marker.setMap(map);
-    currentMarkers.push(marker);
-    google.maps.event.addListener(marker, 'click', function() {
-      console.log('Marker Name: ' + this.customInfo.Store_Name);
-      //COMMENT: repositions the map on this marker... we can remove if peeps dont like it...
-      map.setCenter(this.getPosition());
-    });
-  });
 }
 
 function makeMapOptions() {
