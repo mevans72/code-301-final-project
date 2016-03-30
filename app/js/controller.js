@@ -1,40 +1,33 @@
 (function(module) {
   var controller = {};
 
-  controller.app = function() {
-  };
+  controller.app = function() {};
 
   controller.search = function() {
-    $('#before').on('click', function(e) {
-      // e.preventDefault();
-      if ($('#slide-bar').css('right') == '0px') {
-        $('#slide-bar').css('right', '-300px');
-        $('#review-bar').css('right', '-300px');
-        $(this).find('a').attr("href", "/search/");
-      } else {
-        $('#slide-bar').css('right', '0px');
-        $(this).find('a').attr("href", "/");
-      }
-    });
+    // e.preventDefault();
+    if ($('#slide-bar').css('right') == '0px') {
+      $('#slide-bar').css('right', '-300px');
+      $('#review-bar').css('right', '-300px');
+      $(this).find('a').attr("href", "/search/");
+    } else {
+      $('#slide-bar').css('right', '0px');
+      $(this).find('a').attr("href", "/");
+    }
   };
 
   controller.review = function() {
-    $('#review-button').on('click', function(e) {
-      if ($('#review-bar').css('right') === '-300px') {
-        $('#review-bar').css('right', '0px');
-      } else {
-        $('#review-bar').css('right', '0px');
-      }
-    });
+    if ($('#review-bar').css('right') === '-300px') {
+      $('#review-bar').css('right', '0px');
+    } else {
+      $('#review-bar').css('right', '0px');
+    }
   };
   controller.reviewBack = function() {
-    $('#review-back').on('click', function(e) {
-      if ($('#review-bar').css('right') == '0px') {
-        $('#review-bar').css('right', '-300px');
-      } else {
-        $('#review-bar').css('right', '0px');
-      }
-    });
+    if ($('#review-bar').css('right') == '0px') {
+      $('#review-bar').css('right', '-300px');
+    } else {
+      $('#review-bar').css('right', '0px');
+    }
   };
 
   controller.about = function() {
