@@ -24,6 +24,7 @@ function init() {
   //COMMENT: Looking to add a event listener to the map to potentially pan to and redraw new markers
   map.addListener('click', function(e) {
     placeMarkerAndPanTo(e.latLng, map);
+    console.log(e.latLng.lng());
   });
 
   markCurrentLocation(function() {
@@ -39,10 +40,10 @@ function placeMarkerAndPanTo(latLng, map) {
   marker.setVisible(false);
   map.panTo(latLng);
   console.log('Current Location is: ' + latLng);
-  // clearCurrentMarkers();
-  // var panToLocationMarker = sortByDistance(latLng, snapData.all);
-  // renderStoreList(panToLocationMarker);
-  // addMarkers(panToLocationMarker);
+  clearCurrentMarkers();
+  var panToLocationMarker = sortByDistance(e.latLng.lat(),e.latLng.lat(), snapData.all);
+  renderStoreList(panToLocationMarker);
+  addMarkers(panToLocationMarker);
 
 }
 
