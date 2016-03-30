@@ -2,3 +2,6 @@
 node_modules
 # Ignore Mac finder crap
 .DS_Store
+# Ignore tag logs
+.tag
+.tag*
