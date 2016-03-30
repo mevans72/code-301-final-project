@@ -1,6 +1,5 @@
-(function(module){
-
-var content = [];
+(function(module) {
+  var content = [];
 
   function About(opts) {
     Object.keys(opts).forEach(function(property, keys) {
@@ -15,12 +14,11 @@ var content = [];
     return template(this);
   }
 
-aboutUsData.forEach(function(ele) {
-  projectContent.push(new Portfolio(ele));
-})
+  aboutUsData.forEach(function(ele) {
+    projectContent.push(new Portfolio(ele));
+  })
 
-content.forEach(function(a){
-  $('#aboutus').append(a.toHtml())
-});
-
+  content.forEach(function(a){
+    $('#aboutus').append(a.toHtml())
+  });
 })(window)

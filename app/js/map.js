@@ -118,7 +118,6 @@
       mouseover: function () {
         item.css('background-color', 'green');
       },
-
       mouseout: function () {
         item.css('background-color', 'white');
       }

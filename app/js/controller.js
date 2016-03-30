@@ -4,6 +4,7 @@
   controller.app = function() {
     console.log("Our app is great!");
   };
+
   controller.search = function() {
     $('#before').on('click', function(e) {
       // e.preventDefault();
@@ -16,6 +17,7 @@
       }
     });
   };
+
   controller.review = function() {
     console.log("Reviews are great!");
     $('#review-button').on('click', function(e) {
@@ -30,6 +32,7 @@
       }
     });
   };
+
   controller.about = function() {
     console.log("About is great!");
     if ($('#fancy-about').css('display') !== 'visible') {
@@ -38,6 +41,7 @@
       $('#fancy-about').hide();
     }
   };
+
   controller.help = function() {
     console.log("Help is great!");
     if ($('#fancy-help').css('display') !== 'visible') {
@@ -46,6 +50,7 @@
       $('#ancy-help').hide();
     }
   };
+
   controller.resources = function() {
     console.log("Help is great!");
     if ($('#fancy-resources').css('display') !== 'visible') {
