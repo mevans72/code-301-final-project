@@ -1,4 +1,4 @@
-(function () {
+(function() {
   var currentMarkers = [];
 
   //COMMENT: Looking to add a event listener to the map to potentially pan to and redraw new markers
@@ -53,7 +53,7 @@
     // Return the distances, sorted
     return distances.sort(function(a, b) {
       return a.distance - b.distance; // Switch the order of this subtraction to sort the other way
-    }).slice(0, 10).map(function (dist) {
+    }).slice(0, 10).map(function(dist) {
       return dist.place;
     }); // Gets the first ten places, according to their distance
   }
@@ -72,7 +72,7 @@
     marker.setMap(map);
     currentMarkers.push(marker);
 
-    Object.keys(listeners).forEach(function (type) {
+    Object.keys(listeners).forEach(function(type) {
       google.maps.event.addListener(marker, type, listeners[type]);
     });
 
@@ -85,7 +85,7 @@
     $('#slide-bar .text-container').append(makeListItem(place));
     var item = $('#slide-bar .text-container .text-section:last');
 
-    Object.keys(listeners).forEach(function (type) {
+    Object.keys(listeners).forEach(function(type) {
       item.on(type, listeners[type]);
     });
     return item;
@@ -93,7 +93,7 @@
 
   function selectItem(item) {
     var container = $('#slide-bar .text-container'),
-        pos = item.offset().top - container.offset().top + container.scrollTop();
+      pos = item.offset().top - container.offset().top + container.scrollTop();
     container.scrollTop(pos);
   }
 
@@ -110,16 +110,19 @@
     var marker, item;
 
     var listeners = {
-      click: function () {
+      click: function() {
         if (marker && item) {
           selectPlace(item, marker);
         }
       },
-      mouseover: function () {
-        item.css('background-color', 'green');
+      mouseover: function() {
+        item.css('background-color', 'rgb(45, 45, 45)');
+        item.find('h4').css('color', 'white');
       },
-      mouseout: function () {
+
+      mouseout: function() {
         item.css('background-color', 'white');
+        item.find('h4').css('color', 'rgb(45, 45, 45)');
       }
     };
 
@@ -130,13 +133,13 @@
   function setPlaces(places, map) {
     $('#slide-bar').find('.text-container').empty();
     clearCurrentMarkers();
-    places.forEach(function (p) {
+    places.forEach(function(p) {
       addPlace(p, map);
     });
   }
 
   function clearCurrentMarkers() {
-    currentMarkers.forEach(function (m) {
+    currentMarkers.forEach(function(m) {
       m.setMap(null);
     });
     currentMarkers = [];
@@ -148,8 +151,8 @@
     function handleLocationError(browserHasGeolocation, infoWindow, pos) {
       infoWindow.setPosition(pos);
       infoWindow.setContent(browserHasGeolocation ?
-                            'Error: The Geolocation service failed.' :
-                            'Error: Your browser doesn\'t support geolocation.');
+        'Error: The Geolocation service failed.' :
+        'Error: Your browser doesn\'t support geolocation.');
     }
 
     var mapElement = document.getElementById('map');

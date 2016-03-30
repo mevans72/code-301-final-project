@@ -2,7 +2,6 @@
   var controller = {};
 
   controller.app = function() {
-    console.log("Our app is great!");
   };
 
   controller.search = function() {
@@ -10,36 +9,40 @@
       // e.preventDefault();
       if ($('#slide-bar').css('right') == '0px') {
         $('#slide-bar').css('right', '-300px');
-        $(this).find('a').attr("href","/app/");
+        $('#review-bar').css('right', '-300px');
+        $(this).find('a').attr("href", "/search/");
       } else {
         $('#slide-bar').css('right', '0px');
-        $(this).find('a').attr("href","/search/");
+        $(this).find('a').attr("href", "/");
       }
     });
   };
 
   controller.review = function() {
-    console.log("Reviews are great!");
     $('#review-button').on('click', function(e) {
-      // e.preventDefault();
-      if ($('#review-bar').css('right') == '0px') {
-        $('#review-bar').css('right', '-300px');
-        $(this).find('a').attr("href","/app/");
+      if ($('#review-bar').css('right') === '-300px') {
+        $('#review-bar').css('right', '0px');
       } else {
         $('#review-bar').css('right', '0px');
-        $(this).find('a').attr("href","/review/");
-        // #review-bar > div > div.col-4 > a
+      }
+    });
+  };
+  controller.reviewBack = function() {
+    $('#review-back').on('click', function(e) {
+      if ($('#review-bar').css('right') == '0px') {
+        $('#review-bar').css('right', '-300px');
+      } else {
+        $('#review-bar').css('right', '0px');
       }
     });
   };
 
   controller.about = function() {
     console.log("About is great!");
-    if ($('#fancy-about').css('display') !== 'visible') {
-      $('#fancy-about').show();
-    } else {
-      $('#fancy-about').hide();
-    }
+    $("#fancy-about").fancybox({
+      openEffect: 'none',
+      closeEffect: 'none'
+    });
   };
 
   controller.help = function() {
