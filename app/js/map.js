@@ -56,7 +56,6 @@ function sortByDistance(myLatitude, myLongitude, world) {
       place: place
     });
   }
-
   // Return the distances, sorted
   return distances.sort(function(a, b) {
     return a.distance - b.distance; // Switch the order of this subtraction to sort the other way
@@ -67,9 +66,9 @@ function sortByDistance(myLatitude, myLongitude, world) {
 
 function renderPlaces(places) {
   // renders places both in the store list and on the map
-    var distances = sortByDistance(pos.lat, pos.lng, places);
-    renderStoreList(distances);
-    addMarkers(distances);
+  var distances = sortByDistance(pos.lat, pos.lng, places);
+  renderStoreList(distances);
+  addMarkers(distances);
 }
 
 function renderStoreList(places) {
@@ -106,9 +105,6 @@ function addMarkers(places) {
     });
     marker.setMap(map);
     currentMarkers.push(marker);
-    // markers.push(marker);
-    // console.log('Oh SNAP Latitude: ' + snapLocation.place.Latitude);
-    // console.log('Oh SNAP Longitude: ' + snapLocation.place.Longitude);
   });
 }
 
