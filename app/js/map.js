@@ -23,7 +23,6 @@ function init() {
   // COMMENT: Looking to add a event listener to the map to potentially pan to and redraw new markers
   map.addListener('click', function(e) {
     placeMarkerAndPanTo(e.latLng, map);
-    console.log(e.latLng.lng());
   });
 
   markCurrentLocation(function(pos) {
@@ -41,11 +40,7 @@ function placeMarkerAndPanTo(latLng, map) {
   });
   marker.setVisible(false);
   map.panTo(latLng);
-  console.log('Current Location is: ' + latLng);
-  clearCurrentMarkers();
-  var panToLocationMarker = sortByDistance(latLng.lat(), latLng.lng(), snapData.all);
-  setStoreList(panToLocationMarker);
-  setMarkers(panToLocationMarker);
+  setPlaces(sortByDistance(latLng.lat(), latLng.lng(), snapData.all), map);
 }
 
 function markCurrentLocation(cb) {
@@ -95,6 +90,7 @@ function sortByDistance(myLatitude, myLongitude, world) {
 }
 
 function addMarker(place, map, listener) {
+  console.log(map);
   var marker = new google.maps.Marker({
     position: {
       lat: place.Latitude,
@@ -135,21 +131,20 @@ function selectMarker(marker, map) {
 
 function addPlace(place, map) {
   var marker, item;
-  item = addListItem(place, function () {
-    if (marker) {
+  function selectPlace() {
+    if (item && marker) {
       selectMarker(marker, map);
-    }
-  });
-
-  marker = addMarker(place, map, function () {
-    if (item) {
       selectItem(item);
     }
-  });
+  }
+  item = addListItem(place, selectPlace);
+  marker = addMarker(place, map, selectPlace);
+  currentMarkers.push(marker);
 }
 
 function setPlaces(places, map) {
   $('#slide-bar').find('.text-container').empty();
+  clearCurrentMarkers();
   places.forEach(function (p) {
     addPlace(p, map);
   });
@@ -159,7 +154,6 @@ function clearCurrentMarkers() {
   currentMarkers.forEach(function (m) {
     m.setMap(null);
   });
-
   currentMarkers = [];
 }
 
