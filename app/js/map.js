@@ -149,29 +149,11 @@ function addPlace(place, map) {
 }
 
 function setPlaces(places, map) {
+  $('#slide-bar').find('.text-container').empty();
   places.forEach(function (p) {
     addPlace(p, map);
   });
 }
-
-/* 
-function setPlaces(places) {
-  // renders places both in the store list and on the map
-  var distances = sortByDistance(pos.lat, pos.lng, places);
-  setStoreList(distances);
-  setMarkers(distances);
-}
-
-function setStoreList(places) {
-  $('#slide-bar .text-container').html('');
-
-  $('#slide-bar').find('.text-container').empty();
-
-  var toHtml = Handlebars.compile($('#storeListView-template').text());
-  places.forEach(function(a) {
-    $('#slide-bar .text-container').append(toHtml(a));
-  });
-};
 
 function clearCurrentMarkers() {
   currentMarkers.forEach(function (m) {
@@ -180,32 +162,6 @@ function clearCurrentMarkers() {
 
   currentMarkers = [];
 }
-
-function setMarkers(places) {
-  clearCurrentMarkers();
-
-  places.forEach(function(snapLocation) {
-    var marker = new google.maps.Marker({
-      position: {
-        lat: snapLocation.Latitude,
-        lng: snapLocation.Longitude
-      },
-      clickable: true,
-      map: map,
-      animation: google.maps.Animation.DROP,
-      //COMMENT: We're appending the object info to a new customInfo field. This will behelpful for comparing to DOM objects, etc.
-      customInfo: snapLocation
-    });
-    marker.setMap(map);
-    currentMarkers.push(marker);
-    google.maps.event.addListener(marker, 'click', function() {
-      console.log('Marker Name: ' + this.customInfo.Store_Name);
-      //COMMENT: repositions the map on this marker... we can remove if peeps dont like it...
-      map.setCenter(this.getPosition());
-    });
-  });
-}
-*/
 
 function makeMapOptions() {
   return {
