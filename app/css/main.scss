@@ -1,6 +1,7 @@
 $black: rgb(45, 45, 45);
 $light_black: rgb(150, 150, 150);
 $hr: rgb(230, 230, 230);
+$blue: #4ac1d5;
 *,
 *:after,
 *:before {
@@ -19,13 +20,15 @@ h5 {
   color:$light_black;
   margin-bottom:0;
 }
-
+html,body{
+  overflow-x:hidden;
+}
 body {
-  overflow: hidden;
+  clear:both;
+  // overflow: hidden;
   margin: 0;
   padding: 0;
   width: 100%;
-
   #map {
     position: absolute;
     top: 0;
@@ -68,8 +71,8 @@ body {
     position: absolute;
     width: 300px;
     top: 58px;
-    right: 0;
-    height: 100%;
+    right: 0px;
+    height: auto;
     background-color: white;
     z-index: 5;
     .title-section{
@@ -96,7 +99,9 @@ body {
       }
     }
     .review-section{
+      overflow-y: scroll;
       .grid{
+        border-bottom: 0.5px solid $hr;
         padding:15px;
         .name{
           h4{
@@ -111,7 +116,13 @@ body {
         }
         .review {
           word-break: break-all;
+          p{
+            margin-bottom: 0;
+          }
         }
+      }
+      a{
+        margin-top: 30px;
       }
     }
 
@@ -126,7 +137,7 @@ body {
     width: 300px;
     top: 0;
     right: 0;
-    height: 100%;
+
     background-color: white;
     -webkit-box-shadow: -1px -1px 10px 0 rgba(45,45,45,0.58);
     -moz-box-shadow: -1px -1px 10px 0 rgba(45,45,45,0.58);
@@ -147,6 +158,14 @@ body {
       -webkit-box-shadow: -1px -1px 10px 0 rgba(45,45,45,0.58);
       -moz-box-shadow: -1px -1px 10px 0 rgba(45,45,45,0.58);
       box-shadow: -1px -1px 10px 0 rgba(45,45,45,0.58);
+      a{
+        text-decoration: none;
+        color:white;
+        transition: color 0.5s ease, border-color 0.5s ease;
+        &:hover{
+          color:$blue;
+        }
+      }
     }
     .search-bar {
       height: auto;
@@ -224,13 +243,11 @@ body {
             margin-bottom: 0.5em;
           }
         }
-        .review-button{
+        #review-button{
           width:50%;
           display: inline;
           margin-bottom: 0;
-          // &:hover{
-          //
-          // }
+          text-decoration: none;
         }
         &:hover{
           background-color:$black;
