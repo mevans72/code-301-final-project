@@ -1,5 +1,5 @@
-(function() {
-  var currentMarkers = [];
+(function(module) {
+  var currentMap, currentMarkers = [];
 
   function placeMarkerAndPanTo(latLng, map) {
     var marker = new google.maps.Marker({
@@ -19,35 +19,35 @@
           lat: position.coords.latitude,
           lng: position.coords.longitude
         };
-        map.setCenter(pos);
+        currentMap.setCenter(pos);
         var posMarker = new google.maps.Marker({
           position: pos,
           icon: "vendor/img/mylocation.svg",
           animation: google.maps.Animation.DROP,
           customInfo: pos
         });
-        posMarker.setMap(map);
+        posMarker.setMap(currentMap);
+        //COMMENT: Adding an event listener. This is a temp example, but we can leverage this for cooler things...
         google.maps.event.addListener(posMarker, 'click', function() {
         });
         cb(pos);
       }, function() {
-        handleLocationError(true, infoWindow, map.getCenter());
+        handleLocationError(true, infoWindow, currentMap.getCenter());
       });
     } else {
-      handleLocationError(false, infoWindow, map.getCenter());
+      handleLocationError(false, infoWindow, currentMap.getCenter());
     }
   };
 
   function sortByDistance(myLatitude, myLongitude, world) {
-    var distances = [];
-    for (var i = 0; i < world.length; i++) {
-      var place = world[i];
+    var distances = world.map(function (place) {
       var distance = Math.sqrt(Math.pow(myLatitude - place.Latitude, 2) + Math.pow(myLongitude - place.Longitude, 2)); // Uses Euclidean distance
-      distances.push({
+      return {
         distance: distance,
         place: place
-      });
-    }
+      };
+    });
+
     // Return the distances, sorted
     return distances.sort(function(a, b) {
       return a.distance - b.distance; // Switch the order of this subtraction to sort the other way
@@ -85,7 +85,6 @@
 
     $('#slide-bar .text-container').append(makeListItem(place));
     var item = $('#slide-bar .text-container .text-section:last');
-
     Object.keys(listeners).forEach(function(type) {
       item.on(type, listeners[type]);
     });
@@ -94,7 +93,7 @@
 
   function selectItem(item) {
     var container = $('#slide-bar .text-container'),
-      pos = item.offset().top - container.offset().top + container.scrollTop();
+        pos = item.offset().top - container.offset().top + container.scrollTop();
     container.scrollTop(pos);
   }
 
@@ -103,7 +102,7 @@
   }
 
   function selectPlace(item, marker) {
-    selectMarker(marker, map);
+    selectMarker(marker, currentMap);
     selectItem(item);
   }
 
@@ -131,11 +130,11 @@
     marker = addMarker(place, map, listeners);
   }
 
-  function setPlaces(places, map) {
+  function setPlaces(places) {
     $('#slide-bar').find('.text-container').empty();
     clearCurrentMarkers();
     places.forEach(function(p) {
-      addPlace(p, map);
+      addPlace(p, currentMap);
     });
   }
 
@@ -157,18 +156,20 @@
     }
 
     var mapElement = document.getElementById('map');
-    map = new google.maps.Map(mapElement, mapOptions);
+    currentMap = new google.maps.Map(mapElement, mapOptions);
     // COMMENT: Looking to add a event listener to the map to potentially pan to and redraw new markers
-    map.addListener('click', function(e) {
-      placeMarkerAndPanTo(e.latLng, map);
+    currentMap.addListener('click', function(e) {
+      placeMarkerAndPanTo(e.latLng, currentMap);
     });
 
     markCurrentLocation(function(pos) {
-      setPlaces(sortByDistance(pos.lat, pos.lng, snapData.all), map);
+      setPlaces(sortByDistance(pos.lat, pos.lng, snapData.all));
     });
 
     initSearches();
   }
+
+  module.setPlaces = setPlaces;
 
   $(document).ready(function() {
     localData(init);
@@ -318,4 +319,4 @@
       }],
     };
   }
-})();
+})(window);
