@@ -29,7 +29,25 @@ body {
   margin: 0;
   padding: 0;
   width: 100%;
+  #purposeus, #help, #resources {
+    display: none;
+    position: absolute;
+    z-index: 10;
+    width: 500px;
+    height: auto;
+    border-radius: 10px;
+    border: 0.5px solid $black;
+    padding: 30px;
+    background-color: white;
+    -webkit-box-shadow: -1px -1px 10px 0 rgba(45,45,45,0.58);
+    -moz-box-shadow: -1px -1px 10px 0 rgba(45,45,45,0.58);
+    box-shadow: -1px -1px 10px 0 rgba(45,45,45,0.58);
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
   #map {
+    // display: none;
     position: absolute;
     top: 0;
     bottom: 0;

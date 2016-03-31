@@ -5,6 +5,7 @@
 
   controller.base = function (context, next) {
     $('#write-review').css('display', 'none');
+
     next();
   };
 
@@ -36,12 +37,14 @@
     }
   };
 
-  controller.about = function() {
+  controller.purpose = function() {
     console.log("About is great!");
-    $("#fancy-about").fancybox({
-      openEffect  : 'none',
-      closeEffect : 'none'
-    });
+
+    $('aboutus').fadeIn();
+
+    // $('#signin-dropdown').click(function(e) {
+    // e.stopPropagation();
+  // });
   };
 
   controller.help = function() {
