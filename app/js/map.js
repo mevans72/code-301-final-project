@@ -100,7 +100,7 @@
   }
 
   function selectPlace(item, marker) {
-    selectMarker(marker, map);
+    selectMarker(marker, currentMap);
     selectItem(item);
   }
 
@@ -131,8 +131,7 @@
   function setPlaces(places) {
     $('#slide-bar').find('.text-container').empty();
     clearCurrentMarkers();
-    places.forEach(function(p, i) {
-      p.id = i;
+    places.forEach(function(p) {
       addPlace(p, currentMap);
     });
   }
