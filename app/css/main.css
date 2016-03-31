@@ -38,8 +38,7 @@ body {
     padding: 20px;
     text-align: right; }
     body #write-review input {
-      margin-left: 0;
-      z-index: 7; }
+      margin-left: 0; }
     body #write-review a {
       text-decoration: none;
       font-size: 1.5em;
@@ -49,6 +48,7 @@ body {
       min-height: 175px;
       resize: none; }
   body #review-bar {
+    display: none;
     position: absolute;
     width: 300px;
     top: 58px;

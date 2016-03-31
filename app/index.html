@@ -38,8 +38,23 @@
         <h4>{{Store_Name}}</h4>
         <h5>{{Address}}</h5>
       </div>
-        <a href="/review/{{id}}" class="button" id="review-button">Review</a>
+      <a href="/review/{{id}}" class="button" id="review-button">Reviews</a>
     </div>
+  </script>
+
+  <script id="review-template" type="text/x-handlebars-template">
+    <div class="grid">
+      <div class="col-6 name">
+        <h4>{{name}}</h4>
+      </div>
+      <div class="col-6 rating">
+        {{stars}}
+      </div>
+      <div class="col-12 review">
+        {{body}}
+      </div>
+    </div>
+    <hr>
   </script>
 </head>
 
@@ -47,7 +62,7 @@
   <header></header>
   <!-- Primary Page
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <div id='map'></div>
+  <div id="map"></div>
   <div id="slide-bar">
     <div id="before" >
       <a href="/search">X</a>
@@ -109,26 +124,10 @@
         </div>
       </div>
     </div>
-    <div class="review-section">
-      <div class="grid">
-        <div class="col-6 name">
-          <h4>User Name</h4>
-        </div>
-        <div class="col-6 rating">
-          <span class="icon-star-full"></span>
-          <span class="icon-star-full"></span>
-          <span class="icon-star-full"></span>
-        </div>
-        <div class="col-12 review">
-          <p>
-            feedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedback
-          </p>
-        </div>
-      </div>
-      <hr>
-    </div>
 
-    <a id="write-review-button" class="button" href="new-review">Write a review</a>
+    <div id="reviews" class="review-section"></div>
+
+    <a id="write-review-button" class="button" href="new">Write a review</a>
   </div>
 
   <a href="#about" id="fancy-about">TEST TEST TEST</a>
