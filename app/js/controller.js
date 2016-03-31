@@ -82,7 +82,6 @@
   };
 
   controller.resources = function(context) {
-    console.log("Help is great!");
     if ($('#fancy-resources').css('display') !== 'visible') {
       $('#ancy-resources').show();
     } else {
