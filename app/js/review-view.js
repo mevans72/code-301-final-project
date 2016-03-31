@@ -15,6 +15,7 @@
 
   function fillReviewsForId(id) {
     var reviewSection = $('#reviews');
+    reviewSection.html('');
     reviews.get(id).forEach(function(r) {
       reviewSection.append(fillReview(r));
     });
