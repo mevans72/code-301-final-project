@@ -1,22 +1,24 @@
 (function (module) {
-  var template;
+  function stars(rating) {
+    var stars = '<span>';
+    for(var i = 0; i < rating; i++) {
+      stars += '<span class="icon-star-full"></span>';
+    }
+    stars += '</span>';
+    return stars;
+  }
 
   function fillReview(review) {
-    review.stars = $('<span>');
-    for(var i = 0; i < review.rating; i++) {
-      review.stars.append($('<span class="icon-star-full"></span>'));
-    }
-    return template(review);
+    review.stars = stars(review.rating);
+    return Handlebars.compile($('#review-template').text())(review);
   }
 
   function fillReviewsForId(id) {
-    var reviewSection = $('#review-section');
-    module.reviews.get(id).forEach(function(r) {
+    var reviewSection = $('#reviews');
+    reviews.get(id).forEach(function(r) {
       reviewSection.append(fillReview(r));
     });
   }
 
-  $(document).ready(function () {
-    template = Handlebars.compile($('#review-template'));
-  });
+  module.fillReviews = fillReviewsForId;
 })(window);

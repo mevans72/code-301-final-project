@@ -34,13 +34,13 @@
     } else {
       reviewBar.css('right', '0px');
     }
-    reviewBar.data('id', context.params.id);
-
     var data = snapData.all[context.params.id];
     $('#review-bar h4').text(data.Store_Name);
     $('#review-bar h5').text(data.Address);
 
     $('#write-review-button').attr('href', '/new-review/' + context.params.id);
+
+    fillReviews(context.params.id);
     context.save();
   };
 
@@ -83,7 +83,6 @@
       closeEffect : 'none'
     });
   };
-
 
   controller.resources = function(context) {
     console.log("Help is great!");
