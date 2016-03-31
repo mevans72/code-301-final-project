@@ -56,7 +56,6 @@
 
   controller.about = function(context) {
     $('#slide-bar').css('display', 'block');
-    console.log("About is great!");
     $("#fancy-about").fancybox({
       openEffect  : 'none',
       closeEffect : 'none'
@@ -65,7 +64,6 @@
   };
 
   controller.help = function(context) {
-    console.log("Help is great!");
     $("#fancy-help").fancybox({
       openEffect  : 'none',
       closeEffect : 'none'
@@ -77,7 +75,6 @@
   };
 
   controller.resources = function() {
-    console.log("Resources are great!");
     $("#fancy-resources").fancybox({
       openEffect  : 'none',
       closeEffect : 'none'
@@ -85,7 +82,6 @@
   };
 
   controller.resources = function(context) {
-    console.log("Help is great!");
     if ($('#fancy-resources').css('display') !== 'visible') {
       $('#ancy-resources').show();
     } else {
@@ -97,6 +93,7 @@
   controller.newReview = function (context) {
     $('#review-bar').css('display', 'block');
     $('#close-write-review').attr('href', '/review/' + context.params.id);
+    $('#write-review input[type="hidden"]').remove();
     $('#write-review')
       .css('display', 'block')
       .append($('<input type="hidden" name="id" value="' + context.params.id + '">'));
