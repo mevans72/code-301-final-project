@@ -173,12 +173,16 @@
 
   $(document).ready(function() {
     localData(init);
-    var getReviewHeight = $(window).height()-136;
+    var getReviewHeight = $(window).height()-186;
     $('#review-bar .review-section').css('height',getReviewHeight+'px');
 
     //set .text-container height;
     var getStoreHeight = $(window).height()-121;
     $('#slide-bar .text-container').css('height',getStoreHeight+'px');
+
+    var getWriteHeight = $(window).height()-137;
+    $('#write-review').css('height',getWriteHeight+'px');
+
   });
 
   function makeMapOptions() {
