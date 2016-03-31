@@ -4,7 +4,6 @@
   var reviews = [];
 
   function getReviews(id) {
-    // TODO: replace with call to firebase
     return reviews;
   }
 
@@ -13,7 +12,7 @@
 
     ref.on('value', function (snapshot) {
       var val = snapshot.val(),
-          values = [];
+        values = [];
       for (k in val) {
         values.push(val[k]);
       }
@@ -22,6 +21,7 @@
 
     return function (id, review) {
       ref.child(id).push(review);
+      console.log('firebase');
     };
   }
 

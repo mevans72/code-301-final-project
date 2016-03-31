@@ -21,5 +21,20 @@
     });
   }
 
+  function getInput() {
+    return {
+      name: $('#write-review input[type="text"]').val(),
+      rating: parseInt($('#write-review select').val()),
+      body: $('#write-review textarea').val()
+    };
+  }
+
+  function initReviews() {
+    $('#write-review button').on('click', function(){
+      reviews.push($('#write-review input[name="id"]').val(), getInput());
+    });
+  }
+
+  module.initReviews = initReviews;
   module.fillReviews = fillReviewsForId;
 })(window);

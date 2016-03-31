@@ -97,6 +97,7 @@
   controller.newReview = function (context) {
     $('#review-bar').css('display', 'block');
     $('#close-write-review').attr('href', '/review/' + context.params.id);
+    $('#write-review input[type="hidden"]').remove();
     $('#write-review')
       .css('display', 'block')
       .append($('<input type="hidden" name="id" value="' + context.params.id + '">'));

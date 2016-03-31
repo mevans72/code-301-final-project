@@ -93,7 +93,7 @@
 
   function selectItem(item) {
     var container = $('#slide-bar .text-container'),
-        pos = item.offset().top - container.offset().top + container.scrollTop();
+      pos = item.offset().top - container.offset().top + container.scrollTop();
     container.scrollTop(pos);
   }
 
@@ -172,6 +172,10 @@
   module.setPlaces = setPlaces;
 
   $(document).ready(function() {
+    initReviews();
+    // $('#write-review button').on('click', function(){
+    //   console.log('whats up');
+    // });
     localData(init);
     var getReviewHeight = $(window).height()-136;
     $('#review-bar .review-section').css('height',getReviewHeight+'px');
