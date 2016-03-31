@@ -40,13 +40,14 @@
         <h4>{{Store_Name}}</h4>
         <h5>{{Address}}</h5>
       </div>
-        <a href="/review" id="review-button"><button class="review-button" type="button">Review</button></a>
+      <a href="/review/{{id}}" class="button" id="review-button">Reviews</a>
     </div>
+
 </script>
 
 <script id="tab-template" type="text/x-handlebars-template">
-   <div class="tab-section">
-     <div class="tab-container">
+   <article class="tab-section">
+     <header class="tab-container">
        <img src="{{{img}}}" alt="profile" />
        <h1>{{title}}</h1>
        <div class="template-body">{{{body}}}</div>
@@ -54,13 +55,28 @@
      </header>
    </article>
  </script>
+
+  <script id="review-template" type="text/x-handlebars-template">
+    <div class="grid">
+      <div class="col-6 name">
+        <h4>{{name}}</h4>
+      </div>
+      <div class="col-6 rating">
+        {{stars}}
+      </div>
+      <div class="col-12 review">
+        {{body}}
+      </div>
+    </div>
+    <hr>
+  </script>
 </head>
 
 <body>
   <header></header>
   <!-- Primary Page
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <div id='map'></div>
+  <div id="map"></div>
   <div id="slide-bar">
     <div id="before" >
       <a href="/search">X</a>
@@ -82,9 +98,7 @@
   </div>
 
   <div id="write-review">
-    <div>
-      <a id="close-write-review" href="/review">X</a>
-    </div>
+    <a id="close-write-review" href="/review">X</a>
 
     <div class="grade">
       <div class="col-4">
@@ -117,33 +131,16 @@
         </div>
         <div class="col-4">
           <div class="back-button">
-            <a href="/review-back"><button class="icon-forward" type="button" id="review-back"></button></a>
+            <a href="/review-back">
+              <button class="icon-forward" type="button" id="review-back"></button>
+            </a>
           </div>
         </div>
       </div>
     </div>
-    <div class="review-section">
-      <div class="grid">
-        <div class="col-6 name">
-          <h4>User Name</h4>
-        </div>
-        <div class="col-6 rating">
-          <span class="icon-star-full"></span>
-          <span class="icon-star-full"></span>
-          <span class="icon-star-full"></span>
-        </div>
-        <div class="col-12 review">
-          <p>
-            feedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedback
-          </p>
-        </div>
-      </div>
+    <div id="reviews" class="review-section"></div>
 
-      <a id="write-review-button" class="button" href="new-review">Write a review</a>
-    </div>
-
-
-
+    <a id="write-review-button" class="button" href="new">Write a review</a>
   </div>
 
   <a href="#purpose" id="fancy-purpose"></a>
@@ -244,12 +241,13 @@
   <script src="vendor/js/jquery.fancybox.js"></script>
   <script src="vendor/js/jquery.bxslider.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/page.js/1.7.1/page.min.js"></script>
+  <!-- TODO: add back after fixing
+  <script src="assets/data/about-objects.js"></script>
   <script src="js/template.js"></script>
+-->
   <script src="js/checkLocalStorage.js"></script>
-  <script src="js/bar.js"></script>
   <script src="js/search.js"></script>
   <script src="js/map.js"></script>
-  <script src="js/review.js"></script>
   <script src="js/controller.js"></script>
   <script src="js/routes.js"></script>
 </body>

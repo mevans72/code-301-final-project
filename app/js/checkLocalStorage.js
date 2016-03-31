@@ -15,6 +15,9 @@
         snapEtag = xhr.getResponseHeader('etag');
         if(localStorage.snapData && localStorage.snapEtag === snapEtag) {
           snapData.all = JSON.parse(localStorage.snapData);
+          snapData.all.forEach(function (place, i) {
+            place.id = i;
+          });
           callback();
         }
         if (!localStorage.snapData || localStorage.snapEtag !== snapEtag) {
