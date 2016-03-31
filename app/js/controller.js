@@ -6,7 +6,7 @@
   controller.base = function (context, next) {
     $('#write-review').css('display', 'none');
     next();
-  }
+  };
 
   controller.search = function() {
     // e.preventDefault();
@@ -27,6 +27,7 @@
       $('#review-bar').css('right', '0px');
     }
   };
+
   controller.reviewBack = function() {
     if ($('#review-bar').css('right') == '0px') {
       $('#review-bar').css('right', '-300px');
@@ -38,32 +39,34 @@
   controller.about = function() {
     console.log("About is great!");
     $("#fancy-about").fancybox({
-      openEffect: 'none',
-      closeEffect: 'none'
+      openEffect  : 'none',
+      closeEffect : 'none'
     });
   };
 
   controller.help = function() {
     console.log("Help is great!");
-    if ($('#fancy-help').css('display') !== 'visible') {
-      $('#ancy-help').show();
-    } else {
-      $('#ancy-help').hide();
-    }
+    $("#fancy-help").fancybox({
+      openEffect  : 'none',
+      closeEffect : 'none'
+    });
+    $('.bxslider').bxSlider({
+      mode: 'fade',
+      captions: false
+    });
   };
 
   controller.resources = function() {
     console.log("Help is great!");
-    if ($('#fancy-resources').css('display') !== 'visible') {
-      $('#ancy-resources').show();
-    } else {
-      $('#ancy-resources').hide();
-    }
+    $("#fancy-resources").fancybox({
+      openEffect  : 'none',
+      closeEffect : 'none'
+    });
   };
 
   controller.newReview = function () {
     $('#write-review').css('display', 'block');
-  }
+  };
 
   module.controller = controller;
 })(window);
