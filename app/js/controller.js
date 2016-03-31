@@ -54,42 +54,6 @@
     context.save();
   };
 
-  controller.about = function(context) {
-    $('#slide-bar').css('display', 'block');
-    $("#fancy-about").fancybox({
-      openEffect  : 'none',
-      closeEffect : 'none'
-    });
-    context.save();
-  };
-
-  controller.help = function(context) {
-    $("#fancy-help").fancybox({
-      openEffect  : 'none',
-      closeEffect : 'none'
-    });
-    $('.bxslider').bxSlider({
-      mode: 'fade',
-      captions: false
-    });
-  };
-
-  controller.resources = function() {
-    $("#fancy-resources").fancybox({
-      openEffect  : 'none',
-      closeEffect : 'none'
-    });
-  };
-
-  controller.resources = function(context) {
-    if ($('#fancy-resources').css('display') !== 'visible') {
-      $('#ancy-resources').show();
-    } else {
-      $('#ancy-resources').hide();
-    }
-    context.save();
-  };
-
   controller.newReview = function (context) {
     $('#review-bar').css('display', 'block');
     $('#close-write-review').attr('href', '/review/' + context.params.id);

@@ -1,7 +1,9 @@
 (function(module) {
+
   var content = [];
 
   function About(opts) {
+
     Object.keys(opts).forEach(function(property, keys) {
       this[property] = opts[property];
     }, this);
@@ -11,16 +13,18 @@
     var source = $('#tab-template').html();
     var template = Handlebars.compile(source);
 
+    console.log(template(this));
+
     return template(this);
   };
 
   var projectContent = [], Portfolio;
 
   aboutUsData.forEach(function(ele) {
-    projectContent.push(new Portfolio(ele));
+    content.push(new About(ele));
   });
 
   content.forEach(function(a){
-    $('#aboutus').append(a.toHtml());
+    $('#template').append(a.toHtml());
   });
 })(window);
