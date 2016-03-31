@@ -1,16 +1,15 @@
 $(document).ready(function() {
   $('.resources-button').click(function(e) {
-    console.log('close');
+    $('#resources').fadeIn();
+  });
+  $('#resources').click(function(e){
     e.stopPropagation();
-    $('#resources').fadeOut();
   });
   $(document).click(function() {
     $('#resources').fadeOut();
   });
-  $('.resources-button').click(function(e) {
-    e.preventDefault();
-    $('#resources').fadeIn();
-  });
+});
+
 
 
   $('.purpose-button').click(function(e) {
@@ -39,5 +38,9 @@ $(document).ready(function() {
   $('.help-button').click(function(e) {
     e.preventDefault();
     $('#help').fadeIn();
+
+    $('.bxslider').bxSlider({
+      mode: 'fade',
+      captions: false
+    });
   });
-});
