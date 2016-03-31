@@ -21,7 +21,6 @@
 
     return function (id, review) {
       ref.child(id).push(review);
-      console.log('firebase');
     };
   }
 

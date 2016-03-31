@@ -56,7 +56,6 @@
 
   controller.about = function(context) {
     $('#slide-bar').css('display', 'block');
-    console.log("About is great!");
     $("#fancy-about").fancybox({
       openEffect  : 'none',
       closeEffect : 'none'
@@ -65,7 +64,6 @@
   };
 
   controller.help = function(context) {
-    console.log("Help is great!");
     $("#fancy-help").fancybox({
       openEffect  : 'none',
       closeEffect : 'none'
@@ -77,7 +75,6 @@
   };
 
   controller.resources = function() {
-    console.log("Resources are great!");
     $("#fancy-resources").fancybox({
       openEffect  : 'none',
       closeEffect : 'none'
