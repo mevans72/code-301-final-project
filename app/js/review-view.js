@@ -16,13 +16,17 @@
   function fillReviewsForId(id) {
     var reviewSection = $('#reviews');
     reviewSection.html('');
-    reviews.get(id).forEach(function(r) {
-      reviewSection.append(fillReview(r));
+    var results = reviews.get(id);
+    results.filter(function(review) {
+      return review.id == id;
+    }).forEach(function(review) {
+      reviewSection.append(fillReview(review));
     });
   }
 
-  function getInput() {
+  function getInput(id) {
     return {
+      id: id,
       name: $('#write-review input[type="text"]').val(),
       rating: parseInt($('#write-review select').val()),
       body: $('#write-review textarea').val()
@@ -31,7 +35,7 @@
 
   function initReviews() {
     $('#write-review button').on('click', function(){
-      reviews.push($('#write-review input[name="id"]').val(), getInput());
+      reviews.push(getInput($('#write-review input[name="id"]').val()));
     });
   }
 

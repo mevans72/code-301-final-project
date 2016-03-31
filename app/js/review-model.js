@@ -19,12 +19,12 @@
       cb(values);
     });
 
-    return function (id, review) {
-      ref.child(id).push(review);
+    return function (review) {
+      ref.push(review);
     };
   }
 
-  var pushReview =  newRef(function (newReviews) {
+  var pushReview = newRef(function (newReviews) {
     reviews = newReviews;
   });
 
