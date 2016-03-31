@@ -46,13 +46,13 @@
 <script id="tab-template" type="text/x-handlebars-template">
    <div class="tab-section">
      <div class="tab-container">
-       <img src="{{{img}}}" alt="profile" />
-       <h1>{{title}}</h1>
-       <div class="template-body">{{{body}}}</div>
+       <h1 id="about-h">{{name}}</h1>
+       <div id="about-body" class="template-body">{{{body}}}</div>
        <div class="byline"></div>
      </header>
    </article>
  </script>
+
 </head>
 
 <body>
@@ -146,14 +146,14 @@
   <section id="purposeus" class="tab-content">
     <div id="purpose" class="template" data-category="bio">
       <h1></h1>
-      <h2>Our Mission/Goal/Purpose</h2>
+      <h2>Our Mission</h2>
        <p>SNAP, or the Supplemental Nutrition Assistance Program, provides millions of low­income individuals with economic assistance across the country. Affording to keep food on the table all month isn't always easy. A lot of us just don't make enough money, whether it's that we can't get the hours we need, the areas we live are becoming unaffordable, or we just don't quite have that dream job yet doesn't matter. What matters is that we have access to these opportunities and resources that can help guide us to good decisions.</p>
        <p>While there are resources out there to help people with SNAP, they are often clunky and scattered. We aim to provide a functional, user­friendly, and modern service so that users can find retailers, compare pricing, and learn about nutrition and shopping strategies.</p>
-       <div class="byline"></div>
 
        <div id="about-template" class="tab-content">
-          <div class="template">
+          <div id="template">
             <header>
+              <h3 id="team">Team Members</h3>
               <div class="byline"></div>
             </header>
             <section class="template-body"></section>
@@ -233,17 +233,16 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.js"></script>
   <script src="vendor/js/jquery.bxslider.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/page.js/1.7.1/page.min.js"></script>
-  <script src="js/template.js"></script>
   <script src="js/checkLocalStorage.js"></script>
+  <script src="assets/data/about-objects.js"></script>
+  <script src="js/template.js"></script>
   <script src="js/bar.js"></script>
   <script src="js/search.js"></script>
   <script src="js/map.js"></script>
   <script src="js/popup.js"></script>
 
   <script src="js/review.js"></script>
-  <script src="js/routes.js"></script>
   <script src="js/controller.js"></script>
-
   <script src="js/routes.js"></script>
 </body>
 
