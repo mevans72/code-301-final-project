@@ -38,7 +38,7 @@
         <h4>{{Store_Name}}</h4>
         <h5>{{Address}}</h5>
       </div>
-        <a href="/review" id="review-button"><button class="review-button" type="button">Review</button></a>
+        <a href="/review" class="button" id="review-button">Review</a>
     </div>
 </script>
 </head>
@@ -69,9 +69,7 @@
   </div>
 
   <div id="write-review">
-    <div>
-      <a id="close-write-review" href="/review">X</a>
-    </div>
+    <a id="close-write-review" href="/review">X</a>
 
     <div class="grade">
       <div class="col-4">
@@ -104,7 +102,9 @@
         </div>
         <div class="col-4">
           <div class="back-button">
-            <a href="/review-back"><button class="icon-forward" type="button" id="review-back"></button></a>
+            <a href="/review-back">
+              <button class="icon-forward" type="button" id="review-back"></button>
+            </a>
           </div>
         </div>
       </div>
@@ -127,7 +127,6 @@
       </div>
       <hr>
     </div>
-
 
     <a id="write-review-button" class="button" href="new-review">Write a review</a>
   </div>

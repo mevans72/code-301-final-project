@@ -9,7 +9,6 @@
   }
 
   controller.search = function(context) {
-    // e.preventDefault();
     if ($('#slide-bar').css('right') == '0px') {
       $('#slide-bar').css('right', '-300px');
       $('#review-bar').css('right', '-300px');

@@ -18,7 +18,7 @@
         var matches = snapData.all.filter(function (store) {
           return store.Store_Name.match(searchBar.val());
         });
-        renderPlaces(matches);
+        setPlaces(matches);
       }
     });
   };
