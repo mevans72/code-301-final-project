@@ -36,6 +36,10 @@
   function initReviews() {
     $('#write-review button').on('click', function(){
       reviews.push(getInput($('#write-review input[name="id"]').val()));
+      $('#write-review input[type="text"]').val('');
+      $('#write-review select').val('1');
+      $('#write-review textarea').val('');
+      $('#review-back').click();
     });
   }
 
