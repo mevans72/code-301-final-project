@@ -22,6 +22,7 @@
       $('#slide-bar').css('right', '0px');
       $(this).find('a').attr("href", "/");
     }
+
     context.save();
   };
 
@@ -34,7 +35,11 @@
       reviewBar.css('right', '0px');
     }
     reviewBar.data('id', context.params.id);
-    // addReviews(context.params.id);
+
+    var data = snapData.all[context.params.id];
+    $('#review-bar h4').text(data.Store_Name);
+    $('#review-bar h5').text(data.Address);
+
     $('#write-review-button').attr('href', '/new-review/' + context.params.id);
     context.save();
   };
