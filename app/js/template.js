@@ -8,13 +8,13 @@
   }
 
   About.prototype.toHtml = function() {
-    var source = $('#tab-template').html()
+    var source = $('#about-template').html()
     var template = Handlebars.compile(source);
 
     return template(this);
   }
 
-  aboutUsData.forEach(function(ele) {
+  About.aboutUsData.forEach(function(ele) {
     projectContent.push(new Portfolio(ele));
   })
 
