@@ -15,4 +15,4 @@
       name: 'Justin Lange',
       body: '<p>Justin likes programming and playing music. Slappin\' da bass. </p>'
     }
-  ]
+  ];

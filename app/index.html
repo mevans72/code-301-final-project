@@ -30,7 +30,7 @@
 
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="icon" type="image/png" href="">
+  <link rel="icon" type="image/png" href="snaptoit.png">
   <!-- Handlebar Templates
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <script id="storeListView-template" type="text/x-handlebars-template">
@@ -39,27 +39,40 @@
         <h4>{{Store_Name}}</h4>
         <h5>{{Address}}</h5>
       </div>
-        <a href="/review" id="review-button"><button class="review-button" type="button">Review</button></a>
+      <a href="/review/{{id}}" class="button" id="review-button">Reviews</a>
     </div>
+
 </script>
 
 <script id="tab-template" type="text/x-handlebars-template">
-   <div class="tab-section">
-     <div class="tab-container">
-       <h1 id="about-h">{{name}}</h1>
-       <div id="about-body" class="template-body">{{{body}}}</div>
-       <div class="byline"></div>
+   <article class="tab-section">
+     <header class="tab-container">
+       <h4 class="about-h">{{name}}</h4>
+       <div class="template-body">{{{body}}}</div>
      </header>
    </article>
  </script>
 
+  <script id="review-template" type="text/x-handlebars-template">
+    <div class="grid">
+      <div class="col-6 name">
+        <h4>{{name}}</h4>
+      </div>
+      <div class="col-6 rating">
+        {{{stars}}}
+      </div>
+      <div class="col-12 review">
+        {{body}}
+      </div>
+    </div>
+  </script>
 </head>
 
 <body>
   <header></header>
   <!-- Primary Page
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <div id='map'></div>
+  <div id="map"></div>
   <div id="slide-bar">
     <div id="before" >
       <a href="/search">X</a>
@@ -69,7 +82,7 @@
       <span class="icon-search2"></span>
     </div>
     <div class="filter-bar">
-      <button class="more-filter" type="button" name="button">Get My Location</button>
+      <button class="more-filter" type="button" id="get-my-location-button">Get My Location</button>
     </div>
     <div class="text-container">
       <div class="spinner">
@@ -81,9 +94,7 @@
   </div>
 
   <div id="write-review">
-    <div>
-      <a id="close-write-review" href="/review">X</a>
-    </div>
+    <a id="close-write-review" href="/review">X</a>
 
     <div class="grade">
       <div class="col-4">
@@ -116,31 +127,16 @@
         </div>
         <div class="col-4">
           <div class="back-button">
-            <a href="/review-back"><button class="icon-forward" type="button" id="review-back"></button></a>
+            <a href="/review-back">
+              <button class="icon-forward" type="button" id="review-back"></button>
+            </a>
           </div>
         </div>
       </div>
     </div>
-    <div class="review-section">
-      <div class="grid">
-        <div class="col-6 name">
-          <h4>User Name</h4>
-        </div>
-        <div class="col-6 rating">
-          <span class="icon-star-full"></span>
-          <span class="icon-star-full"></span>
-          <span class="icon-star-full"></span>
-        </div>
-        <div class="col-12 review">
-          <p>
-            feedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedback
-          </p>
-        </div>
-      </div>
+    <div id="reviews" class="review-section">
 
-      <a id="write-review-button" class="button" href="new-review">Write a review</a>
     </div>
-
   </div>
 
   <section id="purposeus" class="tab-content">
@@ -149,15 +145,15 @@
       <h2>Our Mission</h2>
        <p>SNAP, or the Supplemental Nutrition Assistance Program, provides millions of low­income individuals with economic assistance across the country. Affording to keep food on the table all month isn't always easy. A lot of us just don't make enough money, whether it's that we can't get the hours we need, the areas we live are becoming unaffordable, or we just don't quite have that dream job yet doesn't matter. What matters is that we have access to these opportunities and resources that can help guide us to good decisions.</p>
        <p>While there are resources out there to help people with SNAP, they are often clunky and scattered. We aim to provide a functional, user­friendly, and modern service so that users can find retailers, compare pricing, and learn about nutrition and shopping strategies.</p>
-
        <div id="about-template" class="tab-content">
           <div id="template">
             <header>
-              <h3 id="team">Team Members</h3>
+              <h3 class="team">Team Members</h3>
               <div class="byline"></div>
             </header>
             <section class="template-body"></section>
-          </article>
+          </div>
+        </div>
      </div>
    </section>
 
@@ -174,8 +170,8 @@
              <li><a href="https://snaped.fns.usda.gov/nutrition-through-the-seasons">Food through the Seasons</a></li>
              <li><a href="http://www.seattlejobsinitiative.com/innovations/">Research</a></li>
            </ul>
-         </section>
-       </div>
+         </div>
+      </section>
 
   <section>
     <div id="help" style="display:none;width:450px;">
@@ -186,10 +182,6 @@
       </ul>
     </div>
   </section>
-
-
-
-
     <!-- Begining of test floater -->
     <nav class="menu">
       <input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open"/>
@@ -227,21 +219,24 @@
   </footer>
   <!-- End Document
     –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <!-- External or Third-Party Scripts -->
   <script src="https://code.jquery.com/jquery-2.2.2.min.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=visualization"></script>
   <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.js"></script>
   <script src="vendor/js/jquery.bxslider.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/page.js/1.7.1/page.min.js"></script>
+  <script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
+  <!-- Local Scripts -->
   <script src="js/checkLocalStorage.js"></script>
   <script src="assets/data/about-objects.js"></script>
   <script src="js/template.js"></script>
-  <script src="js/bar.js"></script>
   <script src="js/search.js"></script>
   <script src="js/map.js"></script>
   <script src="js/popup.js"></script>
-
   <script src="js/review.js"></script>
+  <script src="js/review-model.js"></script>
+  <script src="js/review-view.js"></script>
   <script src="js/controller.js"></script>
   <script src="js/routes.js"></script>
 </body>
