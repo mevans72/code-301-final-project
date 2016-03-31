@@ -43,6 +43,17 @@
         <a href="/review" id="review-button"><button class="review-button" type="button">Review</button></a>
     </div>
 </script>
+
+<script id="tab-template" type="text/x-handlebars-template">
+   <div class="tab-section">
+     <div class="tab-container">
+       <img src="{{{img}}}" alt="profile" />
+       <h1>{{title}}</h1>
+       <div class="template-body">{{{body}}}</div>
+       <div class="byline"></div>
+     </header>
+   </article>
+ </script>
 </head>
 
 <body>
@@ -135,9 +146,9 @@
 
   </div>
 
-  <a href="#about" id="fancy-about"></a>
-    <section id="aboutus" class="tab-content">
-      <div id="about" class="template" data-category="bio" style="display:none;width:450px;">
+  <a href="#purpose" id="fancy-purpose"></a>
+    <section id="purpose" class="tab-content">
+      <div id="purpose" style="display:none;width:450px;">
         <h1></h1>
         <h2>Our Mission/Goal/Purpose</h2>
          <p>SNAP, or the Supplemental Nutrition Assistance Program, provides millions of low­income individuals with economic assistance across the country. Affording to keep food on the table all month isn't always easy. A lot of us just don't make enough money, whether it's that we can't get the hours we need, the areas we live are becoming unaffordable, or we just don't quite have that dream job yet doesn't matter. What matters is that we have access to these opportunities and resources that can help guide us to good decisions.</p>
@@ -145,6 +156,21 @@
          <div class="byline"></div>
        </div>
      </section>
+
+  <a href="#about" id="fancy-about">TEST TEST TEST</a>
+    <section id="aboutus" class="tab-content">
+      <div id="about" class="template" style="display:none;width:450px;">
+
+        <div id="school" class="tab-content">
+          <div class="template" data-category="cat">
+            <header>
+              <div class="byline"></div>
+            </header>
+            <section class="template-body"></section>
+          </article>
+      </section>
+
+      </div>
 
   <a href="#resources" id="fancy-resources"></a>
     <section>
@@ -182,7 +208,7 @@
         <span class="hamburger hamburger-2"></span>
         <span class="hamburger hamburger-3"></span>
       </label>
-      <a href="/about" class="menu-item"> <i class="fa fa-users"></i> </a>
+      <a href="/purpose" class="menu-item"> <i class="fa fa-users"></i> </a>
       <a href="/resources" class="menu-item"> <i class="fa fa-link"></i> </a>
       <a href="/help" class="menu-item"> <i class="fa fa-question-circle"></i> </a>
     </nav>
@@ -218,11 +244,10 @@
   <script src="vendor/js/jquery.fancybox.js"></script>
   <script src="vendor/js/jquery.bxslider.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/page.js/1.7.1/page.min.js"></script>
-  <!-- <script src="js/template.js"></script> -->
+  <script src="js/template.js"></script>
   <script src="js/checkLocalStorage.js"></script>
   <script src="js/bar.js"></script>
   <script src="js/search.js"></script>
-  <script src="js/fancy.js"></script>
   <script src="js/map.js"></script>
   <script src="js/review.js"></script>
   <script src="js/controller.js"></script>
