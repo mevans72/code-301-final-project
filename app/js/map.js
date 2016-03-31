@@ -51,7 +51,7 @@
     // Return the distances, sorted
     return distances.sort(function(a, b) {
       return a.distance - b.distance; // Switch the order of this subtraction to sort the other way
-    }).slice(0, 10).map(function(dist) {
+    }).slice(0, 30).map(function(dist) {
       return dist.place;
     }); // Gets the first ten places, according to their distance
   }
