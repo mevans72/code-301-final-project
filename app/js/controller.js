@@ -5,6 +5,7 @@
 
   controller.base = function (context, next) {
     $('#write-review').css('display', 'none');
+
     next();
   };
 
@@ -36,20 +37,11 @@
     }
   };
 
-  controller.about = function() {
-    console.log("About is great!");
-    $("#fancy-about").fancybox({
-      openEffect  : 'none',
-      closeEffect : 'none'
-    });
+  controller.purpose = function() {
+
   };
 
   controller.help = function() {
-    console.log("Help is great!");
-    $("#fancy-help").fancybox({
-      openEffect  : 'none',
-      closeEffect : 'none'
-    });
     $('.bxslider').bxSlider({
       mode: 'fade',
       captions: false
@@ -57,11 +49,6 @@
   };
 
   controller.resources = function() {
-    console.log("Help is great!");
-    $("#fancy-resources").fancybox({
-      openEffect  : 'none',
-      closeEffect : 'none'
-    });
   };
 
   controller.newReview = function () {

@@ -4,7 +4,8 @@
   function placeMarkerAndPanTo(latLng, map) {
     var marker = new google.maps.Marker({
       position: latLng,
-      map: map
+      map: map,
+      icon: "vendor/img/store.svg"
     });
     marker.setVisible(false);
     map.panTo(latLng);
@@ -21,7 +22,8 @@
         map.setCenter(pos);
         var posMarker = new google.maps.Marker({
           position: pos,
-          animation: google.maps.Animation.BOUNCE,
+          icon: "vendor/img/mylocation.svg",
+          animation: google.maps.Animation.DROP,
           customInfo: pos
         });
         posMarker.setMap(map);
@@ -62,6 +64,7 @@
       },
       clickable: true,
       map: map,
+      icon: "vendor/img/store.svg",
       animation: google.maps.Animation.DROP,
     });
 

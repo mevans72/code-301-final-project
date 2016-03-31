@@ -20,23 +20,29 @@ h1 {
 }
 
 .menu-item, .menu-open-button {
-  background: #2d2d2d;
-  border-radius: 100%;
-  width: 80px;
-  height: 80px;
-  margin-left: -40px;
-  position: absolute;
-  top: 60%;
-  left: 0%;
-  color: #49bed2;
-  text-align: center;
-  line-height: 80px;
-  -webkit-transform: translate3d(0, 0, 0);
-          transform: translate3d(0, 0, 0);
-  -webkit-transition: -webkit-transform ease-out 200ms;
-  transition: -webkit-transform ease-out 200ms;
-  transition: transform ease-out 200ms;
-  transition: transform ease-out 200ms, -webkit-transform ease-out 200ms;
+    /*background: #2d2d2d;*/
+    background-color: white;
+    border-radius: 100%;
+    width: 50px;
+    height: 50px;
+    margin-left: -40px;
+    position: absolute;
+    top: 65%;
+    left: 0%;
+    color: #49bed2;
+    text-align: center;
+    line-height: 50px;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    -webkit-transition: -webkit-transform ease-out 200ms;
+    transition: -webkit-transform ease-out 200ms;
+    transition: transform ease-out 200ms;
+    transition: transform ease-out 200ms, -webkit-transform ease-out 200ms;
+
+    -webkit-box-shadow: -1px -1px 10px 0 rgba(45,45,45,0.58);
+    -moz-box-shadow: -1px -1px 10px 0 rgba(45,45,45,0.58);
+    box-shadow: -1px -1px 10px 0 rgba(45,45,45,0.58);
+
 }
 
 .menu-open {
@@ -88,21 +94,18 @@ h1 {
 }
 
 .menu {
-  position: absolute;
-  left: 50%;
-  margin-left: -190px;
-  padding-top: 20px;
-  padding-left: 190px;
-  width: 380px;
-  height: 250px;
-  box-sizing: border-box;
-  font-size: 20px;
-  text-align: left;
+    position: absolute;
+    left: 8%;
+    bottom: 20%;
+    width: 20px;
+    height: 20px;
+    box-sizing: border-box;
+    font-size: 20px;
+    text-align: left;
 }
 
 .menu-item:hover {
-  background: white;
-  color: #2d2d2d;
+  color: rgb(45, 45, 45);
 }
 .menu-item:nth-child(3) {
   -webkit-transition-duration: 180ms;
@@ -203,4 +206,7 @@ h1 {
           transition-duration: 780ms;
   -webkit-transform: translate3d(-0.25084px, -104.9997px, 0);
           transform: translate3d(-0.25084px, -104.9997px, 0);
+}
+input[type=checkbox].menu-open{
+   display:none;
 }
