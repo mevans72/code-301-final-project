@@ -78,6 +78,8 @@
   var makeListItem = Handlebars.compile($('#storeListView-template').text());
 
   function addListItem(place, listeners) {
+
+
     $('#slide-bar .text-container').append(makeListItem(place));
     var item = $('#slide-bar .text-container .text-section:last');
 
@@ -167,6 +169,12 @@
 
   $(document).ready(function() {
     localData(init);
+    var getReviewHeight = $(window).height()-136;
+    $('#review-bar .review-section').css('height',getReviewHeight+'px');
+
+    //set .text-container height;
+    var getStoreHeight = $(window).height()-121;
+    $('#slide-bar .text-container').css('height',getStoreHeight+'px');
   });
 
   function makeMapOptions() {
