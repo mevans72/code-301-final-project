@@ -57,7 +57,7 @@
   };
 
   controller.resources = function() {
-    console.log("Help is great!");
+    console.log("Resources are great!");
     $("#fancy-resources").fancybox({
       openEffect  : 'none',
       closeEffect : 'none'
