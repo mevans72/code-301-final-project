@@ -62,13 +62,12 @@
         <h4>{{name}}</h4>
       </div>
       <div class="col-6 rating">
-        {{stars}}
+        {{{stars}}}
       </div>
       <div class="col-12 review">
         {{body}}
       </div>
     </div>
-    <hr>
   </script>
 </head>
 
@@ -86,7 +85,7 @@
       <span class="icon-search2"></span>
     </div>
     <div class="filter-bar">
-      <button class="more-filter" type="button" name="button">Get My Location</button>
+      <button class="more-filter" type="button" id="get-my-location-button">Get My Location</button>
     </div>
     <div class="text-container">
       <div class="spinner">
@@ -137,18 +136,18 @@
           </div>
         </div>
       </div>
+    <a id="write-review-button" class="button" href="new">Write a review</a>
     </div>
     <div id="reviews" class="review-section"></div>
 
-    <a id="write-review-button" class="button" href="new">Write a review</a>
   </div>
 
-  <a href="#purpose" id="fancy-purpose">PURPOSE</a>
+  <a href="#purpose" id="fancy-purpose"></a>
     <section id="purpose" class="tab-content">
       <div id="purpose" style="display:none;width:450px;">
         <h1></h1>
         <h2>Our Mission/Goal/Purpose</h2>
-         <p>SNAP, or the Supplemental Nutrition Assistance Program, provides millions of low­income individuals with economic assistance across the country. Affording to keep food on the table all month isn't always easy. A lot of us just don't make enough money, whether it's that we can't get the hours we need, the areas we live are becoming unaffordable, or we just don't quite have that dream job yet doesn't matter. What matters is that we have access to these opportunities and resources that can help guide us to good decisions.</p>
+         <p>SNAP, or the Supplemental Nutrition Assistance Program, provides millions of low­income individuals with economic assistance across the country. Affording to keep food on the table all month isn't always easy. A lot of us just don't make enough money, whether it's that we can't  the hours we need, the areas we live are becoming unaffordable, or we just don't quite have that dream job yet doesn't matter. What matters is that we have access to these opportunities and resources that can help guide us to good decisions.</p>
          <p>While there are resources out there to help people with SNAP, they are often clunky and scattered. We aim to provide a functional, user­friendly, and modern service so that users can find retailers, compare pricing, and learn about nutrition and shopping strategies.</p>
          <div class="byline"></div>
        </div>
@@ -205,7 +204,7 @@
         <span class="hamburger hamburger-2"></span>
         <span class="hamburger hamburger-3"></span>
       </label>
-      <a href="/purpose" class="menu-item"> <i class="fa fa-users"></i> </a>
+      <a href="/about" class="menu-item"> <i class="fa fa-users"></i> </a>
       <a href="/resources" class="menu-item"> <i class="fa fa-link"></i> </a>
       <a href="/help" class="menu-item"> <i class="fa fa-question-circle"></i> </a>
     </nav>
@@ -241,10 +240,14 @@
   <script src="vendor/js/jquery.fancybox.js"></script>
   <script src="vendor/js/jquery.bxslider.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/page.js/1.7.1/page.min.js"></script>
+  <script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
   <!-- TODO: add back after fixing
   <script src="assets/data/about-objects.js"></script>
   <script src="js/template.js"></script>
 -->
+  <script src="js/review-model.js"></script>
+  <script src="js/review-view.js"></script>
+
   <script src="js/checkLocalStorage.js"></script>
   <script src="js/search.js"></script>
   <script src="js/map.js"></script>

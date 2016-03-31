@@ -1,5 +1,6 @@
 (function(module) {
   var currentMap, currentMarkers = [];
+  var currentLocationMarker;
 
   function placeMarkerAndPanTo(latLng, map) {
     var marker = new google.maps.Marker({
@@ -26,10 +27,12 @@
           animation: google.maps.Animation.DROP,
           customInfo: pos
         });
+        currentMap.panTo(posMarker.getPosition());
+        if(currentLocationMarker){
+          currentLocationMarker.setMap(null);
+        }
+        currentLocationMarker = posMarker;
         posMarker.setMap(currentMap);
-        //COMMENT: Adding an event listener. This is a temp example, but we can leverage this for cooler things...
-        google.maps.event.addListener(posMarker, 'click', function() {
-        });
         cb(pos);
       }, function() {
         handleLocationError(true, infoWindow, currentMap.getCenter());
@@ -51,7 +54,7 @@
     // Return the distances, sorted
     return distances.sort(function(a, b) {
       return a.distance - b.distance; // Switch the order of this subtraction to sort the other way
-    }).slice(0, 10).map(function(dist) {
+    }).slice(0, 30).map(function(dist) {
       return dist.place;
     }); // Gets the first ten places, according to their distance
   }
@@ -81,8 +84,6 @@
   var makeListItem = Handlebars.compile($('#storeListView-template').text());
 
   function addListItem(place, listeners) {
-
-
     $('#slide-bar .text-container').append(makeListItem(place));
     var item = $('#slide-bar .text-container .text-section:last');
     Object.keys(listeners).forEach(function(type) {
@@ -93,7 +94,7 @@
 
   function selectItem(item) {
     var container = $('#slide-bar .text-container'),
-        pos = item.offset().top - container.offset().top + container.scrollTop();
+      pos = item.offset().top - container.offset().top + container.scrollTop();
     container.scrollTop(pos);
   }
 
@@ -146,6 +147,9 @@
   }
 
   function init() {
+    $('#get-my-location-button').on('click', function(){
+      markCurrentLocation(function(){});
+    });
     var mapOptions = makeMapOptions();
 
     function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -172,6 +176,7 @@
   module.setPlaces = setPlaces;
 
   $(document).ready(function() {
+    initReviews();
     localData(init);
     var getReviewHeight = $(window).height()-136;
     $('#review-bar .review-section').css('height',getReviewHeight+'px');
