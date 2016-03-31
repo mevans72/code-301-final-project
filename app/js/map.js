@@ -1,7 +1,6 @@
 (function() {
   var currentMarkers = [];
 
-  //COMMENT: Looking to add a event listener to the map to potentially pan to and redraw new markers
   function placeMarkerAndPanTo(latLng, map) {
     var marker = new google.maps.Marker({
       position: latLng,
@@ -23,13 +22,10 @@
         var posMarker = new google.maps.Marker({
           position: pos,
           animation: google.maps.Animation.BOUNCE,
-          //COMMENT: We're appending the object info to a new customInfo field. This will behelpful for comparing to DOM objects, etc.
           customInfo: pos
         });
         posMarker.setMap(map);
-        //COMMENT: Adding an event listener. This is a temp example, but we can leverage this for cooler things...
         google.maps.event.addListener(posMarker, 'click', function() {
-          console.log('Current Location is: lat:' + position.coords.latitude + ", lng:" + position.coords.longitude);
         });
         cb(pos);
       }, function() {
