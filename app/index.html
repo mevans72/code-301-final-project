@@ -17,7 +17,6 @@
   <!-- CSS
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="stylesheet" href="vendor/css/normalize.css">
-  <link rel="stylesheet" href="vendor/css/jquery.fancybox.css" type="text/css" media="screen"/>
   <link rel="stylesheet" href="vendor/css/jquery.bxslider.css">
   <link rel="stylesheet" href="vendor/css/skeleton.css">
   <link rel="stylesheet" href="css/main.css">
@@ -43,6 +42,17 @@
         <a href="/review" id="review-button"><button class="review-button" type="button">Review</button></a>
     </div>
 </script>
+
+<script id="tab-template" type="text/x-handlebars-template">
+   <div class="tab-section">
+     <div class="tab-container">
+       <img src="{{{img}}}" alt="profile" />
+       <h1>{{title}}</h1>
+       <div class="template-body">{{{body}}}</div>
+       <div class="byline"></div>
+     </header>
+   </article>
+ </script>
 </head>
 
 <body>
@@ -127,63 +137,71 @@
           </p>
         </div>
       </div>
-      
+
       <a id="write-review-button" class="button" href="new-review">Write a review</a>
     </div>
 
-
-
   </div>
 
-  <a href="#about" id="fancy-about"></a>
-    <section id="aboutus" class="tab-content">
-      <div id="about" class="template" data-category="bio" style="display:none;width:450px;">
-        <h1></h1>
-        <h2>Our Mission/Goal/Purpose</h2>
-         <p>SNAP, or the Supplemental Nutrition Assistance Program, provides millions of low­income individuals with economic assistance across the country. Affording to keep food on the table all month isn't always easy. A lot of us just don't make enough money, whether it's that we can't get the hours we need, the areas we live are becoming unaffordable, or we just don't quite have that dream job yet doesn't matter. What matters is that we have access to these opportunities and resources that can help guide us to good decisions.</p>
-         <p>While there are resources out there to help people with SNAP, they are often clunky and scattered. We aim to provide a functional, user­friendly, and modern service so that users can find retailers, compare pricing, and learn about nutrition and shopping strategies.</p>
-         <div class="byline"></div>
+  <section id="purposeus" class="tab-content">
+    <div id="purpose" class="template" data-category="bio">
+      <h1></h1>
+      <h2>Our Mission/Goal/Purpose</h2>
+       <p>SNAP, or the Supplemental Nutrition Assistance Program, provides millions of low­income individuals with economic assistance across the country. Affording to keep food on the table all month isn't always easy. A lot of us just don't make enough money, whether it's that we can't get the hours we need, the areas we live are becoming unaffordable, or we just don't quite have that dream job yet doesn't matter. What matters is that we have access to these opportunities and resources that can help guide us to good decisions.</p>
+       <p>While there are resources out there to help people with SNAP, they are often clunky and scattered. We aim to provide a functional, user­friendly, and modern service so that users can find retailers, compare pricing, and learn about nutrition and shopping strategies.</p>
+       <div class="byline"></div>
+
+       <div id="about-template" class="tab-content">
+          <div class="template">
+            <header>
+              <div class="byline"></div>
+            </header>
+            <section class="template-body"></section>
+          </article>
+     </div>
+   </section>
+
+       <section>
+         <div id="resources" style="display:none;width:450px;">
+           <h1>Online Resources</h1>
+           <ul>
+             <li><a href="http://www.fns.usda.gov/snap/fact-sheet-resources-income-and-benefits">Are you eligible?</a></li>
+             <li><a href="http://www.extension.iastate.edu/foodsavings/">Eat Smart, Save Money</a></li>
+             <li><a href="http://www.choosemyplate.gov/budget">Eating on a Budget</a></li>
+             <li><a href="http://spock.fcs.uga.edu/ext/pubs/fdns/efnep/FDNS-NE-207a.pdf">Top Notch Menus</a></li>
+             <li><a href="http://www.whatscooking.fns.usda.gov/search/solr-results/im_field_term_program/supplemental-nutrition-assistance-program-snap-162">Nutritional Facts</a></li>
+             <li><a href="http://www.choosemyplate.gov/">Low Cost Recipes</a></li>
+             <li><a href="https://snaped.fns.usda.gov/nutrition-through-the-seasons">Food through the Seasons</a></li>
+             <li><a href="http://www.seattlejobsinitiative.com/innovations/">Research</a></li>
+           </ul>
+         </section>
        </div>
-     </section>
 
-  <a href="#resources" id="fancy-resources"></a>
-    <section>
-      <div id="resources" style="display:none;width:450px;">
-        <h1>Online Resources</h1>
-        <ul>
-          <li><a href="http://www.fns.usda.gov/snap/fact-sheet-resources-income-and-benefits">Are you eligible?</a></li>
-          <li><a href="http://www.extension.iastate.edu/foodsavings/">Eat Smart, Save Money</a></li>
-          <li><a href="http://www.choosemyplate.gov/budget">Eating on a Budget</a></li>
-          <li><a href="http://spock.fcs.uga.edu/ext/pubs/fdns/efnep/FDNS-NE-207a.pdf">Top Notch Menus</a></li>
-          <li><a href="http://www.whatscooking.fns.usda.gov/search/solr-results/im_field_term_program/supplemental-nutrition-assistance-program-snap-162">Nutritional Facts</a></li>
-          <li><a href="http://www.choosemyplate.gov/">Low Cost Recipes</a></li>
-          <li><a href="https://snaped.fns.usda.gov/nutrition-through-the-seasons">Food through the Seasons</a></li>
-          <li><a href="http://www.seattlejobsinitiative.com/innovations/">Research</a></li>
-        </ul>
-      </section>
+  <section>
+    <div id="help" style="display:none;width:450px;">
+      <ul class="bxslider">
+        <li><img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=350&h=150" title="Funky roots" /></li>
+        <li><img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=350&h=150" title="The long and winding road"/></li>
+        <li><img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=350&h=150" title="Happy trees" /></li>
+      </ul>
     </div>
+  </section>
 
-  <a href="#help" id="fancy-help"></a>
-    <section>
-      <div id="help" style="display:none;width:450px;">
-        <ul class="bxslider">
-          <li><img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=350&h=150" title="Funky roots" /></li>
-          <li><img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=350&h=150" title="The long and winding road"/></li>
-          <li><img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=350&h=150" title="Happy trees" /></li>
-        </ul>
-      </div>
-    </section>
+
+
+
     <!-- Begining of test floater -->
     <nav class="menu">
       <input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open"/>
+
       <label class="menu-open-button" for="menu-open">
         <span class="hamburger hamburger-1"></span>
         <span class="hamburger hamburger-2"></span>
         <span class="hamburger hamburger-3"></span>
       </label>
-      <a href="#" class="menu-item"> <i class="fa fa-bar-chart"></i> </a>
-      <a href="#" class="menu-item"> <i class="fa fa-heart"></i> </a>
-      <a href="#" class="menu-item"> <i class="fa fa-cog"></i> </a>
+      <a href="/purpose" class="menu-item purpose-button"> <i class="fa fa-users"></i> </a>
+      <a href="/resources" class="menu-item resources-button"> <i class="fa fa-link"></i> </a>
+      <a href="/help" class="menu-item help-button"> <i class="fa fa-question-circle"></i> </a>
     </nav>
     <!-- filters -->
     <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
@@ -210,21 +228,22 @@
   <!-- End Document
     –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <script src="https://code.jquery.com/jquery-2.2.2.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=visualization"></script>
   <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.js"></script>
-  <script src="vendor/js/jquery.fancybox.js"></script>
   <script src="vendor/js/jquery.bxslider.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/page.js/1.7.1/page.min.js"></script>
-  <!-- <script src="js/template.js"></script> -->
+  <script src="js/template.js"></script>
   <script src="js/checkLocalStorage.js"></script>
   <script src="js/bar.js"></script>
   <script src="js/search.js"></script>
-  <script src="js/fancy.js"></script>
   <script src="js/map.js"></script>
+  <script src="js/popup.js"></script>
+
   <script src="js/review.js"></script>
+  <script src="js/routes.js"></script>
   <script src="js/controller.js"></script>
+
   <script src="js/routes.js"></script>
 </body>
 
