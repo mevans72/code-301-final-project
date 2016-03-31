@@ -40,9 +40,9 @@ body {
     display:none;
     position: absolute;
     width: 300px;
-    top: 150px;
+    top: 147px;
     right: 0;
-    height: 400px;
+
     background-color: white;
     z-index: 6;
     padding: 20px;
@@ -120,9 +120,6 @@ body {
             margin-bottom: 0;
           }
         }
-      }
-      a{
-        margin-top: 30px;
       }
     }
 
@@ -248,6 +245,8 @@ body {
           display: inline;
           margin-bottom: 0;
           text-decoration: none;
+          padding:10px;
+
         }
         &:hover{
           background-color:$black;
