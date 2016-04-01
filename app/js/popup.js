@@ -2,6 +2,8 @@ $(document).ready(function() {
 
   $('.resources-button').click(function(e) {
     $('#resources').fadeIn();
+    $('#purposeus').fadeOut();
+    $('#help').fadeOut();
   });
 
   $('#resources').click(function(e) {
@@ -10,52 +12,21 @@ $(document).ready(function() {
 
   $('.purpose-button').click(function(e) {
     $('#purposeus').fadeIn();
+    $('#resources').fadeOut();
+    $('#help').fadeOut();
   });
 
-  $('#purpose').click(function(e) {
+  $('#purposeus').click(function(e) {
     $('#purposeus').fadeOut();
   });
 
   $('.help-button').click(function(e) {
     $('#help').fadeIn();
+    $('#resources').fadeOut();
+    $('#purposeus').fadeOut();
   });
 
   $('#help').click(function(e) {
     $('#help').fadeOut();
   });
-
-
-
-  // $('.purpose-button').click(function(e) {
-  //   console.log('close');
-  //   e.stopPropagation();
-  //   $('#purposeus').fadeOut();
-  // });
-  // $(document).click(function() {
-  //   $('#purposeus').fadeOut();
-  // });
-  // $('.purpose-button').click(function(e) {
-  //   e.preventDefault();
-  //   $('#purposeus').fadeIn();
-  // });
-  //
-  //
-  //
-  // $('.help-button').click(function(e) {
-  //   console.log('close');
-  //   e.stopPropagation();
-  //   $('#help').fadeOut();
-  // });
-  // $(document).click(function() {
-  //   $('#help').fadeOut();
-  // });
-  // $('.help-button').click(function(e) {
-  //   e.preventDefault();
-  //   $('#help').fadeIn();
-  //
-  //   $('.bxslider').bxSlider({
-  //     mode: 'fade',
-  //     captions: false
-  //   });
-  // });
 });
