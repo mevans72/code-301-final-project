@@ -2,35 +2,25 @@
 <html lang="en">
 
 <head>
-  <!-- Basic Page Needs
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
   <title>SnapToIt</title>
   <meta name="description" content="">
   <meta name="author" content="">
+  <link rel="icon" type="image/png" href="assets/img/snaptoit.png">
   <!-- Mobile Specific Metas
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- FONT
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <!-- <link href="http://fonts.googleapis.com/css?family=Raleway:400,500,300,600" rel="stylesheet" type="text/css"> -->
-  <!-- CSS
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <!-- External CSS Files -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="vendor/css/normalize.css">
-  <link rel="stylesheet" href="vendor/css/jquery.bxslider.css">
   <link rel="stylesheet" href="vendor/css/skeleton.css">
+  <link rel="stylesheet" href="vendor/css/gooey-menu.css">
+  <link rel="stylesheet" href="css/loading.css">
+  <!-- Local CSS Files -->
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/search.css">
   <link rel="stylesheet" href="css/grid.css">
-  <link rel="stylesheet" href="css/loading.css">
-
-  <link rel="stylesheet" href="vendor/css/gooey-menu.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-
-  <!-- Favicon
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="icon" type="image/png" href="snaptoit.png">
   <!-- Handlebar Templates
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <script id="storeListView-template" type="text/x-handlebars-template">
@@ -41,7 +31,6 @@
       </div>
       <a href="/review/{{id}}" class="button" id="review-button">Reviews</a>
     </div>
-
   </script>
 
   <script id="tab-template" type="text/x-handlebars-template">
@@ -69,9 +58,6 @@
 </head>
 
 <body>
-  <header></header>
-  <!-- Primary Page
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <div id="map"></div>
   <div id="slide-bar">
     <div id="before">
@@ -95,12 +81,10 @@
 
   <div id="write-review">
     <a id="close-write-review" href="/review">X</a>
-
     <div class="grade">
       <div class="col-4">
         <input type="text" placeholder="Name">
       </div>
-
       <div class="col-8">
         <select>
           <option>1</option>
@@ -111,7 +95,6 @@
         </select>
       </div>
     </div>
-
     <textarea placeholder="Body"></textarea>
     <button>submit</button>
   </div>
@@ -135,7 +118,6 @@
       </div>
     </div>
     <div id="reviews" class="review-section">
-
     </div>
     <a id="write-review-button" class="button" href="new">Write a review</a>
 
@@ -187,10 +169,9 @@
       </ul>
     </div>
   </section>
-  <!-- Begining of test floater -->
+
   <nav class="menu">
     <input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open" />
-
     <label class="menu-open-button" for="menu-open">
       <span class="hamburger hamburger-1"></span>
       <span class="hamburger hamburger-2"></span>
@@ -200,7 +181,6 @@
     <a href="/resources" class="menu-item resources-button"> <i class="fa fa-link"></i> </a>
     <a href="/help" class="menu-item help-button"> <i class="fa fa-question-circle"></i> </a>
   </nav>
-  <!-- filters -->
   <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
     <defs>
       <filter id="shadowed-goo">
@@ -219,11 +199,6 @@
       </filter>
     </defs>
   </svg>
-  <!-- End of test floater -->
-  <footer>
-  </footer>
-  <!-- End Document
-    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <!-- External or Third-Party Scripts -->
   <script src="https://code.jquery.com/jquery-2.2.2.min.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=visualization"></script>
