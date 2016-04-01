@@ -9,6 +9,8 @@
     $('#write-review').css('display', 'none');
     $('#review-bar').css('display', 'none');
     $('.text-container').css('display', 'none');
+    $('.text-container').css('display', 'block');
+
     next();
   };
 
