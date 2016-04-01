@@ -299,10 +299,14 @@ body {
   text-align: center;
 }
 body{
-  
-    #purposeus{
-      height: 80%;
-      overflow-y: scroll;
-    }
 
+   #purposeus{
+     height: 80%;
+     overflow-y: scroll;
+   }
+   #help{
+     img{
+       width:100%;
+   }
+}
 }
