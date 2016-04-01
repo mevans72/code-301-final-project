@@ -12,9 +12,6 @@
   About.prototype.toHtml = function() {
     var source = $('#tab-template').html();
     var template = Handlebars.compile(source);
-
-    console.log(template(this));
-
     return template(this);
   };
 
