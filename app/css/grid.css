@@ -3,32 +3,25 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-
 [class^='col-'] {
   float: left;
   padding: 0;
-  /*background-color: yellow;*/
 }
 .col-1 {
   width: 8.33%;
 }
-
 .col-2{
   width:16.67%;
 }
-
 .col-3{
   width:25%;
 }
-
 .col-4{
   width:33.33%;
 }
-
 .col-5{
   width:41.67%;
 }
-
 .col-6{
   width:50%;
 }
@@ -52,17 +45,10 @@
 }
 
 [class^='col-'] {
-  /*padding-right: 1.5rem;*/
-  /*padding-bottom: 1.5rem;*/
-  /*background-color: red;*/
 }
 
 [class^='col-']:last-of-type {
-  /*padding-right: 0;*/
 }
-/*.col-12 :last-of-type{
-  padding-right: 1.5;
-}*/
 .grid:after {
   content: "";
   display: block;

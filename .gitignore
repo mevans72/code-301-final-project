@@ -5,3 +5,5 @@ node_modules
 # Ignore tag logs
 .tag
 .tag*
+# Ignore log files
+*.log

@@ -2,36 +2,25 @@
 <html lang="en">
 
 <head>
-  <!-- Basic Page Needs
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
   <title>SnapToIt</title>
   <meta name="description" content="">
   <meta name="author" content="">
+  <link rel="icon" type="image/png" href="assets/img/snaptoit.png">
   <!-- Mobile Specific Metas
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- FONT
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <!-- <link href="http://fonts.googleapis.com/css?family=Raleway:400,500,300,600" rel="stylesheet" type="text/css"> -->
-  <!-- CSS
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <!-- External CSS Files -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="vendor/css/normalize.css">
-  <link rel="stylesheet" href="vendor/css/jquery.fancybox.css" type="text/css" media="screen"/>
-  <link rel="stylesheet" href="vendor/css/jquery.bxslider.css">
   <link rel="stylesheet" href="vendor/css/skeleton.css">
+  <link rel="stylesheet" href="vendor/css/gooey-menu.css">
+  <link rel="stylesheet" href="css/loading.css">
+  <!-- Local CSS Files -->
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/search.css">
   <link rel="stylesheet" href="css/grid.css">
-  <link rel="stylesheet" href="css/loading.css">
-
-  <link rel="stylesheet" href="vendor/css/gooey-menu.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-
-  <!-- Favicon
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="icon" type="image/png" href="">
   <!-- Handlebar Templates
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <script id="storeListView-template" type="text/x-handlebars-template">
@@ -40,18 +29,38 @@
         <h4>{{Store_Name}}</h4>
         <h5>{{Address}}</h5>
       </div>
-        <a href="/review" id="review-button"><button class="review-button" type="button">Review</button></a>
+      <a href="/review/{{id}}" class="button" id="review-button">Reviews</a>
     </div>
-</script>
+  </script>
+
+  <script id="tab-template" type="text/x-handlebars-template">
+    <article class="tab-section">
+      <header class="tab-container">
+        <h4 class="about-h">{{name}}</h4>
+        <div class="template-body">{{{body}}}</div>
+      </header>
+    </article>
+  </script>
+
+  <script id="review-template" type="text/x-handlebars-template">
+    <div class="grid">
+      <div class="col-6 name">
+        <h4>{{name}}</h4>
+      </div>
+      <div class="col-6 rating">
+        {{{stars}}}
+      </div>
+      <div class="col-12 review">
+        {{body}}
+      </div>
+    </div>
+  </script>
 </head>
 
 <body>
-  <header></header>
-  <!-- Primary Page
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <div id='map'></div>
+  <div id="map"></div>
   <div id="slide-bar">
-    <div id="before" >
+    <div id="before">
       <a href="/search">X</a>
     </div>
     <div class="search-bar">
@@ -59,7 +68,7 @@
       <span class="icon-search2"></span>
     </div>
     <div class="filter-bar">
-      <button class="more-filter" type="button" name="button">Get My Location</button>
+      <button class="more-filter" type="button" id="get-my-location-button">Get My Location</button>
     </div>
     <div class="text-container">
       <div class="spinner">
@@ -71,15 +80,11 @@
   </div>
 
   <div id="write-review">
-    <div>
-      <a id="close-write-review" href="/review">X</a>
-    </div>
-
+    <a id="close-write-review" href="/review">X</a>
     <div class="grade">
       <div class="col-4">
         <input type="text" placeholder="Name">
       </div>
-
       <div class="col-8">
         <select>
           <option>1</option>
@@ -90,7 +95,6 @@
         </select>
       </div>
     </div>
-
     <textarea placeholder="Body"></textarea>
     <button>submit</button>
   </div>
@@ -106,124 +110,112 @@
         </div>
         <div class="col-4">
           <div class="back-button">
-            <a href="/review-back"><button class="icon-forward" type="button" id="review-back"></button></a>
+            <a href="/review-back">
+              <button class="icon-forward" type="button" id="review-back"></button>
+            </a>
           </div>
         </div>
       </div>
     </div>
-    <div class="review-section">
-      <div class="grid">
-        <div class="col-6 name">
-          <h4>User Name</h4>
-        </div>
-        <div class="col-6 rating">
-          <span class="icon-star-full"></span>
-          <span class="icon-star-full"></span>
-          <span class="icon-star-full"></span>
-        </div>
-        <div class="col-12 review">
-          <p>
-            feedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedbackfeedback
-          </p>
-        </div>
-      </div>
-      
-      <a id="write-review-button" class="button" href="new-review">Write a review</a>
+    <div id="reviews" class="review-section">
     </div>
-
-
+    <a id="write-review-button" class="button" href="new">Write a review</a>
 
   </div>
 
-  <a href="#about" id="fancy-about"></a>
-    <section id="aboutus" class="tab-content">
-      <div id="about" class="template" data-category="bio" style="display:none;width:450px;">
-        <h1></h1>
-        <h2>Our Mission/Goal/Purpose</h2>
-         <p>SNAP, or the Supplemental Nutrition Assistance Program, provides millions of low­income individuals with economic assistance across the country. Affording to keep food on the table all month isn't always easy. A lot of us just don't make enough money, whether it's that we can't get the hours we need, the areas we live are becoming unaffordable, or we just don't quite have that dream job yet doesn't matter. What matters is that we have access to these opportunities and resources that can help guide us to good decisions.</p>
-         <p>While there are resources out there to help people with SNAP, they are often clunky and scattered. We aim to provide a functional, user­friendly, and modern service so that users can find retailers, compare pricing, and learn about nutrition and shopping strategies.</p>
-         <div class="byline"></div>
-       </div>
-     </section>
-
-  <a href="#resources" id="fancy-resources"></a>
-    <section>
-      <div id="resources" style="display:none;width:450px;">
-        <h1>Online Resources</h1>
-        <ul>
-          <li><a href="http://www.fns.usda.gov/snap/fact-sheet-resources-income-and-benefits">Are you eligible?</a></li>
-          <li><a href="http://www.extension.iastate.edu/foodsavings/">Eat Smart, Save Money</a></li>
-          <li><a href="http://www.choosemyplate.gov/budget">Eating on a Budget</a></li>
-          <li><a href="http://spock.fcs.uga.edu/ext/pubs/fdns/efnep/FDNS-NE-207a.pdf">Top Notch Menus</a></li>
-          <li><a href="http://www.whatscooking.fns.usda.gov/search/solr-results/im_field_term_program/supplemental-nutrition-assistance-program-snap-162">Nutritional Facts</a></li>
-          <li><a href="http://www.choosemyplate.gov/">Low Cost Recipes</a></li>
-          <li><a href="https://snaped.fns.usda.gov/nutrition-through-the-seasons">Food through the Seasons</a></li>
-          <li><a href="http://www.seattlejobsinitiative.com/innovations/">Research</a></li>
-        </ul>
-      </section>
-    </div>
-
-  <a href="#help" id="fancy-help"></a>
-    <section>
-      <div id="help" style="display:none;width:450px;">
-        <ul class="bxslider">
-          <li><img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=350&h=150" title="Funky roots" /></li>
-          <li><img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=350&h=150" title="The long and winding road"/></li>
-          <li><img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=350&h=150" title="Happy trees" /></li>
-        </ul>
+  <section id="purposeus" class="tab-content">
+    <div id="purpose" class="template" data-category="bio">
+      <h1></h1>
+      <h2>Our Mission</h2>
+      <p>SNAP, or the Supplemental Nutrition Assistance Program, provides millions of low­income individuals with economic assistance across the country. Affording to keep food on the table all month isn't always easy. A lot of us just don't make enough
+        money, whether it's that we can't get the hours we need, the areas we live are becoming unaffordable, or we just don't quite have that dream job yet doesn't matter. What matters is that we have access to these opportunities and resources that
+        can help guide us to good decisions.</p>
+      <p>While there are resources out there to help people with SNAP, they are often clunky and scattered. We aim to provide a functional, user­friendly, and modern service so that users can find retailers, compare pricing, and learn about nutrition and
+        shopping strategies.</p>
+      <div id="about-template" class="tab-content">
+        <div id="template">
+          <header>
+            <h3 class="team">Team Members</h3>
+            <div class="byline"></div>
+          </header>
+          <section class="template-body"></section>
+        </div>
       </div>
-    </section>
-    <!-- Begining of test floater -->
-    <nav class="menu">
-      <input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open"/>
-      <label class="menu-open-button" for="menu-open">
-        <span class="hamburger hamburger-1"></span>
-        <span class="hamburger hamburger-2"></span>
-        <span class="hamburger hamburger-3"></span>
-      </label>
-      <a href="#" class="menu-item"> <i class="fa fa-bar-chart"></i> </a>
-      <a href="#" class="menu-item"> <i class="fa fa-heart"></i> </a>
-      <a href="#" class="menu-item"> <i class="fa fa-cog"></i> </a>
-    </nav>
-    <!-- filters -->
-    <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
-        <defs>
-          <filter id="shadowed-goo">
-              <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10" />
-              <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
-              <feGaussianBlur in="goo" stdDeviation="3" result="shadow" />
-              <feColorMatrix in="shadow" mode="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 -0.2" result="shadow" />
-              <feOffset in="shadow" dx="1" dy="1" result="shadow" />
-              <feComposite in2="shadow" in="goo" result="goo" />
-              <feComposite in2="goo" in="SourceGraphic" result="mix" />
-          </filter>
-          <filter id="goo">
-              <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10" />
-              <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
-              <feComposite in2="goo" in="SourceGraphic" result="mix" />
-          </filter>
-        </defs>
-    </svg>
-    <!-- End of test floater -->
-  <footer>
-  </footer>
-  <!-- End Document
-    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    </div>
+  </section>
+
+  <section>
+    <div id="resources" style="display:none;width:450px;">
+      <h1>Online Resources</h1>
+      <ul>
+        <li><a href="http://www.fns.usda.gov/snap/fact-sheet-resources-income-and-benefits">Are you eligible?</a></li>
+        <li><a href="http://www.extension.iastate.edu/foodsavings/">Eat Smart, Save Money</a></li>
+        <li><a href="http://www.choosemyplate.gov/budget">Eating on a Budget</a></li>
+        <li><a href="http://spock.fcs.uga.edu/ext/pubs/fdns/efnep/FDNS-NE-207a.pdf">Top Notch Menus</a></li>
+        <li><a href="http://www.whatscooking.fns.usda.gov/search/solr-results/im_field_term_program/supplemental-nutrition-assistance-program-snap-162">Nutritional Facts</a></li>
+        <li><a href="http://www.choosemyplate.gov/">Low Cost Recipes</a></li>
+        <li><a href="https://snaped.fns.usda.gov/nutrition-through-the-seasons">Food through the Seasons</a></li>
+        <li><a href="http://www.seattlejobsinitiative.com/innovations/">Research</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div id="help" style="display:none;width:450px;">
+      <ul class="bxslider">
+        <li><img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=350&h=150" title="Funky roots" /></li>
+        <li><img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=350&h=150" title="The long and winding road" /></li>
+        <li><img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=350&h=150" title="Happy trees" /></li>
+      </ul>
+    </div>
+  </section>
+
+  <nav class="menu">
+    <input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open" />
+    <label class="menu-open-button" for="menu-open">
+      <span class="hamburger hamburger-1"></span>
+      <span class="hamburger hamburger-2"></span>
+      <span class="hamburger hamburger-3"></span>
+    </label>
+    <a href="/purpose" class="menu-item purpose-button"> <i class="fa fa-users"></i> </a>
+    <a href="/resources" class="menu-item resources-button"> <i class="fa fa-link"></i> </a>
+    <a href="/help" class="menu-item help-button"> <i class="fa fa-question-circle"></i> </a>
+  </nav>
+  <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+    <defs>
+      <filter id="shadowed-goo">
+        <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10" />
+        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
+        <feGaussianBlur in="goo" stdDeviation="3" result="shadow" />
+        <feColorMatrix in="shadow" mode="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 -0.2" result="shadow" />
+        <feOffset in="shadow" dx="1" dy="1" result="shadow" />
+        <feComposite in2="shadow" in="goo" result="goo" />
+        <feComposite in2="goo" in="SourceGraphic" result="mix" />
+      </filter>
+      <filter id="goo">
+        <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10" />
+        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
+        <feComposite in2="goo" in="SourceGraphic" result="mix" />
+      </filter>
+    </defs>
+  </svg>
+  <!-- External or Third-Party Scripts -->
   <script src="https://code.jquery.com/jquery-2.2.2.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=visualization"></script>
   <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.js"></script>
-  <script src="vendor/js/jquery.fancybox.js"></script>
   <script src="vendor/js/jquery.bxslider.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/page.js/1.7.1/page.min.js"></script>
-  <!-- <script src="js/template.js"></script> -->
+  <script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
+  <!-- Local Scripts -->
   <script src="js/checkLocalStorage.js"></script>
-  <script src="js/bar.js"></script>
+  <script src="assets/data/about-objects.js"></script>
+  <script src="js/template.js"></script>
   <script src="js/search.js"></script>
-  <script src="js/fancy.js"></script>
   <script src="js/map.js"></script>
-  <script src="js/review.js"></script>
+  <script src="js/popup.js"></script>
+  <script src="js/review-model.js"></script>
+  <script src="js/review-view.js"></script>
   <script src="js/controller.js"></script>
   <script src="js/routes.js"></script>
 </body>

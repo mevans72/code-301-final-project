@@ -23,13 +23,32 @@ h5 {
 html,body{
   overflow-x:hidden;
 }
+
 body {
   clear:both;
   // overflow: hidden;
   margin: 0;
   padding: 0;
   width: 100%;
+  #purposeus, #help, #resources {
+    display: none;
+    position: absolute;
+    z-index: 10;
+    width: 500px;
+    height: auto;
+    border-radius: 10px;
+    border: 0.5px solid $black;
+    padding: 30px;
+    background-color: white;
+    -webkit-box-shadow: -1px -1px 10px 0 rgba(45,45,45,0.58);
+    -moz-box-shadow: -1px -1px 10px 0 rgba(45,45,45,0.58);
+    box-shadow: -1px -1px 10px 0 rgba(45,45,45,0.58);
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
   #map {
+    // display: none;
     position: absolute;
     top: 0;
     bottom: 0;
@@ -40,9 +59,9 @@ body {
     display:none;
     position: absolute;
     width: 300px;
-    top: 136px;
+    top: 147px;
     right: 0;
-    height: 400px;
+
     background-color: white;
     z-index: 6;
     padding: 20px;
@@ -67,7 +86,7 @@ body {
   }
 
   #review-bar{
-    // display: none;
+    display: none;
     position: absolute;
     width: 300px;
     top: 58px;
@@ -120,9 +139,6 @@ body {
             margin-bottom: 0;
           }
         }
-      }
-      a{
-        margin-top: 30px;
       }
     }
 
@@ -248,6 +264,8 @@ body {
           display: inline;
           margin-bottom: 0;
           text-decoration: none;
+          padding:10px;
+
         }
         &:hover{
           background-color:$black;
@@ -272,3 +290,19 @@ body {
 // .gm-style-iw a {
 //     color: #4272db;
 // }
+
+.team {
+  text-align: center;
+}
+
+.about-h {
+  text-align: center;
+}
+body{
+  
+    #purposeus{
+      height: 80%;
+      overflow-y: scroll;
+    }
+
+}
