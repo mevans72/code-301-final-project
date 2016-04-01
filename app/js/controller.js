@@ -1,8 +1,11 @@
 (function(module) {
   var controller = {};
 
-  controller.app = function() {
+  controller.app = function(c, next) {
     $('.text-container').css('display', 'block');
+    if (next) {
+      next();
+    }
   };
 
   controller.base = function (context, next) {
