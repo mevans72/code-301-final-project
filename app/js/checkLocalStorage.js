@@ -10,7 +10,7 @@
     var snapEtag;
     $.ajax({
       type: 'HEAD',
-      url: 'assets/data/wa.json',
+      url: '/assets/data/wa.json',
       success: function(data, message, xhr) {
         snapEtag = xhr.getResponseHeader('etag');
         if(localStorage.snapData && localStorage.snapEtag === snapEtag) {
@@ -21,7 +21,7 @@
           callback();
         }
         if (!localStorage.snapData || localStorage.snapEtag !== snapEtag) {
-          $.getJSON('assets/data/wa.json', function(data) {
+          $.getJSON('/assets/data/wa.json', function(data) {
             localStorage.snapData = JSON.stringify(data);
             localStorage.snapEtag = snapEtag;
             snapData.all = JSON.parse(localStorage.snapData);
