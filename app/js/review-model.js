@@ -1,5 +1,5 @@
 (function (module) {
-  var cb, firebaseUrl = 'https://code-301-final-project-2.firebaseio.com/';
+  var cb, firebaseUrl = 'https://snaptoit.firebaseio.com/';
 
   var reviews = [];
 
