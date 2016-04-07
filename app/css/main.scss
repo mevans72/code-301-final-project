@@ -310,3 +310,19 @@ body{
    }
 }
 }
+
+@media (max-width: 435px) {
+  .menu {
+    visibility: hidden;
+  }
+body  #slide-bar {
+  // width: 270px;
+  width: 80.5%;
+  }
+}
+@media (max-width: 768px) {
+  .menu {
+    left: 7%;
+    bottom: 10%;
+  }
+}
