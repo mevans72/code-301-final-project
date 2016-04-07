@@ -19,7 +19,11 @@
 
   controller.search = function(context) {
     $('.text-container').css('display', 'block');
-    if ($('#slide-bar').css('right') == '0px') {
+    if ($('#slide-bar').css('width') == '270px' && $('#slide-bar').css('right') == '0px') {
+      $('#slide-bar').css('right', '-270px');
+      $('#review-bar').css('right', '-270px');
+      $(this).find('a').attr("href", "/search/");
+    } else if ($('#slide-bar').css('right') == '0px') {
       $('#slide-bar').css('right', '-300px');
       $('#review-bar').css('right', '-300px');
       $(this).find('a').attr("href", "/search/");
